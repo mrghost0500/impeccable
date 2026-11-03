@@ -6,7 +6,7 @@ impeccable build.
 - `website-design/` is the master skill. Ask for any website or UI design work, or type
   `/website-design <what you want>`, and it picks the lead skill and runs the stages in order.
 - `setup-skills.sh` installs the master skill plus every skill it calls into `~/.claude/skills`:
-  impeccable, design-taste-frontend, Emil Kowalski's 15 skills, and 25 of Matt Pocock's.
+  impeccable, design-taste-frontend, Emil Kowalski's 15 skills, and 25 of Matt Pocock's, which it uses for the engineering around the design.
 
 To get all of them in every new cloud session, put this in the environment's setup script:
 
