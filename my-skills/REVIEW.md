@@ -62,6 +62,21 @@ it.
     and `scroll-motion-engineering` also build whole sites. They cannot be switched off from here, so
     the master skill uses them only when the user names one.
 
+## Connected tools (checked 2026-11-04)
+
+| Tool | Helpful? | How the master skill uses it |
+|---|---|---|
+| Figma | Yes | Mockups of public pages for the user to approve before the build, and builds from the user's own Figma designs. Tested: this account can create files and draw in them. On the Starter plan with a View seat Figma allows about 20 reads a month (screenshots, reading designs back) and does not limit writing, so the skill takes screenshots inside its drawing calls and never reads back its own mockups. Figma's tools that turn a web page straight into a design are not offered on this plan, so mockups are drawn layer by layer. |
+| Wonder | Yes, as a second choice | A canvas made of real code, for mockups when the user prefers it or Figma is missing. |
+| Playwright | Already there | Not a connector: the library and Chromium are installed in cloud sessions, and the taste skill's inspector and `webapp-testing` use them. |
+| Firecrawl | Yes | Reads colours, fonts and logo from the user's current site, and checks facts about the subject. |
+| Higgsfield | Yes, when there are no photos | Generated images and short videos, after the user agrees to the credits. |
+| Google Drive | Yes, once connected | The user's photos, logo and documents. Not connected yet. |
+| Stripe | Only for sites that sell | Payment links or checkout. Connection not finished. |
+| Ahrefs | After launch | Keyword ideas and search checks; paid account. Connection not finished. |
+| Zillow, Dubai Real Estate Data, Yardi Matrix | Only for property sites | Real figures, credited. |
+| Apollo, Adspirer, Supermetrics | No | Sales and marketing tools; no part in designing a site. |
+
 ## Gaps that remain
 
 - Putting the site online. `wizard` walks the user through steps only they can do; there is no
