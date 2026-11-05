@@ -188,6 +188,21 @@ pictures of them. Make a Figma mockup only if the user asks for one.
 | Check the site works in a browser | `webapp-testing` |
 | Which library to use; toasts | `pick-ui-library`; `ask-sonner` |
 | Native apps | `impeccable` with the platform recorded in PRODUCT.md (`ios`, `android` or `adaptive`); `animate-expo`; `write-swift` |
+| A "wow" effect the user asked for: 3D, a shader | `impeccable overdrive`, with the libraries below |
+
+**Effects libraries.** Only when the user asks for an ambitious effect, or the page's one live thing
+is a physical object, and always through `impeccable overdrive`:
+- **A real 3D object** (a product to turn round or configure) on a React site: React Three Fiber
+  (`@react-three/fiber`) with `@react-three/drei`. It needs a 3D model: the user's own, or one made
+  from a photo with an image-to-3D tool such as Higgsfield's `generate_3d` (credits; ask first).
+- **A shader moment** (grain, paper texture, halftone, water, liquid metal on a logo): Paper Shaders
+  (`@paper-design/shaders`, Apache-2.0). Not the `liquid-logo` demo, which is under a license that is
+  not open source and pins an old version of the same shaders.
+- **Never** glass panels (liquid-glass-js) or moving gradient backgrounds (ShaderGradient): the taste
+  skill and impeccable both ban them as the commonest signs of a generated page. On a taste-led page
+  that covers anything that reads as a gradient or as glass, whatever draws it.
+- **Any effect:** one per page; load it only near the viewport; show a still image under
+  reduced-motion settings and on phones that cannot keep up; check it in the phone screenshots.
 
 ## 7. Page titles, share previews, Google and going live
 

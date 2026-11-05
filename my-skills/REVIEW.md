@@ -72,6 +72,15 @@ it.
     used), never for logos, colours, typefaces, motifs or words. A few files contain brand rules
     worded as orders and mention install commands; the skill treats them as reference material.
 
+14. **Effect libraries (checked 2026-11-05).** Four repos were weighed for the skill:
+
+    | Repo | Verdict | Why |
+    |---|---|---|
+    | `pmndrs/react-three-fiber` (33.5k stars, MIT, active) | Yes, for real 3D only | The standard way to put a 3D object in a React site; fits a page whose one live thing is a product to turn round or configure. Used through `impeccable overdrive`, with drei. |
+    | `dashersw/liquid-glass-js` (1.7k, MIT, last change June 2025) | No | Glass panels are banned by the taste skill and impeccable; it also screenshots the whole page with html2canvas to fake the refraction, which is slow and breaks on many pages. |
+    | `ruucm/shadergradient` (3.1k, MIT) | No | Moving gradient backgrounds are the commonest sign of a generated page, and both design skills ban gradients used this way. |
+    | `paper-design/liquid-logo` (1.4k, PolyForm Shield) | No, use Paper Shaders instead | A demo app under a license that is not open source, pinned to an old `@paper-design/shaders-react`. The maintained library, `paper-design/shaders` (Apache-2.0), has the same liquid-metal effect and about 30 others. |
+
 ## Connected tools (checked 2026-11-04)
 
 | Tool | Helpful? | How the master skill uses it |
