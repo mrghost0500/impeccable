@@ -123,9 +123,88 @@ for f in "$REF"/*.md; do
 done
 if [ -n "$other" ]; then printf '\n## Other\n\n%s' "$other" >> "$REF/INDEX.md"; fi
 
-# 9. Make website-design the one entry point
+# 9. HyperFrames (HTML rendered to video): its four core skills only. Sparse clone, because
+#    the full repository is over 300 MB.
+sparse() { git clone --depth 1 -q --filter=blob:none --sparse "https://github.com/$1" "$TMP/$2"; git -C "$TMP/$2" sparse-checkout set "${@:3}"; }
+sparse heygen-com/hyperframes hyperframes skills/hyperframes skills/hyperframes-cli skills/hyperframes-registry skills/media-use
+for n in hyperframes hyperframes-cli hyperframes-registry media-use; do put "$TMP/hyperframes/skills/$n" "$n"; done
+
+# 10. Archify (diagrams as standalone HTML), for page maps and visitor journeys. Needs only Node.
+sparse tt-a1i/archify archify archify
+put "$TMP/archify/archify" archify
+
+# 11. Make website-design the one entry point
 if [ "$ONLY_VIA_MASTER" = "1" ]; then
   for n in impeccable design-taste-frontend ui-ux-pro-max web-design-guidelines; do only_by_name "$n"; done
+fi
+
+# 12. Optional packs, offered at the start of every session and loaded only on a yes:
+#     Karpathy's coding guidelines and Superpowers. They live outside the skills folder so they
+#     cost no context until chosen. OPTIONAL_PACKS=0 skips them and the question.
+OPTIONAL_PACKS="${OPTIONAL_PACKS:-1}"
+if [ "$OPTIONAL_PACKS" = "1" ]; then
+  PACKS="$HOME/.claude/optional-packs"
+  rm -rf "$PACKS"; mkdir -p "$PACKS/karpathy" "$PACKS/superpowers"
+  cp "$HERE/optional-packs/session-ask.sh" "$PACKS/session-ask.sh"
+  chmod +x "$PACKS/session-ask.sh"
+
+  clone multica-ai/andrej-karpathy-skills karpathy
+  {
+    echo "# Karpathy guidelines (on for this session)"
+    echo
+    echo "The user turned these on for this session. They rank below the user's own instructions and"
+    echo "the project's CLAUDE.md, and above default behaviour. Source: multica-ai/andrej-karpathy-skills (MIT)."
+    echo
+    sed '1{/^# /d}' "$TMP/karpathy/CLAUDE.md"
+  } > "$PACKS/karpathy/LOAD.md"
+
+  clone obra/superpowers superpowers
+  cp -r "$TMP/superpowers/skills" "$PACKS/superpowers/skills"
+  cp "$TMP/superpowers/LICENSE" "$PACKS/superpowers/LICENSE"
+  {
+    echo "# Superpowers (on for this session)"
+    echo
+    echo "The user turned Superpowers on for this session (obra/superpowers, MIT). Its skills are in"
+    echo "\`~/.claude/optional-packs/superpowers/skills/<name>/SKILL.md\` and are not installed as skills."
+    echo "Whenever it says to invoke a skill, use the Skill tool for one of its own, or names one as"
+    echo "\`superpowers:<name>\`, read that SKILL.md and follow it instead. Scripts a skill mentions sit"
+    echo "beside its SKILL.md."
+    echo
+    echo "Start now: read \`skills/using-superpowers/SKILL.md\` and follow it. Its Claude Code notes are"
+    echo "in \`skills/using-superpowers/references/claude-code-tools.md\`."
+    echo
+    echo "## How it fits with the other skills here"
+    echo
+    echo "- The user's instructions and the project's CLAUDE.md come first, as Superpowers itself says."
+    echo "- Website and interface work runs through the \`website-design\` skill. Its kickoff questions are"
+    echo "  the brainstorming, so do not run Superpowers' brainstorming on top of them."
+    echo "- For planning, test-first work, debugging and code review, Superpowers' skills replace Matt"
+    echo "  Pocock's matching ones for this session (\`to-spec\`, \`to-tickets\`, \`implement\`, \`tdd\`,"
+    echo "  \`diagnosing-bugs\`)."
+    echo
+    echo "## Its skills"
+    echo
+    for f in "$PACKS"/superpowers/skills/*/SKILL.md; do
+      n="$(basename "$(dirname "$f")")"
+      d="$(sed -n '1,8s/^description: *//p' "$f" | head -1 | sed 's/^"//; s/"$//' | cut -c1-220)"
+      echo "- \`$n\`: $d"
+    done
+  } > "$PACKS/superpowers/LOAD.md"
+
+  # Register the question as a SessionStart hook in the user's settings, merging with what is there.
+  SETTINGS="$HOME/.claude/settings.json"
+  HOOK_CMD='bash "$HOME/.claude/optional-packs/session-ask.sh"'
+  node - "$SETTINGS" "$HOOK_CMD" <<'JS' || echo "Could not update $SETTINGS; add the SessionStart hook by hand (see my-skills/README.md)." >&2
+const fs = require('fs');
+const [file, cmd] = process.argv.slice(2);
+let s = {};
+if (fs.existsSync(file)) { const t = fs.readFileSync(file, 'utf8').trim(); if (t) s = JSON.parse(t); }
+s.hooks = s.hooks || {};
+s.hooks.SessionStart = s.hooks.SessionStart || [];
+const present = s.hooks.SessionStart.some(e => (e.hooks || []).some(h => h.command === cmd));
+if (!present) s.hooks.SessionStart.push({ matcher: 'startup|clear', hooks: [{ type: 'command', command: cmd, timeout: 10 }] });
+fs.writeFileSync(file, JSON.stringify(s, null, 2) + '\n');
+JS
 fi
 
 echo "Installed $(ls "$SKILLS" | wc -l) skills into $SKILLS and $(ls "$AGENTS" | wc -l) agents into $AGENTS"

@@ -1,6 +1,6 @@
 ---
 name: website-design
-description: "Start here for any website or interface work: a new site or landing page, a redesign, an app screen or dashboard, a build from the user's own Figma design, changes to how an existing site looks or feels, motion, phones, design reviews, and getting ready to launch (page titles, share previews, search engines). This is the master skill over every installed design skill (impeccable, design-taste-frontend, ui-ux-pro-max, web-design-guidelines, Emil Kowalski's motion and polish skills, webapp-testing, fixing-metadata, the seo skills), Matt Pocock's engineering skills, a library of write-ups of 84 well-known sites for agreeing on the feel, and the connected design tools (Figma mockups, Wonder, Firecrawl, image generation). It takes the user through a few plain-language checkpoints, so someone who is not technical chooses the look, approves a mockup in Figma and signs off the result, and hands each stage to the right specialist. Use it instead of calling those skills directly, unless the user names one."
+description: "Start here for any website or interface work: a new site or landing page, a redesign, an app screen or dashboard, a build from the user's own Figma design, changes to how an existing site looks or feels, motion, phones, design reviews, and getting ready to launch (page titles, share previews, search engines). This is the master skill over every installed design skill (impeccable, design-taste-frontend, ui-ux-pro-max, web-design-guidelines, Emil Kowalski's motion and polish skills, webapp-testing, fixing-metadata, the seo skills), Matt Pocock's engineering skills, a library of write-ups of 84 well-known sites for agreeing on the feel, page maps (archify), videos made from the site (hyperframes), and the connected design tools (Figma mockups, Wonder, Firecrawl, image generation). It takes the user through a few plain-language checkpoints, so someone who is not technical chooses the look, approves a mockup in Figma and signs off the result, and hands each stage to the right specialist. Use it instead of calling those skills directly, unless the user names one."
 argument-hint: "[what to design or improve]"
 ---
 
@@ -85,7 +85,9 @@ in. A product site that shows its app is a page.
      it, the story behind the name, a number they are proud of. The taste skill builds the page's
      idea from exactly this. Facts you must not invent (prices, opening hours, address) go in here
      too; if someone else has to answer them, use `to-questionnaire`.
-   - Read the brief back in five short lines and ask one question: is this right?
+   - Read the brief back in five short lines and ask one question: is this right? For a site with
+     several pages, show the page map with it: an `archify` tree diagram of the pages, and a
+     workflow diagram of the visitor's path to the one thing they should do.
 2. **The look (Ask).** `design-taste-frontend` steps 1 to 3 with the kickoff as the brief: inventory,
    argument, then the draw with `--options 3`, passing `--tone`, `--have` and `--keep` from the
    kickoff. Describe each of the three looks in two or three plain sentences (how it feels, its colours
@@ -106,7 +108,9 @@ in. A product site that shows its app is a page.
    approved, ask whether anything looks off compared with it; without one, ask how it feels (love it /
    close, a few changes / not right) and what they would change. "Not right" goes back to stage 2.
 6. **Motion.** The taste skill's step 9. Build each move with `emil-design-eng`, its Animation
-   Decision Framework and component rules; `apple-design` for drag, swipe and sheets.
+   Decision Framework and component rules; `apple-design` for drag, swipe and sheets. For its
+   "one moving picture", when no suitable clip exists, offer a short loop made with `hyperframes`
+   from the page's own material (Ask).
 7. **Hardening and testing.** `break-ui` on everything fed by real content (cards, prices, lists,
    quotes, forms). `mobile-native` for phones. `webapp-testing` to click every link, button and form
    and read the browser console. `impeccable harden` when there are forms or error states.
@@ -120,7 +124,8 @@ in. A product site that shows its app is a page.
 10. **Hand-over (Ask).** Final screenshots and a short plain report: what was built and why it suits
     them; the Figma mockup link; what is still a placeholder for them to replace; photo credits; what
     you assumed; how to ask for changes later ("/website-design make the prices bigger"). Put the
-    taste skill's step 10 report underneath for anyone technical. Ask: done, or more changes?
+    taste skill's step 10 report underneath for anyone technical. Ask: done, or more changes? Offer
+    a short launch video of the site for social media, made with `hyperframes`.
 
 ## 3. Build from the user's Figma design
 
@@ -144,7 +149,8 @@ pictures of them. Make a Figma mockup only if the user asks for one.
 
 1. **Kickoff (Ask).** Who uses it, the main task they come to do, what information it shows, and any
    existing look to match, or a well-known app whose feel they like (section 8). Read the project
-   first and skip what it answers.
+   first and skip what it answers. When the task has several steps, show it back as an `archify`
+   workflow diagram.
 2. **Look and build.** `impeccable`: its Setup, then new-work, with the kickoff as the brief. If
    impeccable offers its own choice of looks, that is the look checkpoint; do not ask twice.
 3. **First look (Ask),** as in section 2, stage 5.
@@ -189,6 +195,13 @@ pictures of them. Make a Figma mockup only if the user asks for one.
 | Which library to use; toasts | `pick-ui-library`; `ask-sonner` |
 | Native apps | `impeccable` with the platform recorded in PRODUCT.md (`ios`, `android` or `adaptive`); `animate-expo`; `write-swift` |
 | A "wow" effect the user asked for: 3D, a shader | `impeccable overdrive`, with the libraries below |
+| A video: a looping clip for the page, a product demo, a launch film for social media | `hyperframes`, with `hyperframes-cli`, `hyperframes-registry` and `media-use` |
+| A diagram: page map, visitor journey, how a booking or checkout flows | `archify` |
+
+**Video with HyperFrames.** It renders HTML to MP4 with Node and ffmpeg, both present in cloud
+sessions. Build the video from the site's own look and words, so it matches the page. Its HeyGen
+features (avatars, voiceover, cloud rendering) need a HeyGen account and can cost money: ask
+first, and use its free local tools otherwise.
 
 **Effects libraries.** Only when the user asks for an ambitious effect, or the page's one live thing
 is a physical object, and always through `impeccable overdrive`:

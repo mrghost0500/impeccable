@@ -13,12 +13,17 @@ impeccable build.
   `website-design/reference-sites/` from VoltAgent/awesome-design-md.
 - `setup-skills.sh` installs the master skill and everything it calls into `~/.claude/skills`:
   impeccable, design-taste-frontend, ui-ux-pro-max, web-design-guidelines, webapp-testing,
-  fixing-metadata, Claude SEO (26 skills and 19 helper agents), Emil Kowalski's 15 skills and 25 of
-  Matt Pocock's. It sets impeccable, design-taste-frontend, ui-ux-pro-max and web-design-guidelines to
+  fixing-metadata, Claude SEO (26 skills and 19 helper agents), HyperFrames (4 core skills, for
+  videos), archify (diagrams), Emil Kowalski's 15 skills and 25 of Matt Pocock's. It sets impeccable, design-taste-frontend, ui-ux-pro-max and web-design-guidelines to
   start only by name or through `website-design`; run it with `ONLY_VIA_MASTER=0` to keep them
   starting on their own too.
 - `REVIEW.md` is the review of the whole set that shaped the master skill: overlaps, clashes and
   gaps.
+- `optional-packs/` holds the question that starts every new session (and every `/clear`):
+  whether to turn on Karpathy's coding guidelines and Superpowers for that session. Both are
+  installed into `~/.claude/optional-packs/`, outside the skills folder, so they cost no context
+  unless you say yes. The setup script adds the question to `~/.claude/settings.json` as a
+  `SessionStart` hook; run it with `OPTIONAL_PACKS=0` to leave both out.
 
 To get all of them in every new cloud session, put this in the environment's setup script:
 
