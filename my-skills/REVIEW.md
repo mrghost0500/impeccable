@@ -98,6 +98,18 @@ it.
     | `affaan-m/ECC` (298k stars, MIT) | Yes, per session | 71 agents, 314 skills, 98 commands, rules and hooks. Registered as skills, its descriptions alone (about 37 KB) would go far past Claude Code's allowance for the skill list, which then shortens every skill's description, the design skills' included. So it is offered at the start of each session and used by lookup: on a yes Claude reads its ten common rules (19 KB) and a short index of its 47 core skills, and finds the rest by searching. Its hooks are left out, because they would run in every session. It overlaps Superpowers; when both are on, Superpowers runs the process. |
     | `img2threejs/img2threejs` (20k, Apache-2.0) | Yes, for the 3D route | Rebuilds the object in a photo as a Three.js model written in code: free, small and easy to recolour, which suits product configurators. Python standard library and Node only. It reports when a photo cannot reach the fidelity wanted. Used through `impeccable overdrive`, like React Three Fiber. |
 
+17. **21st MCP, formerly Magic MCP (checked 2026-11-05): not added.** `21st-dev/magic-mcp` (6.4k
+    stars, ISC) is now a proxy for the hosted 21st MCP: a catalog of 10,000+ React and Tailwind
+    components, brand-logo lookup, and AI UI generation, behind a 21st.dev API key (free tier: search
+    and 2 component installs a day; AI generation and some components are paid). Its bundled skill
+    says to prefer catalog components over writing UI and starts on the same requests as
+    `website-design` (a pricing section, a hero, a navbar). Stock components are the template look the
+    design skills exist to avoid, many in the catalog use the animated gradients and glass they ban,
+    and its generator would be a second process choosing the look. The useful parts are narrow: logos
+    of other companies as SVG for an integrations or payments row, and the odd complex widget for an
+    app screen. If it is ever added, take the MCP server alone, without its `21st-ui` skill, with the
+    key saved as an environment secret.
+
 ## Connected tools (checked 2026-11-04)
 
 | Tool | Helpful? | How the master skill uses it |
