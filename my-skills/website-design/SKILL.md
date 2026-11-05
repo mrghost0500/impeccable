@@ -206,8 +206,11 @@ first, and use its free local tools otherwise.
 **Effects libraries.** Only when the user asks for an ambitious effect, or the page's one live thing
 is a physical object, and always through `impeccable overdrive`:
 - **A real 3D object** (a product to turn round or configure) on a React site: React Three Fiber
-  (`@react-three/fiber`) with `@react-three/drei`. It needs a 3D model: the user's own, or one made
-  from a photo with an image-to-3D tool such as Higgsfield's `generate_3d` (credits; ask first).
+  (`@react-three/fiber`) with `@react-three/drei`. It needs a 3D model: the user's own; one built
+  in code from a photo of the product with `img2threejs` (free; small and easy to recolour, which
+  suits configurators; best for objects with clear shapes, and it says up front when a photo cannot
+  reach the fidelity wanted); or a generated model from Higgsfield's `generate_3d` (credits; ask
+  first).
 - **A shader moment** (grain, paper texture, halftone, water, liquid metal on a logo): Paper Shaders
   (`@paper-design/shaders`, Apache-2.0). Not the `liquid-logo` demo, which is under a license that is
   not open source and pins an old version of the same shaders.

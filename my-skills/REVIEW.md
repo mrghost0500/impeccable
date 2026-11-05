@@ -91,6 +91,13 @@ it.
     | `multica-ai/andrej-karpathy-skills` (230k, MIT per README) | Yes, per session | A 2.4 KB set of coding guidelines. Kept out of the skills folder and offered at the start of each session. |
     | `obra/superpowers` (313k, MIT) | Yes, per session | A skills framework for planning, test-first work, debugging and review. Installed as a plugin it injects its 3 KB guide into every session and lists 14 skills; here it is offered at the start of each session instead. Its guide insists on brainstorming before any build, which would duplicate `website-design`'s kickoff, and its process skills overlap Matt Pocock's; its load note settles both. |
 
+16. **ECC and img2threejs (checked 2026-11-05).**
+
+    | Repo | Verdict | Why |
+    |---|---|---|
+    | `affaan-m/ECC` (298k stars, MIT) | Yes, per session | 71 agents, 314 skills, 98 commands, rules and hooks. Registered as skills, its descriptions alone (about 37 KB) would go far past Claude Code's allowance for the skill list, which then shortens every skill's description, the design skills' included. So it is offered at the start of each session and used by lookup: on a yes Claude reads its ten common rules (19 KB) and a short index of its 47 core skills, and finds the rest by searching. Its hooks are left out, because they would run in every session. It overlaps Superpowers; when both are on, Superpowers runs the process. |
+    | `img2threejs/img2threejs` (20k, Apache-2.0) | Yes, for the 3D route | Rebuilds the object in a photo as a Three.js model written in code: free, small and easy to recolour, which suits product configurators. Python standard library and Node only. It reports when a photo cannot reach the fidelity wanted. Used through `impeccable overdrive`, like React Three Fiber. |
+
 ## Connected tools (checked 2026-11-04)
 
 | Tool | Helpful? | How the master skill uses it |

@@ -133,6 +133,13 @@ for n in hyperframes hyperframes-cli hyperframes-registry media-use; do put "$TM
 sparse tt-a1i/archify archify archify
 put "$TMP/archify/archify" archify
 
+# 10b. img2threejs: rebuilds the object in a photo as a 3D model written in Three.js code.
+#      Python standard library and Node only. Installed as a plain checkout, as its manual
+#      install describes.
+clone img2threejs/img2threejs img2threejs
+put "$TMP/img2threejs" img2threejs
+rm -rf "$SKILLS/img2threejs/.git"
+
 # 11. Make website-design the one entry point
 if [ "$ONLY_VIA_MASTER" = "1" ]; then
   for n in impeccable design-taste-frontend ui-ux-pro-max web-design-guidelines; do only_by_name "$n"; done
@@ -144,7 +151,7 @@ fi
 OPTIONAL_PACKS="${OPTIONAL_PACKS:-1}"
 if [ "$OPTIONAL_PACKS" = "1" ]; then
   PACKS="$HOME/.claude/optional-packs"
-  rm -rf "$PACKS"; mkdir -p "$PACKS/karpathy" "$PACKS/superpowers"
+  rm -rf "$PACKS"; mkdir -p "$PACKS/karpathy" "$PACKS/superpowers" "$PACKS/ecc"
   cp "$HERE/optional-packs/session-ask.sh" "$PACKS/session-ask.sh"
   chmod +x "$PACKS/session-ask.sh"
 
@@ -190,6 +197,57 @@ if [ "$OPTIONAL_PACKS" = "1" ]; then
       echo "- \`$n\`: $d"
     done
   } > "$PACKS/superpowers/LOAD.md"
+
+  # ECC (affaan-m/ECC, MIT): rules, agents, skills and commands as a lookup library. Its hooks
+  # are left out on purpose: they would run in every session, chosen or not.
+  sparse affaan-m/ECC ecc rules agents skills .agents/skills commands legacy-command-shims
+  E="$PACKS/ecc"; mkdir -p "$E"
+  for x in rules agents skills commands legacy-command-shims; do cp -r "$TMP/ecc/$x" "$E/$x"; done
+  cp "$TMP/ecc/LICENSE" "$E/LICENSE"
+  for d in "$TMP"/ecc/.agents/skills/*/; do
+    n="$(basename "$d")"; [ -d "$E/skills/$n" ] || cp -r "${d%/}" "$E/skills/$n"
+  done
+  {
+    echo "# ECC (on for this session)"
+    echo
+    echo "The user turned ECC on for this session (affaan-m/ECC, MIT). It lives in"
+    echo "\`~/.claude/optional-packs/ecc/\` and is not installed: nothing in it is registered as a skill,"
+    echo "agent or command, and its hooks are not installed, so do by hand any step it says a hook does."
+    echo
+    echo "## Start now"
+    echo
+    echo "Read the ten files in \`rules/common/\` and follow them for the rest of the session. Read a"
+    echo "language folder in \`rules/\` (\`typescript\`, \`react\`, \`web\`, \`python\` and others) only for the"
+    echo "languages this project uses, when you first work in them."
+    echo
+    echo "## Using its parts"
+    echo
+    echo "- **Skills:** \`skills/<name>/SKILL.md\`. The core set is listed below. For anything else, search:"
+    echo "  \`grep -il '<topic>' ~/.claude/optional-packs/ecc/skills/*/SKILL.md\`. Read a skill when its"
+    echo "  moment comes and follow it; scripts it mentions sit beside it."
+    echo "- **Agents:** \`agents/<name>.md\` (\`ls\` the folder for the roster). Where ECC says to use an"
+    echo "  agent such as \`ecc:planner\` or \`code-reviewer\`, start a general-purpose subagent with the"
+    echo "  Agent tool and give it that file's text as its instructions, with the task."
+    echo "- **Commands:** when the user names an ECC command (\`/code-review\`, \`/plan\`, \`/tdd\`), read"
+    echo "  \`commands/<name>.md\`, or for older names \`legacy-command-shims/commands/<name>.md\`, and follow it."
+    echo
+    echo "## How it fits with the other skills here"
+    echo
+    echo "- The user's instructions and the project's CLAUDE.md come first."
+    echo "- Website and interface work runs through the \`website-design\` skill; use ECC's frontend and"
+    echo "  brand skills only when the user asks for them."
+    echo "- If Superpowers is also on, Superpowers runs the process (planning, test-first, debugging,"
+    echo "  review) and ECC supplies its rules and specialist skills. Otherwise ECC's matching skills replace"
+    echo "  Matt Pocock's for this session (\`tdd\`, \`diagnosing-bugs\`, \`to-spec\`)."
+    echo
+    echo "## Core skills"
+    echo
+    for d in "$TMP"/ecc/.agents/skills/*/; do
+      n="$(basename "$d")"
+      dsc="$(sed -n '1,10s/^description: *//p' "$E/skills/$n/SKILL.md" | head -1 | sed 's/^"//; s/"$//' | cut -c1-140)"
+      echo "- \`$n\`: $dsc"
+    done
+  } > "$E/LOAD.md"
 
   # Register the question as a SessionStart hook in the user's settings, merging with what is there.
   SETTINGS="$HOME/.claude/settings.json"
