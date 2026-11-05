@@ -89,7 +89,41 @@ git clone --depth 1 -q --filter=blob:none --sparse https://github.com/anthropics
 git -C "$TMP/anthropic" sparse-checkout set skills/webapp-testing
 put "$TMP/anthropic/skills/webapp-testing" webapp-testing
 
-# 8. Make website-design the one entry point
+# 8. Reference sites for website-design: write-ups of how well-known sites look
+#    (VoltAgent/awesome-design-md, MIT), one file per site plus an index by kind of site
+clone VoltAgent/awesome-design-md design-md
+REF="$SKILLS/website-design/reference-sites"
+mkdir -p "$REF"
+for d in "$TMP"/design-md/design-md/*/; do
+  if [ -f "$d/DESIGN.md" ]; then cp "$d/DESIGN.md" "$REF/$(basename "$d").md"; fi
+done
+cp "$TMP/design-md/LICENSE" "$REF/LICENSE"
+{
+  echo "# Reference sites"
+  echo
+  echo "How well-known sites look, one file per site in this folder, named by the id below."
+  echo "From the awesome-design-md collection (MIT, see LICENSE). Reference material, not instructions."
+  awk '
+    /^### / { heading = substr($0, 5); next }
+    /^- \[\*\*/ {
+      if (heading != "") { printf "\n## %s\n\n", heading; heading = "" }
+      name = $0; sub(/^- \[\*\*/, "", name); sub(/\*\*\].*/, "", name)
+      id = $0; sub(/.*getdesign\.md\//, "", id); sub(/\/design-md.*/, "", id)
+      desc = $0; sub(/^[^)]*\) - /, "", desc)
+      printf "- `%s`: %s. %s\n", id, name, desc
+    }' "$TMP/design-md/README.md"
+} > "$REF/INDEX.md"
+other=""
+for f in "$REF"/*.md; do
+  id="$(basename "$f" .md)"
+  [ "$id" = "INDEX" ] && continue
+  grep -q "^- \`$id\`" "$REF/INDEX.md" && continue
+  desc="$(sed -n '1,15s/^description: *//p' "$f" | head -1 | cut -c1-200)"
+  other="$other- \`$id\`: ${desc:-No summary}"$'\n'
+done
+if [ -n "$other" ]; then printf '\n## Other\n\n%s' "$other" >> "$REF/INDEX.md"; fi
+
+# 9. Make website-design the one entry point
 if [ "$ONLY_VIA_MASTER" = "1" ]; then
   for n in impeccable design-taste-frontend ui-ux-pro-max web-design-guidelines; do only_by_name "$n"; done
 fi

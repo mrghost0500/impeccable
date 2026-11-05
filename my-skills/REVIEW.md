@@ -17,6 +17,7 @@ it.
 | Testing in a real browser | `webapp-testing`, plus the taste skill's own inspector |
 | Launch: titles, share previews, search engines | `fixing-metadata`, `seo` and 25 `seo-*` skills with 19 helper agents |
 | Showing options | `prototype`, `impeccable generate` / `live` |
+| Agreeing on the feel with reference sites | `website-design/reference-sites/` (84 write-ups from awesome-design-md) |
 | Planning, testing logic, shipping (Matt Pocock) | `grilling`, `to-questionnaire`, `research`, `to-spec`, `to-tickets`, `wayfinder`, `implement`, `tdd`, `codebase-design`, `diagnosing-bugs`, `wizard`, `pr`, `handoff`, `retro` |
 | Installed, outside the pipeline | `ask-sonner`, `pick-ui-library`, `animate-expo`, `write-swift`, and Matt's repo tools (`triage`, `domain-modeling`, `teach`, `writing-for-agents` and others) |
 
@@ -61,6 +62,15 @@ it.
 12. **Built-in skills on this account overlap:** `web-art-direction`, `cinematic-website-builder`
     and `scroll-motion-engineering` also build whole sites. They cannot be switched off from here, so
     the master skill uses them only when the user names one.
+
+13. **Reference sites (added 2026-11-05).** `VoltAgent/awesome-design-md` holds write-ups of how 84
+    well-known sites look: colours, type, spacing, components, do's and don'ts. Useful for a user who
+    is not a designer, who can name a site they like more easily than describe a feel. Two risks:
+    each file is another company's identity, and taking one as the look goes against the taste
+    skill's rule that the idea comes from the subject. They are installed inside `website-design`
+    and used at kickoff for qualities only (how dense, how big the type, how colour and photos are
+    used), never for logos, colours, typefaces, motifs or words. A few files contain brand rules
+    worded as orders and mention install commands; the skill treats them as reference material.
 
 ## Connected tools (checked 2026-11-04)
 

@@ -7,7 +7,10 @@ impeccable build.
   `/website-design <what you want>`. It asks a few plain-language questions at the start, lets you
   choose between three looks, shows you a mockup in Figma to approve before building, shows you the
   real page before polishing it, and hands each stage to the right specialist skill. It can also
-  build from a design you already have in Figma. Say "just build it" to skip the questions.
+  build from a design you already have in Figma. Say "just build it" to skip the questions. To help
+  pin down the feel, it can offer well-known sites as examples ("calm with lots of space, like
+  Apple") from a library of 84 write-ups that the setup script downloads into
+  `website-design/reference-sites/` from VoltAgent/awesome-design-md.
 - `setup-skills.sh` installs the master skill and everything it calls into `~/.claude/skills`:
   impeccable, design-taste-frontend, ui-ux-pro-max, web-design-guidelines, webapp-testing,
   fixing-metadata, Claude SEO (26 skills and 19 helper agents), Emil Kowalski's 15 skills and 25 of
