@@ -151,6 +151,12 @@ clone img2threejs/img2threejs img2threejs
 put "$TMP/img2threejs" img2threejs
 rm -rf "$SKILLS/img2threejs/.git"
 
+# 10c. Humanizer: removes the patterns that make writing read as AI-made. Only its SKILL.md and
+#      licence are needed.
+clone blader/humanizer humanizer
+mkdir -p "$SKILLS/humanizer"
+cp "$TMP/humanizer/SKILL.md" "$TMP/humanizer/LICENSE" "$SKILLS/humanizer/"
+
 # 11. Make website-design the one entry point
 if [ "$ONLY_VIA_MASTER" = "1" ]; then
   for n in impeccable design-taste-frontend ui-ux-pro-max web-design-guidelines; do only_by_name "$n"; done

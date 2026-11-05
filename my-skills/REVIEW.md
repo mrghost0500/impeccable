@@ -110,6 +110,15 @@ it.
     app screen. If it is ever added, take the MCP server alone, without its `21st-ui` skill, with the
     key saved as an environment secret.
 
+18. **Humanizer (checked 2026-11-05): added.** `blader/humanizer` (65k stars, MIT) rewrites text to
+    remove the patterns that make it read as AI-made (not-X-but-Y contrasts, forced triads, dashes
+    everywhere, sales language, stock words), keeping every fact, and matches the voice of a writing
+    sample when given one. Website copy is where those patterns show most, so `website-design` runs it
+    over the words before the mockup, over words added later, and over the page title and
+    description. Two of its rules are narrowed for web pages: curly quotes stay (its quote rule is
+    for plain text), and a call to action stays an action. The `mrghost0500` fork has the same skill
+    text and an older plugin manifest, so the upstream repo is installed.
+
 ## Connected tools (checked 2026-11-04)
 
 | Tool | Helpful? | How the master skill uses it |

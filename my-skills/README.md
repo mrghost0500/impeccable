@@ -14,7 +14,8 @@ impeccable build.
 - `setup-skills.sh` installs the master skill and everything it calls into `~/.claude/skills`:
   impeccable, design-taste-frontend, ui-ux-pro-max, web-design-guidelines, webapp-testing,
   fixing-metadata, Claude SEO (26 skills and 19 helper agents), HyperFrames (4 core skills, for
-  videos, with its usage data to HeyGen switched off), archify (diagrams), img2threejs (3D models built in code from a photo), Emil
+  videos, with its usage data to HeyGen switched off), archify (diagrams), img2threejs (3D models built in code from a photo), humanizer (takes the
+  machine-written sound out of the site's words), Emil
   Kowalski's 15 skills and 25 of Matt Pocock's. It sets impeccable, design-taste-frontend, ui-ux-pro-max and web-design-guidelines to
   start only by name or through `website-design`; run it with `ONLY_VIA_MASTER=0` to keep them
   starting on their own too.

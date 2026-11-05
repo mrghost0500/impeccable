@@ -1,6 +1,6 @@
 ---
 name: website-design
-description: "Start here for any website or interface work: a new site or landing page, a redesign, an app screen or dashboard, a build from the user's own Figma design, changes to how an existing site looks or feels, motion, phones, design reviews, and getting ready to launch (page titles, share previews, search engines). This is the master skill over every installed design skill (impeccable, design-taste-frontend, ui-ux-pro-max, web-design-guidelines, Emil Kowalski's motion and polish skills, webapp-testing, fixing-metadata, the seo skills), Matt Pocock's engineering skills, a library of write-ups of 84 well-known sites for agreeing on the feel, page maps (archify), videos made from the site (hyperframes), and the connected design tools (Figma mockups, Wonder, Firecrawl, image generation). It takes the user through a few plain-language checkpoints, so someone who is not technical chooses the look, approves a mockup in Figma and signs off the result, and hands each stage to the right specialist. Use it instead of calling those skills directly, unless the user names one."
+description: "Start here for any website or interface work: a new site or landing page, a redesign, an app screen or dashboard, a build from the user's own Figma design, changes to how an existing site looks or feels, motion, phones, design reviews, and getting ready to launch (page titles, share previews, search engines). This is the master skill over every installed design skill (impeccable, design-taste-frontend, ui-ux-pro-max, web-design-guidelines, Emil Kowalski's motion and polish skills, webapp-testing, fixing-metadata, humanizer, the seo skills), Matt Pocock's engineering skills, a library of write-ups of 84 well-known sites for agreeing on the feel, page maps (archify), videos made from the site (hyperframes), and the connected design tools (Figma mockups, Wonder, Firecrawl, image generation). It takes the user through a few plain-language checkpoints, so someone who is not technical chooses the look, approves a mockup in Figma and signs off the result, and hands each stage to the right specialist. Use it instead of calling those skills directly, unless the user names one."
 argument-hint: "[what to design or improve]"
 ---
 
@@ -95,7 +95,9 @@ in. A product site that shows its app is a page.
    they chose a reference site, say which look comes closest to what they liked about it. Ask
    which one, with "show me three different ones" as an option. Deal the chosen one's full sheet, do
    step 4, and tell them the idea in one sentence ("Your page opens on ..., and visitors can ...").
-3. **Words and mockup (Ask).** The taste skill's step 5 writes the words. Then, when Figma is
+3. **Words and mockup (Ask).** The taste skill's step 5 writes the words; then `humanizer` goes over
+   them in its embedded mode, with the client's own writing (their current site, their kickoff
+   answers) as the voice sample, keeping every fact. Then, when Figma is
    connected, build a mockup of the home page (and one more key page if there are several) at
    computer width and phone width, following section 8. Show them the Figma link and the screenshot,
    and ask: love it, a few changes, or not right. They can also mark it up in Figma and tell you.
@@ -115,7 +117,8 @@ in. A product site that shows its app is a page.
    quotes, forms). `mobile-native` for phones. `webapp-testing` to click every link, button and form
    and read the browser console. `impeccable harden` when there are forms or error states.
 8. **Review.** In this order: `impeccable critique`, `impeccable audit` (accessibility lives there),
-   `web-design-guidelines`, `review-animations`. Merge the findings into one list and fix them, then
+   `web-design-guidelines`, `review-animations`, and `humanizer` over any words added since stage 3
+   (error messages, labels, alt text). Merge the findings into one list and fix them, then
    tell the user the five that mattered most, in plain words. Ask only when a fix would change their
    words or claims.
 9. **Launch prep (Ask).** Section 7. Then `impeccable polish`, the taste gate once more (`lint.mjs`,
@@ -169,8 +172,9 @@ pictures of them. Make a Figma mockup only if the user asks for one.
   `delight`, `overdrive`), then `impeccable polish` on what changed.
 - **A vague request (Ask).** "Make it better" gets one question: what bothers you most? Looks plain
   (`bolder`), too busy (`quieter`), hard to read (`typeset`), cramped or messy (`layout`), bad on
-  phones (`adapt` and `mobile-native`), slow (`optimize`), unclear words (`clarify`), or "not sure,
-  have a look" (`impeccable critique`, then ask which findings to fix).
+  phones (`adapt` and `mobile-native`), slow (`optimize`), unclear words (`clarify`), words that
+  sound machine-written (`humanizer`), or "not sure, have a look" (`impeccable critique`, then ask
+  which findings to fix).
 - **A review (Ask).** `impeccable critique`, `impeccable audit` and `web-design-guidelines`, merged into
   one plain list with the most important first. Ask which ones to fix.
 - **Confirm (Ask).** Show before and after screenshots and ask whether to keep the change. For a big
@@ -225,7 +229,8 @@ is a physical object, and always through `impeccable overdrive`:
 - **Before launch (Ask).** `fixing-metadata` needs three things from the user, asked together with
   your suggestions as the first options: the name to show in the browser tab and on Google, one
   sentence describing them for search results and link previews, and the picture shown when someone
-  shares the link (make one from the page, use their logo, or skip).
+  shares the link (make one from the page, use their logo, or skip). Put the title and description
+  through `humanizer` before they go in.
 - **Once the site is live (Ask).** Offer a full check of how it shows up on Google and in AI search.
   It needs a one-time setup that only the user can start, `/seo setup`, which takes a few minutes.
   Then `seo-page` for one page, `seo-audit` for the whole site, `seo-local` for a business people
@@ -339,6 +344,9 @@ local markdown files.
   and nothing that identifies another company ends up on the user's site.
 - **Checks at the review stage.** Accessibility and the other rule checks run in the review stage,
   not while designing.
+- **Humanizer edits words, not typography.** On a web page keep curly quotes and apostrophes (its
+  quote rule is for plain text), and keep a call to action an action: its sales-language rule is
+  for empty praise, not for the one thing a visitor should do.
 - **Motion.** On public pages the taste skill's motion count stands and Emil's rules decide how each
   move feels. On app screens Emil's restraint wins.
 - **One record of the look.** DESIGN.md, written by `impeccable document` at the end. The taste
