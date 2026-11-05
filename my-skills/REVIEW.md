@@ -85,7 +85,7 @@ it.
 
     | Repo | Verdict | Why |
     |---|---|---|
-    | `heygen-com/hyperframes` (79k stars, Apache-2.0) | Yes, its 4 core skills | Renders HTML to video, so a looping clip for a page or a launch film can be made from the site's own look. Needs Node 22 and ffmpeg, both present. Its HeyGen features cost money; its skill sends a usage ping to HeyGen unless `HYPERFRAMES_NO_TELEMETRY=1` is set. The other five skills (slideshows, copying videos, porting from Remotion) are not website work. |
+    | `heygen-com/hyperframes` (79k stars, Apache-2.0) | Yes, its 4 core skills | Renders HTML to video, so a looping clip for a page or a launch film can be made from the site's own look. Needs Node 22 and ffmpeg, both present. Its HeyGen features cost money. Its skill sends a usage ping to HeyGen each time it starts, so the setup script sets `HYPERFRAMES_NO_TELEMETRY=1` in `~/.claude/settings.json`, which the CLI checks before anything else. The other five skills (slideshows, copying videos, porting from Remotion) are not website work. |
     | `tt-a1i/archify` (94k, Apache-2.0) | Yes | Diagrams as standalone HTML. A page map and a visitor journey help a user who is not technical check a multi-page site before the build. Needs only Node. |
     | `mrghost0500/ui-ux-pro-max-skill`, its other six skills | No | `ui-ux-pro-max` is already installed. `brand`, `design-system` and `ui-styling` repeat what the taste skill, impeccable and the master skill do; `slides` is not website work; `banner-design` is marketing; `design` needs a paid Gemini key. |
     | `multica-ai/andrej-karpathy-skills` (230k, MIT per README) | Yes, per session | A 2.4 KB set of coding guidelines. Kept out of the skills folder and offered at the start of each session. |

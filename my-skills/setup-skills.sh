@@ -128,6 +128,17 @@ if [ -n "$other" ]; then printf '\n## Other\n\n%s' "$other" >> "$REF/INDEX.md"; 
 sparse() { git clone --depth 1 -q --filter=blob:none --sparse "https://github.com/$1" "$TMP/$2"; git -C "$TMP/$2" sparse-checkout set "${@:3}"; }
 sparse heygen-com/hyperframes hyperframes skills/hyperframes skills/hyperframes-cli skills/hyperframes-registry skills/media-use
 for n in hyperframes hyperframes-cli hyperframes-registry media-use; do put "$TMP/hyperframes/skills/$n" "$n"; done
+# Its skill pings HeyGen with usage data each time it starts; this setting, read before any saved
+# preference, turns that off for every command Claude Code runs.
+node - "$HOME/.claude/settings.json" <<'JS' || echo "Could not set HYPERFRAMES_NO_TELEMETRY in ~/.claude/settings.json; add it under env by hand." >&2
+const fs = require('fs');
+const [file] = process.argv.slice(2);
+let s = {};
+if (fs.existsSync(file)) { const t = fs.readFileSync(file, 'utf8').trim(); if (t) s = JSON.parse(t); }
+s.env = s.env || {};
+s.env.HYPERFRAMES_NO_TELEMETRY = '1';
+fs.writeFileSync(file, JSON.stringify(s, null, 2) + '\n');
+JS
 
 # 10. Archify (diagrams as standalone HTML), for page maps and visitor journeys. Needs only Node.
 sparse tt-a1i/archify archify archify
