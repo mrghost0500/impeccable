@@ -10,7 +10,9 @@ impeccable build.
   build from a design you already have in Figma. Say "just build it" to skip the questions. To help
   pin down the feel, it can offer well-known sites as examples ("calm with lots of space, like
   Apple") from a library of 84 write-ups that the setup script downloads into
-  `website-design/reference-sites/` from VoltAgent/awesome-design-md.
+  `website-design/reference-sites/` from VoltAgent/awesome-design-md. `website-design/award-patterns.md`
+  records what the top award-winning GSAP sites do and where they lose points, which shapes the
+  motion question, the build and the review.
 - `setup-skills.sh` installs the master skill and everything it calls into `~/.claude/skills`:
   impeccable, design-taste-frontend, ui-ux-pro-max, web-design-guidelines, webapp-testing,
   fixing-metadata, Claude SEO (26 skills and 19 helper agents), HyperFrames (4 core skills, for

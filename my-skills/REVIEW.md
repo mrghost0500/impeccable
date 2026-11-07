@@ -119,6 +119,27 @@ it.
     for plain text), and a call to action stays an action. The `mrghost0500` fork has the same skill
     text and an older plugin manifest, so the upstream repo is installed.
 
+19. **Award-winning GSAP sites (studied 2026-11-07).** Jury records for nine winners, six live
+    sites in screenshots (five full-page, with their HTML), two in phone screenshots, and a juror's
+    reasons. The taste skill had already measured 99 Sites of the Day for motion, so the study looked
+    for what that did not cover. Findings, recorded in `website-design/award-patterns.md`:
+    - Animation is the highest Developer Award score on all nine (average 8.33); accessibility is the
+      lowest or tied lowest on seven (average 6.98). The live builds left most images undescribed on
+      three of five, had no reduced-motion rule on two, a skip link on one, and on two showed blank
+      slabs where content waits for scroll animations.
+    - The winners make the real product or place the hero, turn what the business has many of into
+      the navigation, and tie the interactive feature to the main action (a savings calculator that
+      asks for a work email).
+    - Smooth scroll on five of six, page-transition libraries on three of five, designed consent
+      banners on the European sites, two languages on European businesses, body text at 11 to 13px on
+      five of six.
+    Changes to `website-design`: a Calm / Lively / Cinematic motion question asked with the look; the
+    language question at kickoff; `scroll-motion-engineering` now used for the engineering of anything
+    pinned, scrubbed or smooth-scrolled; a no-JavaScript and reduced-motion screenshot check; the six
+    Developer Award criteria as a scored review rubric with a bar of 8; consent, cookie-free analytics
+    and languages at launch; an optional awards submission at hand-over. Where the winners cut corners,
+    the house version wins.
+
 ## Connected tools (checked 2026-11-04)
 
 | Tool | Helpful? | How the master skill uses it |

@@ -71,8 +71,8 @@ in. A product site that shows its app is a page.
    Then ask what is still missing, in two rounds at most.
    - Round one, the purpose: what the site is for and who it is for; the one thing a visitor should
      do (call or book, buy, sign up, visit in person, get in touch, read about them); one page or
-     several (home, about, menu or services, prices, contact); whether they already have a design in
-     Figma (if so, go to section 3).
+     several (home, about, menu or services, prices, contact), and in which languages; whether they
+     already have a design in Figma (if so, go to section 3).
    - Round two, their material and taste: the feel, offered as the taste skill's tones that suit them
      (warm, bold, quiet, luxury, playful, editorial, technical: three or four of them, plus their own
      words); a logo, colours or fonts they want kept (then pass `--keep palette,type`); the photos they
@@ -93,8 +93,12 @@ in. A product site that shows its app is a page.
    kickoff. Describe each of the three looks in two or three plain sentences (how it feels, its colours
    and type, how the page is arranged) and one line on why it could suit them, your pick first; if
    they chose a reference site, say which look comes closest to what they liked about it. Ask
-   which one, with "show me three different ones" as an option. Deal the chosen one's full sheet, do
-   step 4, and tell them the idea in one sentence ("Your page opens on ..., and visitors can ...").
+   which one, with "show me three different ones" as an option. In the same round ask how much
+   movement they want: Calm, Lively or Cinematic, each with one plain line from the motion plans in
+   `award-patterns.md` section 1, recommending the plan that fits their kind of business. Deal the
+   chosen look's full sheet, do step 4 (for the one live thing, the business ideas in
+   `award-patterns.md` section 2 help), and tell them the idea in one sentence ("Your page opens on
+   ..., and visitors can ...").
 3. **Words and mockup (Ask).** The taste skill's step 5 writes the words; then `humanizer` goes over
    them in its embedded mode, with the client's own writing (their current site, their kickoff
    answers) as the voice sample, keeping every fact. Then, when Figma is
@@ -109,18 +113,29 @@ in. A product site that shows its app is a page.
 5. **First look (Ask).** Screenshots of the real page on a computer and a phone. With a mockup
    approved, ask whether anything looks off compared with it; without one, ask how it feels (love it /
    close, a few changes / not right) and what they would change. "Not right" goes back to stage 2.
-6. **Motion.** The taste skill's step 9. Build each move with `emil-design-eng`, its Animation
-   Decision Framework and component rules; `apple-design` for drag, swipe and sheets. For its
-   "one moving picture", when no suitable clip exists, offer a short loop made with `hyperframes`
-   from the page's own material (Ask).
+6. **Motion.** The taste skill's step 9, to the motion plan chosen in stage 2 (`award-patterns.md`
+   section 1). Build each move with `emil-design-eng`, its Animation Decision Framework and component
+   rules; `apple-design` for drag, swipe and sheets. Anything pinned, scrubbed or smooth-scrolled
+   follows `scroll-motion-engineering` (the `anthropic-skills:scroll-motion-engineering` skill) when it
+   is available: current GSAP with ScrollTrigger and
+   SplitText, Lenis synced to ScrollTrigger, a designed phone version, a measured performance
+   budget. The taste skill still decides what moves; where `scroll-motion-engineering` defers to
+   `web-art-direction` or `higgsfield-creative-director` for taste or media, use the direction sheet
+   and the kickoff answers instead. For the "one moving picture", when no suitable clip exists, offer
+   a short loop made with `hyperframes` from the page's own material (Ask).
 7. **Hardening and testing.** `break-ui` on everything fed by real content (cards, prices, lists,
    quotes, forms). `mobile-native` for phones. `webapp-testing` to click every link, button and form
-   and read the browser console. `impeccable harden` when there are forms or error states.
+   and read the browser console. `impeccable harden` when there are forms or error states. Then take
+   two full-page screenshots without scrolling, one with JavaScript turned off and one with reduced
+   motion: every heading, paragraph and picture must be there in both. That is what search engines,
+   link previews and slow phones see, and two of five award winners studied showed blank slabs.
 8. **Review.** In this order: `impeccable critique`, `impeccable audit` (accessibility lives there),
    `web-design-guidelines`, `review-animations`, and `humanizer` over any words added since stage 3
-   (error messages, labels, alt text). Merge the findings into one list and fix them, then
-   tell the user the five that mattered most, in plain words. Ask only when a fix would change their
-   words or claims.
+   (error messages, labels, alt text). Merge the findings into one list and fix them. Then score the
+   build out of 10 on the six Developer Award criteria in `award-patterns.md` section 3, with the
+   evidence beside each score, and fix anything under 8; accessibility is where the winners lose the
+   most. Tell the user the five fixes that mattered most, in plain words. Ask only when a fix would
+   change their words or claims.
 9. **Launch prep (Ask).** Section 7. Then `impeccable polish`, the taste gate once more (`lint.mjs`,
    `inspect.mjs`, and `scenes.mjs` when there are scroll scenes: 0 FAIL at every width), and
    `impeccable document` so DESIGN.md records the look for later changes.
@@ -128,7 +143,8 @@ in. A product site that shows its app is a page.
     them; the Figma mockup link; what is still a placeholder for them to replace; photo credits; what
     you assumed; how to ask for changes later ("/website-design make the prices bigger"). Put the
     taste skill's step 10 report underneath for anyone technical. Ask: done, or more changes? Offer
-    a short launch video of the site for social media, made with `hyperframes`.
+    a short launch video of the site for social media, made with `hyperframes`, and, if they want to
+    enter it for an award, the submission material in `award-patterns.md` section 5.
 
 ## 3. Build from the user's Figma design
 
@@ -236,6 +252,14 @@ is a physical object, and always through `impeccable overdrive`:
   Then `seo-page` for one page, `seo-audit` for the whole site, `seo-local` for a business people
   visit, `seo-schema` for rich results. `seo-google`, `seo-dataforseo`, `seo-maps` and `seo-image-gen`
   need paid accounts, and so does the Ahrefs connector; use them only if the user has one.
+- **Cookies and visitor counts (Ask).** Ask whether many visitors are in the EU or the UK. If the
+  site there sets cookies beyond what it needs to work (analytics, ads, video embeds), it needs a
+  consent banner: design it in the site's own type and colour, with "Reject" as easy to press as
+  "Accept". Offer cookie-free analytics (Plausible or Umami) as the way to need no banner for
+  visitor counts. Do not write the privacy policy as legal advice; point them to their own adviser
+  or a policy service.
+- **Several languages.** A language switch in the header, the same content in each language, and
+  `seo-hreflang` to check the language tags.
 - **Selling things (Ask).** For a shop, bookings or donations with the Stripe connector connected,
   offer payment links or checkout. Ask before creating anything in their Stripe account.
 - **Going live (Ask).** Ask whether they want help putting it online. Steps only they can do (buying
@@ -356,5 +380,9 @@ local markdown files.
 - **Skip stages with nothing to do,** and name them in the report: no content-fed components, no
   `break-ui`; no motion, no `review-animations`; no Figma, no mockup.
 - **Small requests stay small.** A one-line fix gets its one skill, not the whole process.
-- **Other whole-site skills on this account** (`web-art-direction`, `cinematic-website-builder`,
-  `scroll-motion-engineering`) run only when the user names one.
+- **Other whole-site skills on this account** (`web-art-direction`, `cinematic-website-builder`) run
+  only when the user names one. `scroll-motion-engineering` is used for its engineering only, as
+  stage 6 describes.
+- **Learn from award winners, do not copy them.** `award-patterns.md` records what the top sites do
+  and the house version of each. Where the winners cut corners (body text at 11 to 13px, loading
+  screens, missing image descriptions, no reduced-motion version), the house version wins.
