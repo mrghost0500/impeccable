@@ -15,6 +15,24 @@
         ],
         "createdAt": "2026-07-17T00:00:00.000Z",
         "reason": "Live overlay chrome is injected over arbitrary host pages and builds a self-contained UI with its own small type scale; DESIGN.md's ramp describes the impeccable website, not this widget"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          "my-skills/website-design/scenes/**"
+        ],
+        "createdAt": "2026-11-10T20:15:43.447Z",
+        "reason": "Agent: scene templates are client demo pages with their own type, not governed by this repo's DESIGN.md"
+      },
+      {
+        "rule": "italic-serif-display",
+        "value": "*",
+        "files": [
+          "my-skills/website-design/scenes/scroll-film/index.html"
+        ],
+        "createdAt": "2026-11-10T20:24:21.931Z",
+        "reason": "Agent: editorial chapter story; the serif italic is one accent phrase in the hero only, removed from all other headings"
       }
     ]
   },

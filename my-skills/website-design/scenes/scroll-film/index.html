@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kestrel Ridge · Guided dawn treks</title>
+<meta name="description" content="Scene template: a scroll film. A journey drawn frame by frame as the visitor scrolls, told in chapters that end at the booking.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../_shared/scene.css">
+<style>
+  :root { --paper: #101119; --accent: #f2b880; }
+
+  /* The film: a sticky stage and the chapters share one grid cell, so text scrolls over the picture. */
+  .film { display: grid; }
+  .film > * { grid-area: 1 / 1; }
+  .film__stage { position: sticky; top: 0; height: 100svh; align-self: start; overflow: hidden; }
+  .film__poster, .film__canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .film__poster { background: linear-gradient(#1b1a2c 0%, #6f4e66 38%, #e79a6c 62%, #c4786a 100%); }
+  .film__poster svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .js .film__poster { display: none; }
+  .film__scrim { position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(90deg, rgba(10, 10, 16, 0.62) 0%, rgba(10, 10, 16, 0.18) 46%, rgba(10, 10, 16, 0) 70%),
+                linear-gradient(0deg, rgba(10, 10, 16, 0.55) 0%, rgba(10, 10, 16, 0) 32%); }
+
+  .film__chapters { position: relative; z-index: 1; }
+  .chapter { min-height: 135svh; display: flex; align-items: flex-end; padding: 0 var(--gutter) 16svh; }
+  .chapter__inner { display: grid; gap: 18px; max-width: 600px; }
+  .chapter__num { font: 500 12px var(--font-mono); letter-spacing: 0.1em; color: var(--accent); margin: 0; }
+  .chapter h2 { font-size: clamp(34px, 4.6vw, 64px); line-height: 1; letter-spacing: -0.03em; font-weight: 500; margin: 0; }
+  .chapter p { margin: 0; color: var(--ink-soft); max-width: 40ch; }
+
+  .hero { min-height: 100svh; align-items: center; padding-top: 12svh; }
+  .hero .chapter__inner { max-width: 760px; gap: 26px; }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  .hero { position: relative; }
+  .hero__meta { position: absolute; right: calc(var(--gutter) + 120px); bottom: 12svh; text-align: right; }
+  @media (max-width: 720px) { .hero__meta { right: var(--gutter); bottom: 4svh; } }
+
+  /* After the film: the conversion. The story ends at a choice. */
+  .departures { position: relative; z-index: 2; background: var(--paper); padding: 18svh var(--gutter) 14svh; }
+  .departures__head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap;
+    border-bottom: 1px solid var(--line); padding-bottom: 28px; margin-bottom: 32px; }
+  .departures__head h2 { font-size: clamp(34px, 4.4vw, 60px); font-weight: 500; letter-spacing: -0.03em; line-height: 1; margin: 0; }
+  .trips { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; list-style: none; margin: 0; padding: 0; }
+  .trips .card { max-width: none; background: #171824; }
+  .trips .chips { margin-top: 4px; }
+  footer { padding: 32px var(--gutter); color: var(--ink-soft); font-size: 14px; border-top: 1px solid var(--line); }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#departures">Skip to departures</a>
+
+<header class="bar">
+  <a class="bar__mark" href="#top">Kestrel Ridge</a>
+  <ul class="bar__links">
+    <li><a href="#ch-dawn">The walk</a></li>
+    <li><a href="#departures">Departures</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="btn btn--ghost" href="#departures">Book a place</a>
+</header>
+
+<main id="top">
+  <section class="film" id="film" aria-label="The walk, told in four chapters">
+    <div class="film__stage">
+      <div class="film__poster" aria-hidden="true">
+        <svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMax slice">
+          <circle cx="990" cy="560" r="70" fill="#ffe2bd" opacity="0.9"/>
+          <path fill="#b8767a" d="M0 1000L0 474L200 473L400 471L600 471L800 469L880 465L960 464L1120 468L1280 472L1440 477L1520 472L1600 468L1600 1000Z"/>
+          <path fill="#7f5367" d="M0 1000L0 589L120 581L240 575L360 571L520 575L600 564L680 559L800 569L960 567L1080 575L1200 591L1320 603L1400 605L1520 603L1600 605L1600 1000Z"/>
+          <path fill="#4a3448" d="M0 1000L0 661L120 646L280 639L400 627L520 653L640 673L720 673L880 668L1040 661L1200 658L1320 671L1440 702L1600 710L1600 1000Z"/>
+          <path fill="#1d1824" d="M0 1000L0 802L80 775L160 765L240 751L320 716L400 740L520 788L640 840L720 805L840 746L960 707L1080 746L1240 780L1360 761L1480 777L1600 794L1600 1000Z"/>
+        </svg>
+      </div>
+      <canvas class="film__canvas" aria-hidden="true"></canvas>
+      <div class="film__scrim" aria-hidden="true"></div>
+      <ol class="rail" aria-label="Chapters">
+        <li data-for="ch-dawn">Dawn</li>
+        <li data-for="ch-valley">Valley</li>
+        <li data-for="ch-ridge">Ridge</li>
+        <li data-for="ch-summit">Summit</li>
+      </ol>
+    </div>
+
+    <div class="film__chapters">
+      <article class="chapter hero" id="ch-dawn">
+        <div class="chapter__inner">
+          <h1 class="display">Walk into the <em>first light.</em></h1>
+          <p class="lede">Guided dawn treks across the high ridges, timed so the sun comes up while you are standing on top of it.</p>
+          <div class="hero__actions">
+            <a class="btn" href="#departures">See departures</a>
+            <a class="btn btn--ghost" href="#ch-valley">Scroll the route</a>
+          </div>
+        </div>
+        <ul class="eyebrow eyebrow-list hero__meta" aria-label="Trip facts">
+          <li>Groups of eight</li>
+          <li>Leaves 4:40 am</li>
+          <li>Back by 10:00</li>
+        </ul>
+      </article>
+
+      <article class="chapter" id="ch-valley">
+        <div class="chapter__inner reveal">
+          <p class="chapter__num">01 / Valley floor</p>
+          <h2>Torches off at the tree line.</h2>
+          <p>The first hour is by headlamp through pine and frost. Your guide sets a pace you can talk at, and nobody is left at the back.</p>
+        </div>
+      </article>
+
+      <article class="chapter" id="ch-ridge">
+        <div class="chapter__inner reveal">
+          <p class="chapter__num">02 / The ridge</p>
+          <h2>Six ranges, one colour at a time.</h2>
+          <p>The ridge path opens out above the haze. Each range turns from violet to rose as the light climbs behind you.</p>
+        </div>
+      </article>
+
+      <article class="chapter" id="ch-summit">
+        <div class="chapter__inner reveal">
+          <p class="chapter__num">03 / Summit, 1,920 m</p>
+          <h2>Coffee on the top cairn.</h2>
+          <p>Breakfast is carried up for you. You are back at the lodge before most people are awake.</p>
+          <div><a class="btn" href="#departures">Choose a date</a></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="departures" id="departures" aria-labelledby="dep-title">
+    <div class="departures__head">
+      <h2 id="dep-title">Next departures</h2>
+      <p class="eyebrow">Groups of eight · guides certified · gear included</p>
+    </div>
+    <ul class="trips">
+      <li class="card">
+        <p class="card__kicker">Saturday 14 March</p>
+        <h3 class="card__title">Ridge at dawn</h3>
+        <p class="card__meta">5 h · 11 km · 740 m climb</p>
+        <ul class="chips"><li class="chip">Moderate</li><li class="chip">3 places left</li></ul>
+        <div class="card__foot"><span class="card__price">€85</span><a class="btn" href="#contact">Reserve</a></div>
+      </li>
+      <li class="card">
+        <p class="card__kicker">Sunday 15 March</p>
+        <h3 class="card__title">Valley and lakes</h3>
+        <p class="card__meta">3 h · 7 km · 260 m climb</p>
+        <ul class="chips"><li class="chip">Easy</li><li class="chip">Family friendly</li></ul>
+        <div class="card__foot"><span class="card__price">€55</span><a class="btn" href="#contact">Reserve</a></div>
+      </li>
+      <li class="card">
+        <p class="card__kicker">Saturday 21 March</p>
+        <h3 class="card__title">Summit traverse</h3>
+        <p class="card__meta">8 h · 17 km · 1,180 m climb</p>
+        <ul class="chips"><li class="chip">Hard</li><li class="chip">Waitlist</li></ul>
+        <div class="card__foot"><span class="card__price">€140</span><a class="btn btn--ghost" href="#contact">Join waitlist</a></div>
+      </li>
+    </ul>
+  </section>
+</main>
+
+<footer id="contact">Kestrel Ridge Treks · hello@example.com · Demo content for a scene template.</footer>
+
+<script type="module">
+  import { boot, isReduced, loop, reveals } from '../_shared/runtime.js';
+  import { SequencePlayer, scrollFilm } from '../_shared/sequence.js';
+  import { ridges } from '../_shared/painters.js';
+
+  boot();
+  reveals();
+
+  const section = document.getElementById('film');
+  const stage = section.querySelector('.film__stage');
+  const canvas = section.querySelector('.film__canvas');
+
+  // Demo: a painted journey. Production: new SequencePlayer({ canvas, frameCount: 240,
+  //   src: (i) => `/film/landscape/${String(i + 1).padStart(4, '0')}.webp`,
+  //   portraitSrc: (i) => `/film/portrait/${String(i + 1).padStart(4, '0')}.webp` })
+  const player = new SequencePlayer({ canvas, painter: ridges });
+
+  // Chapters come from the page itself, so adding a chapter in HTML is enough.
+  const chapterEls = [...section.querySelectorAll('.chapter')];
+  const chapters = () => {
+    const span = section.offsetHeight - innerHeight;
+    return chapterEls.map((el) => {
+      const at = Math.max(0, (el.offsetTop - innerHeight * 0.5) / span);
+      const end = Math.min(1, (el.offsetTop + el.offsetHeight - innerHeight * 0.5) / span);
+      return { id: el.id, at, still: Math.min(1, (at + end) / 2) };
+    });
+  };
+  const railItems = [...document.querySelectorAll('.rail li')];
+  const markRail = (c) => railItems.forEach((li) => (li.dataset.for === c.id ? li.setAttribute('aria-current', 'step') : li.removeAttribute('aria-current')));
+
+  // Ease the drawn frame toward the scroll position: smooth on a mouse wheel, exact on a trackpad.
+  const eased = { target: 0, value: 0 };
+  const reduced = isReduced();
+  const proxy = { setProgress: (p) => { eased.target = p; if (reduced) { eased.value = p; player.setProgress(p); } } };
+  let update = scrollFilm({ player: proxy, section, chapters: chapters(), onChapter: markRail, reduced });
+  addEventListener('resize', () => { update = scrollFilm({ player: proxy, section, chapters: chapters(), onChapter: markRail, reduced }); });
+
+  if (!reduced) {
+    loop(() => {
+      const d = eased.target - eased.value;
+      if (Math.abs(d) < 0.0004) return;
+      eased.value += d * 0.14;
+      player.setProgress(eased.value);
+    }, { target: stage });
+  }
+</script>
+</body>
+</html>
