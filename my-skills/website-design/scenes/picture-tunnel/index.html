@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Halvard Studio · Photographs</title>
+<meta name="description" content="Scene template: a picture tunnel. Pictures travel along a curved track you can drag, scroll sideways or steer with the keys, folding toward the viewer when they move fast.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../_shared/scene.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js"}}</script>
+<style>
+  :root { --paper: #f1eee8; --ink: #141312; --ink-soft: rgba(20, 19, 18, 0.66); --line: rgba(20, 19, 18, 0.14); --accent: #141312; color-scheme: light; }
+  .btn { background: var(--ink); color: var(--paper); }
+  .btn--ghost { background: transparent; color: var(--ink); }
+  .hero { position: relative; height: 100svh; min-height: 560px; overflow: hidden; }
+  .hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; touch-action: pan-y; }
+  .hero canvas:active { cursor: grabbing; }
+  .hero__copy { position: absolute; left: 50%; top: 14svh; transform: translateX(-50%); z-index: 2; text-align: center; display: grid; gap: 14px; justify-items: center; width: min(760px, 90vw); pointer-events: none; }
+  .hero__copy > * { pointer-events: auto; }
+  .hero__copy .display { font-size: clamp(38px, 5.2vw, 84px); }
+  .hero__copy .lede { text-align: center; }
+  .still { position: absolute; left: 50%; top: 58%; transform: translate(-50%, -50%); width: min(340px, 60vw); aspect-ratio: 4 / 5; border-radius: 6px;
+    background: linear-gradient(160deg, #c9b8a0, #6d5b49 55%, #2c241e); }
+  .js:not(.no-webgl) .still { display: none; }
+  .controls { position: absolute; left: 0; right: 0; bottom: 22px; z-index: 3; display: flex; justify-content: center; gap: 8px; align-items: center; }
+  .controls button { min-height: 40px; min-width: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(241, 238, 232, 0.8); cursor: pointer; font: 500 12px var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: #141312; }
+  .caption { position: absolute; right: var(--gutter); bottom: 26px; z-index: 3; text-align: right; font: 500 12px var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); }
+  @media (max-width: 720px) { .caption { display: none; } }
+
+  .works { padding: 14svh var(--gutter); }
+  .works h2 { margin: 0 0 24px; font-weight: 500; font-size: clamp(30px, 3vw, 44px); letter-spacing: -0.02em; }
+  .works ol { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); columns: 2 320px; column-gap: 40px; }
+  .works li { break-inside: avoid; display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .works li span { font: 500 12px var(--font-mono); color: var(--ink-soft); }
+  footer { padding: 28px var(--gutter); color: var(--ink-soft); font-size: 14px; border-top: 1px solid var(--line); }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#works">Skip to the list of work</a>
+<header class="bar">
+  <a class="bar__mark" href="#top">Halvard Studio</a>
+  <ul class="bar__links"><li><a href="#works">Work</a></li><li><a href="#contact">Commissions</a></li><li><a href="#contact">About</a></li></ul>
+  <a class="btn btn--ghost" href="#contact">Get in touch</a>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="h1">
+    <div class="still" aria-hidden="true"></div>
+    <canvas aria-hidden="true"></canvas>
+    <div class="hero__copy">
+      <h1 class="display" id="h1">Photographs that take their time.</h1>
+      <p class="lede">Portraits, interiors and slow travel, made on film and printed by hand.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center"><a class="btn" href="#contact">Commission a shoot</a><a class="btn btn--ghost" href="#works">See the archive</a></div>
+    </div>
+    <div class="controls" hidden>
+      <button type="button" data-nudge="-1" aria-label="Previous pictures">←</button>
+      <button type="button" class="pause" aria-pressed="false">Pause</button>
+      <button type="button" data-nudge="1" aria-label="Next pictures">→</button>
+    </div>
+    <p class="caption" aria-live="off" data-caption></p>
+  </section>
+
+  <section class="works" id="works" aria-labelledby="works-t">
+    <h2 id="works-t">Selected work</h2>
+    <ol data-list></ol>
+  </section>
+</main>
+<footer id="contact">Halvard Studio · studio@example.com · Demo content for a scene template.</footer>
+
+<script type="module">
+  import { boot, isReduced, loop, config, pixelRatio, webglAvailable, fallbackToPoster, qualityTier, clamp } from '../_shared/runtime.js';
+  import { artwork } from '../_shared/painters.js';
+  boot();
+  const reduced = isReduced();
+  // Dials: count = pictures on the track (8 to 40), cruise = idle speed (0 to 1.5), gap = spacing (0.8 to 2), fold = how far fast pictures bend (0 to 1.5), fringe = colour split at speed (0 to 1).
+  const DIALS = config({ count: 24, cruise: 0.35, gap: 1.25, fold: 0.9, fringe: 0.6 });
+
+  // Titles. Production: an array of { src, title, year } for the client's real pictures.
+  const places = ['Harbour, dawn', 'Mother and son', 'The blue kitchen', 'Salt flats', 'Studio wall', 'Rain on Via Roma', 'Two chairs', 'Night ferry', 'Orchard', 'Hotel corridor', 'The tailor', 'Low tide'];
+  const WORKS = Array.from({ length: DIALS.count }, (_, i) => ({ title: places[i % places.length], year: 2019 + (i % 7) }));
+  document.querySelector('[data-list]').innerHTML = WORKS.map((w, i) => `<li>${w.title}<span>${String(i + 1).padStart(2, '0')} · ${w.year}</span></li>`).join('');
+
+  if (!webglAvailable()) fallbackToPoster('no WebGL');
+  else start().catch((e) => fallbackToPoster(e.message));
+
+  async function start() {
+    const THREE = await import('three');
+    const hero = document.querySelector('.hero');
+    const canvas = hero.querySelector('canvas');
+    const tier = qualityTier();
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(pixelRatio(tier === 'high' ? 2 : 1.5));
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+    camera.position.set(0, 0, 5);
+
+    const N = WORKS.length, total = N * DIALS.gap;
+    const geo = new THREE.PlaneGeometry(1.2, 1.5, 24, 1);
+    const planes = WORKS.map((w, i) => {
+      const tex = new THREE.CanvasTexture(artwork(i + 1, tier === 'low' ? 256 : 400, 1.25));
+      tex.colorSpace = THREE.SRGBColorSpace;
+      const mat = new THREE.ShaderMaterial({
+        transparent: true,
+        uniforms: { map: { value: tex }, uFold: { value: 0 }, uFringe: { value: 0 }, uFade: { value: 1 } },
+        vertexShader: `uniform float uFold; varying vec2 vUv;
+          void main(){ vUv = uv; vec3 p = position; float x = uv.x - 0.5; p.z += -x * x * 4.0 * uFold; p.x *= 1.0 - abs(uFold) * 0.15;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0); }`,
+        fragmentShader: `uniform sampler2D map; uniform float uFringe, uFade; varying vec2 vUv;
+          void main(){ vec2 o = vec2(uFringe * 0.012, 0.0);
+            vec3 c = vec3(texture2D(map, vUv + o).r, texture2D(map, vUv).g, texture2D(map, vUv - o).b);
+            vec3 haze = vec3(0.945, 0.933, 0.91); gl_FragColor = vec4(mix(haze, c, uFade), 1.0);
+            #include <colorspace_fragment>
+          }`,
+      });
+      const mesh = new THREE.Mesh(geo, mat);
+      scene.add(mesh);
+      return mesh;
+    });
+
+    // The track: a corridor. Pictures alternate between the left and right walls, angled inward, and come
+    // toward the viewer out of a pale haze, leaving the middle clear for the headline.
+    const place = (s, mesh, i) => {
+      const t = s / total; // 0 far .. 1 past the viewer
+      const side = i % 2 ? 1 : -1;
+      const z = -24 + t * 27;
+      const x = side * (1.05 + t * t * 2.4);
+      const y = -0.5 + Math.sin(t * Math.PI) * 0.1;
+      mesh.position.set(x, y, z);
+      mesh.rotation.set(0, -side * 0.62, 0);
+      mesh.material.uniforms.uFade.value = clamp((t - 0.02) / 0.4) * (1 - clamp((t - 0.9) / 0.1));
+    };
+
+    const resize = () => {
+      const r = hero.getBoundingClientRect();
+      renderer.setSize(r.width, r.height, false);
+      camera.aspect = r.width / r.height;
+      camera.position.set(0, camera.aspect < 0.9 ? -0.4 : 0, camera.aspect < 0.9 ? 7.5 : 5);
+      camera.updateProjectionMatrix();
+    };
+    addEventListener('resize', resize); resize();
+
+    // Motion: a gentle cruise plus whatever the visitor adds by dragging, sideways scrolling or the keys.
+    let offset = 0, vel = 0, paused = reduced;
+    const controls = hero.querySelector('.controls');
+    controls.hidden = false;
+    const pauseBtn = controls.querySelector('.pause');
+    const setPaused = (p) => { paused = p; pauseBtn.setAttribute('aria-pressed', String(p)); pauseBtn.textContent = p ? 'Play' : 'Pause'; };
+    setPaused(paused);
+    pauseBtn.addEventListener('click', () => setPaused(!paused));
+    controls.querySelectorAll('[data-nudge]').forEach((b) => b.addEventListener('click', () => { vel += Number(b.dataset.nudge) * (reduced ? 0 : 1.6); if (reduced) offset += Number(b.dataset.nudge) * DIALS.gap; }));
+    let dragging = false, lastX = 0;
+    canvas.addEventListener('pointerdown', (e) => { dragging = true; lastX = e.clientX; canvas.setPointerCapture(e.pointerId); });
+    canvas.addEventListener('pointermove', (e) => { if (!dragging) return; const d = (e.clientX - lastX) / innerWidth; lastX = e.clientX; offset += d * 8; vel = d * 240; });
+    canvas.addEventListener('pointerup', () => { dragging = false; });
+    hero.addEventListener('wheel', (e) => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) { e.preventDefault(); vel += e.deltaX * 0.01; } }, { passive: false });
+    addEventListener('keydown', (e) => {
+      if (hero.getBoundingClientRect().bottom < innerHeight * 0.5) return;
+      if (e.key === 'ArrowRight') vel += reduced ? 0 : 1.6, reduced && (offset += DIALS.gap);
+      if (e.key === 'ArrowLeft') vel -= reduced ? 0 : 1.6, reduced && (offset -= DIALS.gap);
+    });
+
+    const caption = hero.querySelector('[data-caption]');
+    loop((t, dt) => {
+      const cruise = paused ? 0 : DIALS.cruise;
+      if (!dragging) offset += (cruise + vel) * dt;
+      vel *= Math.pow(0.04, dt);
+      const speed = Math.abs(vel) + cruise * 0.3;
+      let nearest = 0, best = 1e9;
+      planes.forEach((m, i) => {
+        const s = (((i * DIALS.gap + offset) % total) + total) % total;
+        place(s, m, i);
+        const fold = reduced ? 0 : clamp(vel * 0.25, -1, 1) * DIALS.fold;
+        m.material.uniforms.uFold.value += (fold - m.material.uniforms.uFold.value) * 0.15;
+        m.material.uniforms.uFringe.value = reduced ? 0 : clamp(speed * 0.4) * DIALS.fringe;
+        const d = Math.abs(m.position.z - 0.5);
+        if (d < best) { best = d; nearest = i; }
+      });
+      caption.textContent = `${String(nearest + 1).padStart(2, '0')} · ${WORKS[nearest].title}`;
+      renderer.render(scene, camera);
+    }, { target: hero });
+  }
+</script>
+</body>
+</html>
