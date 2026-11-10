@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tidewell Flask · Choose your finish</title>
+<meta name="description" content="Scene template: a world configurator. Choosing a finish recolours the product and the whole scene around it, and the page ends at the bag.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../_shared/scene.css">
+<script type="importmap">{"imports":{
+  "three":"https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js",
+  "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/"}}</script>
+<style>
+  /* Each finish sets the world's colours. CSS uses them for the no-script view; the 3D scene reads the same values. */
+  :root { --paper: #1a0f0b; --sky-top: #2a1410; --sky-low: #a94a28; --ground: #5a2a18; --body: #c4532e; --accent: #ffb27a; }
+  body:has(#f-moss:checked) { --paper: #0e140f; --sky-top: #121d15; --sky-low: #58703f; --ground: #2c3a22; --body: #4f6b3f; --accent: #cfe39a; }
+  body:has(#f-tide:checked) { --paper: #0b1218; --sky-top: #0f1c28; --sky-low: #3d6c88; --ground: #1c3445; --body: #2f6a8c; --accent: #a7dcf5; }
+  body { background: var(--paper); transition: background-color 600ms ease; }
+
+  .shop { position: relative; min-height: 100svh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 400px); }
+  @media (max-width: 900px) { .shop { grid-template-columns: 1fr; } }
+  .world { position: relative; min-height: 100svh; overflow: hidden;
+    background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-low) 74%, var(--ground) 74.2%, var(--paper) 100%); }
+  @media (max-width: 900px) { .world { min-height: 62svh; } }
+  .world canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: pan-y; cursor: grab; }
+  .flask-art { position: absolute; left: 50%; bottom: 16%; height: 56%; width: auto; aspect-ratio: 120 / 300; transform: translateX(-50%); }
+  .js:not(.no-webgl) .flask-art { display: none; }
+  .world__copy { position: absolute; left: var(--gutter); top: 96px; z-index: 2; display: grid; gap: 14px; max-width: 420px; pointer-events: none; }
+  .world__copy .display { font-size: clamp(34px, 5.4vw, 84px); }
+  @media (max-width: 900px) { .world__copy { top: 76px; } }
+  .specs { position: absolute; left: var(--gutter); bottom: 26px; z-index: 2; }
+  @media (max-width: 900px) { .specs { display: none; } }
+  .hint { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 2; }
+
+  .panel { position: relative; z-index: 3; display: grid; gap: 22px; align-content: start; padding: 96px 28px 40px; background: rgba(0, 0, 0, 0.32);
+    border-left: 1px solid var(--line); }
+  @media (max-width: 900px) { .panel { padding-top: 28px; border-left: 0; border-top: 1px solid var(--line); } }
+  .panel h2 { margin: 0; font-size: 26px; font-weight: 500; letter-spacing: -0.01em; }
+  fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: 10px; }
+  legend { font: 500 11px var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 10px; }
+  .swatches { display: flex; gap: 10px; flex-wrap: wrap; }
+  .swatch { position: relative; }
+  .swatch input, .seg input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .swatch span { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 14px 0 8px; border-radius: 999px; border: 1px solid var(--line); }
+  .swatch i { width: 26px; height: 26px; border-radius: 50%; background: var(--c); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25); }
+  .swatch input:checked + span, .seg input:checked + span { border-color: var(--ink); background: rgba(255, 255, 255, 0.08); }
+  .swatch input:focus-visible + span, .seg input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .seg { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .seg label { position: relative; }
+  .seg span { display: grid; min-height: 52px; place-items: center; border-radius: 12px; border: 1px solid var(--line); text-align: center; line-height: 1.25; font-size: 15px; }
+  .seg small { color: var(--ink-soft); font-size: 12px; }
+  .qty { display: flex; align-items: center; gap: 0; border: 1px solid var(--line); border-radius: 999px; width: max-content; }
+  .qty button { width: 44px; height: 44px; border: 0; background: none; cursor: pointer; font-size: 18px; }
+  .qty output { min-width: 3ch; text-align: center; }
+  .total { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid var(--line); padding-top: 18px; }
+  .total b { font-size: 28px; font-weight: 500; }
+  .notes { color: var(--ink-soft); font-size: 14px; margin: 0; }
+  .toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 220%); visibility: hidden; z-index: 30; padding: 12px 18px; border-radius: 999px;
+    background: var(--ink); color: var(--paper); font-weight: 500; transition: transform 400ms var(--ease-out); }
+  .toast.is-on { transform: translate(-50%, 0); visibility: visible; }
+
+  /* Intro: a fogged pane the visitor wipes clear. Skipped under reduced motion and without script. */
+  .fog { position: fixed; inset: 0; z-index: 40; width: 100%; height: 100%; touch-action: none; }
+  .fog-skip { position: fixed; right: var(--gutter); bottom: 22px; z-index: 41; }
+  .fog-label { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 41; pointer-events: none;
+    font: 500 13px var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255, 255, 255, 0.9); transition: opacity 400ms ease; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#configure">Skip to the configurator</a>
+<header class="bar">
+  <a class="bar__mark" href="#top">Tidewell</a>
+  <ul class="bar__links"><li><a href="#configure">Flask</a></li><li><a href="#configure">Care</a></li><li><a href="#configure">Stores</a></li></ul>
+  <a class="btn btn--ghost" href="#configure">Bag (<span data-bag>0</span>)</a>
+</header>
+
+<main id="top" class="shop">
+  <section class="world" aria-label="The flask in its finish">
+    <svg class="flask-art" viewBox="0 0 120 300" aria-hidden="true">
+      <rect x="38" y="6" width="44" height="40" rx="10" fill="#d8d2c8"/>
+      <path d="M44 46h32v14c18 6 26 18 26 34v170c0 16-10 26-26 26H44c-16 0-26-10-26-26V94c0-16 8-28 26-34z" fill="var(--body)"/>
+      <path d="M30 100c0-10 6-18 14-22v196c-8-4-14-10-14-20z" fill="#fff" opacity="0.18"/>
+    </svg>
+    <canvas aria-hidden="true"></canvas>
+    <div class="world__copy">
+      <h1 class="display">Pick the colour of your weekend.</h1>
+    </div>
+    <ul class="eyebrow eyebrow-list specs" aria-label="Specifications"><li>24 h cold</li><li>12 h hot</li><li>500 or 750 ml</li></ul>
+    <p class="eyebrow hint" data-hint>Drag to turn it</p>
+  </section>
+
+  <form class="panel" id="configure" aria-labelledby="cfg-title">
+    <h2 id="cfg-title">Tidewell Flask</h2>
+    <p class="notes">Double-walled steel. Keeps drinks cold for 24 hours or hot for 12. Powder coat that will not chip.</p>
+    <fieldset>
+      <legend>Finish</legend>
+      <div class="swatches">
+        <label class="swatch"><input type="radio" name="finish" id="f-ember" value="ember" checked><span><i style="--c:#c4532e"></i>Ember</span></label>
+        <label class="swatch"><input type="radio" name="finish" id="f-moss" value="moss"><span><i style="--c:#4f6b3f"></i>Moss</span></label>
+        <label class="swatch"><input type="radio" name="finish" id="f-tide" value="tide"><span><i style="--c:#2f6a8c"></i>Tide</span></label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Size</legend>
+      <div class="seg">
+        <label><input type="radio" name="size" value="500" data-price="38" checked><span>500 ml<small>€38</small></span></label>
+        <label><input type="radio" name="size" value="750" data-price="46"><span>750 ml<small>€46</small></span></label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Quantity</legend>
+      <div class="qty"><button type="button" data-q="-1" aria-label="One fewer">−</button><output name="qty" aria-live="polite">1</output><button type="button" data-q="1" aria-label="One more">+</button></div>
+    </fieldset>
+    <div class="total"><span>Total</span><b data-total>€38</b></div>
+    <button class="btn" type="submit">Add to bag</button>
+  </form>
+</main>
+<div class="toast" role="status" aria-live="polite"></div>
+
+<script type="module">
+  import { boot, isReduced, loop, config, pixelRatio, webglAvailable, fallbackToPoster, qualityTier } from '../_shared/runtime.js';
+  boot();
+
+  // Dials: spin = idle turntable speed (0 to 0.6), fog = wipe-to-reveal intro on or off, palette = starting finish.
+  const DIALS = config({ spin: 0.18, fog: true, palette: 'ember' });
+  const form = document.getElementById('configure');
+  const start = form.querySelector(`#f-${DIALS.palette}`);
+  if (start) start.checked = true;
+
+  // ----- Configurator logic (works with or without the 3D scene) -----
+  let qty = 1;
+  const price = () => Number(form.querySelector('[name=size]:checked').dataset.price);
+  const render = () => {
+    form.querySelector('[name=qty]').textContent = qty;
+    form.querySelector('[data-total]').textContent = `€${price() * qty}`;
+  };
+  form.querySelectorAll('[data-q]').forEach((b) => b.addEventListener('click', () => { qty = Math.max(1, Math.min(9, qty + Number(b.dataset.q))); render(); }));
+  form.addEventListener('change', render);
+  let bag = 0;
+  const toast = document.querySelector('.toast');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    bag += qty;
+    document.querySelector('[data-bag]').textContent = bag;
+    const finish = form.querySelector('[name=finish]:checked').value;
+    toast.textContent = `Added ${qty} × ${finish[0].toUpperCase() + finish.slice(1)} ${form.querySelector('[name=size]:checked').value} ml`;
+    toast.classList.add('is-on');
+    setTimeout(() => toast.classList.remove('is-on'), 2600);
+  });
+  render();
+
+  // ----- Fog intro -----
+  if (DIALS.fog && !isReduced()) fogIntro();
+  function fogIntro() {
+    const c = document.createElement('canvas');
+    c.className = 'fog';
+    c.setAttribute('aria-hidden', 'true');
+    const label = document.createElement('p');
+    label.className = 'fog-label';
+    label.textContent = 'Wipe the glass';
+    const skip = document.createElement('button');
+    skip.className = 'btn btn--ghost fog-skip';
+    skip.type = 'button';
+    skip.textContent = 'Skip';
+    document.body.append(c, label, skip);
+    const ctx = c.getContext('2d');
+    const k = pixelRatio(1.5);
+    const size = () => {
+      c.width = innerWidth * k; c.height = innerHeight * k;
+      const g = ctx.createLinearGradient(0, 0, 0, c.height);
+      g.addColorStop(0, 'rgba(232,226,218,0.94)'); g.addColorStop(1, 'rgba(206,198,190,0.96)');
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = g; ctx.fillRect(0, 0, c.width, c.height);
+    };
+    size();
+    let wiped = 0;
+    const done = () => {
+      c.style.transition = 'opacity 700ms ease'; c.style.opacity = '0';
+      label.remove(); skip.remove();
+      setTimeout(() => c.remove(), 750);
+    };
+    const wipe = (e) => {
+      ctx.globalCompositeOperation = 'destination-out';
+      const r = 90 * k;
+      const g = ctx.createRadialGradient(e.clientX * k, e.clientY * k, 0, e.clientX * k, e.clientY * k, r);
+      g.addColorStop(0, 'rgba(0,0,0,1)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(e.clientX * k - r, e.clientY * k - r, r * 2, r * 2);
+      label.style.opacity = '0';
+      if (++wiped > 70) done();
+    };
+    c.addEventListener('pointermove', wipe);
+    c.addEventListener('pointerdown', wipe);
+    skip.addEventListener('click', done);
+    addEventListener('keydown', function esc(e) { if (e.key === 'Escape' || e.key === 'Enter') { done(); removeEventListener('keydown', esc); } });
+    setTimeout(() => { if (document.body.contains(c)) done(); }, 9000); // never trap anyone behind the glass
+  }
+
+  // ----- 3D scene -----
+  if (!webglAvailable()) fallbackToPoster('no WebGL');
+  else build().catch((e) => fallbackToPoster(e.message));
+
+  async function build() {
+    const THREE = await import('three');
+    const { RoomEnvironment } = await import('three/addons/environments/RoomEnvironment.js');
+    const world = document.querySelector('.world');
+    const canvas = world.querySelector('canvas');
+    const tier = qualityTier();
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: tier !== 'low', alpha: false, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(pixelRatio(tier === 'high' ? 2 : 1.5));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMappingExposure = 0.92;
+    const scene = new THREE.Scene();
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+    scene.environmentIntensity = 0.55;
+    const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
+
+    const css = (name) => new THREE.Color(getComputedStyle(document.body).getPropertyValue(name).trim());
+    // Backdrop: a big inside-out sphere with a sky-to-ground gradient that follows the finish.
+    const uniforms = { top: { value: css('--sky-top') }, low: { value: css('--sky-low') }, ground: { value: css('--ground') } };
+    const backdrop = new THREE.Mesh(new THREE.SphereGeometry(30, 48, 24), new THREE.ShaderMaterial({
+      side: THREE.BackSide, depthWrite: false, uniforms,
+      vertexShader: 'varying vec3 vP; void main(){ vP = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.); }',
+      fragmentShader: `uniform vec3 top; uniform vec3 low; uniform vec3 ground; varying vec3 vP;
+        void main(){ float y = vP.y + 0.1; vec3 c = y > 0.0 ? mix(low, top, smoothstep(0.0, 0.5, y)) : mix(low, ground, smoothstep(0.0, -0.05, y));
+        c += 0.12 * low * exp(-abs(y) * 18.0); gl_FragColor = vec4(c, 1.0);
+        #include <colorspace_fragment>
+        }`, toneMapped: false,
+    }));
+    scene.add(backdrop);
+
+    // The flask, turned on a lathe: body with a rounded base and shoulder, plus a steel cap.
+    const pts = [];
+    pts.push(new THREE.Vector2(0, 0));
+    for (let a = 0; a <= 8; a++) { const t = (a / 8) * Math.PI / 2; pts.push(new THREE.Vector2(0.36 + Math.sin(t) * 0.08, 0.08 - Math.cos(t) * 0.08)); }
+    pts.push(new THREE.Vector2(0.44, 1.62));
+    for (let a = 1; a <= 10; a++) { const t = a / 10; pts.push(new THREE.Vector2(0.44 - (0.44 - 0.27) * (t * t), 1.62 + t * 0.26)); }
+    pts.push(new THREE.Vector2(0.27, 1.96), new THREE.Vector2(0, 1.96));
+    const bodyMat = new THREE.MeshPhysicalMaterial({ color: css('--body'), roughness: 0.42, metalness: 0.15, clearcoat: 0.6, clearcoatRoughness: 0.35 });
+    const flask = new THREE.Group();
+    flask.add(new THREE.Mesh(new THREE.LatheGeometry(pts, 96), bodyMat));
+    const capPts = [new THREE.Vector2(0, 0), new THREE.Vector2(0.3, 0), new THREE.Vector2(0.31, 0.05), new THREE.Vector2(0.31, 0.36), new THREE.Vector2(0.27, 0.42), new THREE.Vector2(0, 0.42)];
+    const cap = new THREE.Mesh(new THREE.LatheGeometry(capPts, 96), new THREE.MeshPhysicalMaterial({ color: 0xd9d4cc, metalness: 1, roughness: 0.28 }));
+    cap.position.y = 1.96;
+    flask.add(cap);
+    flask.position.y = -1.15;
+    scene.add(flask);
+
+    // Contact shadow: a soft dark disc under the flask.
+    const sc = document.createElement('canvas'); sc.width = sc.height = 128;
+    const sx = sc.getContext('2d'); const sg = sx.createRadialGradient(64, 64, 4, 64, 64, 64);
+    sg.addColorStop(0, 'rgba(0,0,0,0.55)'); sg.addColorStop(1, 'rgba(0,0,0,0)'); sx.fillStyle = sg; sx.fillRect(0, 0, 128, 128);
+    const shadow = new THREE.Mesh(new THREE.PlaneGeometry(1.8, 1.8), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(sc), transparent: true, depthWrite: false }));
+    shadow.rotation.x = -Math.PI / 2; shadow.position.y = -1.149;
+    scene.add(shadow);
+    const key = new THREE.DirectionalLight(0xffffff, 1.6); key.position.set(3, 4, 2); scene.add(key);
+    const rim = new THREE.DirectionalLight(css('--accent'), 2.2); rim.position.set(-3, 2, -3); scene.add(rim);
+
+    const resize = () => {
+      const r = world.getBoundingClientRect();
+      renderer.setSize(r.width, r.height, false);
+      camera.aspect = r.width / r.height;
+      // Wide screens: the flask sits right of centre so the headline has room. Phones: centred, a little further away.
+      const wide = camera.aspect > 1.1;
+      camera.position.set(wide ? -1.1 : 0, wide ? 0.6 : 1.1, wide ? 7.6 : 10.5);
+      camera.lookAt(wide ? -1.1 : 0, wide ? -0.2 : 0.7, 0);
+      camera.updateProjectionMatrix();
+    };
+    addEventListener('resize', resize); resize();
+
+    // Drag to turn, with inertia. Vertical drags still scroll the page on touch.
+    let angle = 0.6, vel = 0, dragging = false, lastX = 0;
+    canvas.addEventListener('pointerdown', (e) => { dragging = true; lastX = e.clientX; canvas.setPointerCapture(e.pointerId); document.querySelector('[data-hint]').style.opacity = '0'; });
+    canvas.addEventListener('pointermove', (e) => { if (!dragging) return; vel = (e.clientX - lastX) * 0.008; lastX = e.clientX; angle += vel; });
+    canvas.addEventListener('pointerup', () => { dragging = false; });
+
+    // The world follows the finish: every colour eases toward the new target.
+    const target = { top: css('--sky-top'), low: css('--sky-low'), ground: css('--ground'), body: css('--body'), accent: css('--accent') };
+    form.addEventListener('change', () => {
+      requestAnimationFrame(() => Object.assign(target, { top: css('--sky-top'), low: css('--sky-low'), ground: css('--ground'), body: css('--body'), accent: css('--accent') }));
+      const big = form.querySelector('[name=size]:checked').value === '750';
+      targetScale = big ? 1.12 : 1;
+    });
+    let targetScale = 1;
+    const reduced = isReduced();
+    const k = reduced ? 1 : 0.06;
+    loop((t, dt) => {
+      if (!dragging) { angle += vel; vel *= 0.94; if (!reduced) angle += DIALS.spin * dt; }
+      flask.rotation.y = angle;
+      if (!reduced) flask.position.y = -1.15 + Math.sin(t * 1.2) * 0.02;
+      const s = flask.scale.x + (targetScale - flask.scale.x) * (reduced ? 1 : 0.1);
+      flask.scale.setScalar(s);
+      uniforms.top.value.lerp(target.top, k); uniforms.low.value.lerp(target.low, k); uniforms.ground.value.lerp(target.ground, k);
+      bodyMat.color.lerp(target.body, k); rim.color.lerp(target.accent, k);
+      renderer.render(scene, camera);
+    }, { target: world });
+  }
+</script>
+</body>
+</html>

@@ -116,3 +116,60 @@ export const smoothstep = (a, b, v) => {
   const t = clamp((v - a) / (b - a));
   return t * t * (3 - 2 * t);
 };
+
+/**
+ * Settings ("dials") for a template. Each template declares its dials with defaults; any dial can be
+ * overridden from the address bar for quick tuning with a client, e.g. ?palette=dusk&speed=0.6.
+ * Numbers stay numbers and "true"/"false" become booleans.
+ */
+export function config(defaults) {
+  const out = { ...defaults };
+  const q = new URLSearchParams(location.search);
+  for (const key of Object.keys(defaults)) {
+    if (!q.has(key)) continue;
+    const raw = q.get(key);
+    const d = defaults[key];
+    if (typeof d === 'number') { const n = Number(raw); if (Number.isFinite(n)) out[key] = n; }
+    else if (typeof d === 'boolean') out[key] = raw === 'true' || raw === '1';
+    else out[key] = raw;
+  }
+  return out;
+}
+
+/** Rough device tier so heavy scenes can scale down: 'low' | 'mid' | 'high'. */
+export function qualityTier() {
+  const cores = navigator.hardwareConcurrency || 4;
+  const mem = navigator.deviceMemory || 4;
+  const phone = matchMedia('(pointer: coarse)').matches && Math.min(screen.width, screen.height) < 820;
+  if (cores <= 4 || mem <= 2) return 'low';
+  if (phone) return 'mid';
+  return 'high';
+}
+
+/**
+ * A visible "Pause motion" button whose choice is remembered for this visitor. Starts paused when the
+ * visitor prefers reduced motion. onChange(paused) is called at start and on every press.
+ */
+export function motionPause(button, onChange, key = 'scene-motion-paused') {
+  let saved = null;
+  try { saved = localStorage.getItem(key); } catch {}
+  let paused = saved === null ? isReduced() : saved === '1';
+  const render = () => {
+    button.setAttribute('aria-pressed', String(paused));
+    button.textContent = paused ? 'Play motion' : 'Pause motion';
+    onChange(paused);
+  };
+  button.addEventListener('click', () => {
+    paused = !paused;
+    try { localStorage.setItem(key, paused ? '1' : '0'); } catch {}
+    render();
+  });
+  render();
+  return () => paused;
+}
+
+/** Calls fn once scrolling has been still for `ms`, for scenes that settle on the nearest chapter. */
+export function onScrollSettle(fn, ms = 140) {
+  let t = 0;
+  addEventListener('scroll', () => { clearTimeout(t); t = setTimeout(fn, ms); }, { passive: true });
+}

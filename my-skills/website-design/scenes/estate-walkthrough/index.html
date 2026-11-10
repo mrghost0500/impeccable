@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>House No. 7 · Brightwater Estates</title>
+<meta name="description" content="Scene template: an estate walkthrough. One wheel turn, swipe or arrow key glides one room, with a caption per room and a listing card, ending at a viewing request.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@200;300;400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../_shared/scene.css">
+<style>
+  :root { --paper: #0f0e0d; --accent: #e7c58f; --ink: #f6f1e8; --ink-soft: rgba(246, 241, 232, 0.72); }
+  html { scroll-snap-type: y proximity; }
+
+  .walk { position: relative; }
+  .walk__stage { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+  .walk__poster { position: absolute; inset: 0; background:
+      radial-gradient(60% 40% at 50% 92%, rgba(255, 214, 160, 0.35), transparent 70%),
+      linear-gradient(180deg, #3a3330 0%, #6b5a4c 48%, #3b2c22 100%); }
+  .js .walk__poster { display: none; }
+  .walk__canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .walk__shade { position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(0deg, rgba(8, 7, 6, 0.6), transparent 38%), linear-gradient(180deg, rgba(8, 7, 6, 0.45), transparent 26%); }
+  .walk__markers { position: relative; margin-top: -100svh; }
+  .room { height: 100svh; scroll-snap-align: start; position: relative; }
+
+  /* Room captions: big, thin, placed in a different corner per room so the picture stays the subject. */
+  .caption { position: absolute; display: grid; gap: 10px; max-width: min(560px, 86vw); }
+  .caption h2 { margin: 0; font-weight: 200; font-size: clamp(40px, 6.4vw, 104px); line-height: 0.92; letter-spacing: -0.02em; text-transform: uppercase; }
+  .caption p { margin: 0; font: 500 12px var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); }
+  .at-tl { left: var(--gutter); top: 16svh; }
+  .at-tr { right: var(--gutter); top: 16svh; text-align: right; }
+  .at-bl { left: var(--gutter); bottom: 12svh; }
+  .at-br { right: var(--gutter); bottom: 12svh; text-align: right; }
+  .at-c { left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; }
+  .js.motion-ok .caption { opacity: 0; transition: opacity 700ms var(--ease-out), translate 700ms var(--ease-out); translate: 0 18px; }
+  .js.motion-ok .room.is-here .caption { opacity: 1; translate: 0 0; }
+
+  .hero-split { position: absolute; inset: 0; pointer-events: none; }
+  .hero-split .display { position: absolute; font-weight: 300; font-size: clamp(42px, 6vw, 96px); }
+  .hero-split .l { left: var(--gutter); top: 15svh; }
+  .hero-split .r { right: var(--gutter); top: 15svh; text-align: right; }
+  @media (max-width: 720px) { .hero-split .r { top: calc(15svh + 1.1em); } }
+
+  .listing { position: absolute; left: var(--gutter); bottom: 32px; z-index: 3; }
+  .listing .chips { margin: 8px 0 0; }
+  .room-nav { position: absolute; right: var(--gutter); bottom: 32px; z-index: 3; display: flex; gap: 8px; align-items: center; }
+  .room-nav button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: rgba(0, 0, 0, 0.35); cursor: pointer; }
+  .room-nav output { font: 500 12px var(--font-mono); letter-spacing: 0.1em; min-width: 6ch; text-align: center; }
+  @media (max-width: 720px) { .listing { display: none; } }
+
+  .bar .count-pills { display: flex; }
+  @media (max-width: 980px) { .bar .count-pills { display: none; } }
+
+  .viewing { position: relative; padding: 16svh var(--gutter) 12svh; display: grid; gap: 48px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); scroll-snap-align: start; }
+  @media (max-width: 860px) { .viewing { grid-template-columns: 1fr; } }
+  .viewing h2 { margin: 0; font-weight: 300; font-size: clamp(36px, 4.6vw, 68px); line-height: 1; letter-spacing: -0.02em; }
+  .facts { list-style: none; padding: 0; margin: 28px 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  .facts b { display: block; font-size: 28px; font-weight: 300; }
+  .facts span { color: var(--ink-soft); font-size: 14px; }
+  form { display: grid; gap: 14px; align-content: start; }
+  label { display: grid; gap: 6px; font-size: 14px; color: var(--ink-soft); }
+  input, select { min-height: 48px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--line); background: #181614; color: var(--ink); font-size: 16px; }
+  footer { padding: 32px var(--gutter); color: var(--ink-soft); font-size: 14px; border-top: 1px solid var(--line); }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#viewing">Skip to booking a viewing</a>
+<header class="bar">
+  <a class="bar__mark" href="#top">Brightwater</a>
+  <ul class="count-pills" aria-label="Collection">
+    <li><a href="#viewing">Houses <b>12</b></a></li>
+    <li><a href="#viewing">Apartments <b>5</b></a></li>
+    <li><a href="#viewing">Land <b>3</b></a></li>
+  </ul>
+  <a class="btn" href="#viewing">Book a viewing</a>
+</header>
+
+<main id="top">
+  <section class="walk" id="walk" aria-label="Walk through House No. 7, room by room">
+    <div class="walk__stage">
+      <div class="walk__poster" aria-hidden="true"></div>
+      <canvas class="walk__canvas" aria-hidden="true"></canvas>
+      <div class="walk__shade" aria-hidden="true"></div>
+      <article class="card listing glass" aria-label="Now showing">
+        <p class="card__kicker">Now showing</p>
+        <h3 class="card__title">House No. 7</h3>
+        <p class="card__meta">Halcyon Point, west shore</p>
+        <ul class="chips"><li class="chip">4 bed</li><li class="chip">3 bath</li><li class="chip">310 m²</li></ul>
+        <div class="card__foot"><span class="card__price">€2,450,000</span><a class="btn btn--ghost" href="#viewing">Details</a></div>
+      </article>
+      <div class="room-nav">
+        <button type="button" data-step="-1" aria-label="Previous room">←</button>
+        <output aria-live="polite">01 / 05</output>
+        <button type="button" data-step="1" aria-label="Next room">→</button>
+      </div>
+    </div>
+
+    <div class="walk__markers">
+      <section class="room" id="r-arrival" data-room="0" aria-labelledby="h-arrival">
+        <div class="hero-split">
+          <h1 class="display l" id="h-arrival">A house that</h1>
+          <p class="display r" aria-hidden="true">faces the evening</p>
+        </div>
+      </section>
+      <section class="room" id="r-living" data-room="1" aria-labelledby="h-living">
+        <div class="caption at-tl"><h2 id="h-living">The living room</h2><p>02 / 64 m² · west light · oak floor</p></div>
+      </section>
+      <section class="room" id="r-kitchen" data-room="2" aria-labelledby="h-kitchen">
+        <div class="caption at-br"><h2 id="h-kitchen">The kitchen</h2><p>03 / stone island · larder · garden door</p></div>
+      </section>
+      <section class="room" id="r-suite" data-room="3" aria-labelledby="h-suite">
+        <div class="caption at-tr"><h2 id="h-suite">Primary suite</h2><p>04 / sea view · dressing room · bath</p></div>
+      </section>
+      <section class="room" id="r-terrace" data-room="4" aria-labelledby="h-terrace">
+        <div class="caption at-bl"><h2 id="h-terrace">The terrace</h2><p>05 / 80 m² · outdoor kitchen · steps to the water</p></div>
+      </section>
+    </div>
+  </section>
+
+  <section class="viewing" id="viewing" aria-labelledby="v-title">
+    <div>
+      <h2 id="v-title">See it at the hour it was designed for.</h2>
+      <ul class="facts">
+        <li><b>310 m²</b><span>Inside, on two floors</span></li>
+        <li><b>0.4 ha</b><span>Garden and shoreline</span></li>
+        <li><b>2024</b><span>Completed, A-rated</span></li>
+        <li><b>12 min</b><span>To the harbour</span></li>
+      </ul>
+    </div>
+    <form action="#" method="post">
+      <label>Your name <input name="name" autocomplete="name" required></label>
+      <label>Email <input name="email" type="email" autocomplete="email" required></label>
+      <label>Preferred time
+        <select name="slot"><option>Weekday evening</option><option>Saturday afternoon</option><option>Video tour</option></select>
+      </label>
+      <div><button class="btn" type="submit">Request a private viewing</button></div>
+    </form>
+  </section>
+</main>
+<footer>Brightwater Estates · Demo content for a scene template.</footer>
+
+<script type="module">
+  import { boot, isReduced, loop, config, smoothstep, clamp } from '../_shared/runtime.js';
+  import { SequencePlayer } from '../_shared/sequence.js';
+  import { room } from '../_shared/painters.js';
+
+  boot();
+  // Dials: glide = how quickly the picture catches up with the room (0.05 slow to 0.3 quick); fade = where the crossfade starts.
+  const DIALS = config({ glide: 0.09, fade: 0.55 });
+
+  const walk = document.getElementById('walk');
+  const rooms = [...walk.querySelectorAll('.room')];
+  const out = walk.querySelector('output');
+  const N = rooms.length;
+
+  // Demo painter: room i dollies forward, then the next room fades in. Production: a frame sequence of one
+  // continuous walkthrough, landscape and portrait sets, via new SequencePlayer({ frameCount, src, portraitSrc }).
+  const painter = (ctx, w, h, p) => {
+    const i = Math.min(N - 1, Math.floor(p));
+    const f = p - i;
+    ctx.globalAlpha = 1;
+    room(ctx, w, h, i, f * 0.8);
+    if (i < N - 1 && f > DIALS.fade) {
+      ctx.globalAlpha = smoothstep(DIALS.fade, 1, f);
+      room(ctx, w, h, i + 1, 0);
+      ctx.globalAlpha = 1;
+    }
+  };
+  const player = new SequencePlayer({ canvas: walk.querySelector('canvas'), painter });
+
+  // Where we are, in rooms (0..N-1), from the scroll position of the walk section.
+  const roomPosition = () => {
+    const r = walk.getBoundingClientRect();
+    return clamp(-r.top / innerHeight, 0, N - 1);
+  };
+  let current = -1;
+  const markRoom = (i) => {
+    if (i === current) return;
+    current = i;
+    rooms.forEach((el, k) => el.classList.toggle('is-here', k === i));
+    out.textContent = `${String(i + 1).padStart(2, '0')} / ${String(N).padStart(2, '0')}`;
+  };
+
+  const reduced = isReduced();
+  let shown = roomPosition();
+  const tick = () => {
+    const target = roomPosition();
+    markRoom(Math.round(target));
+    // Reduced motion: each room is a finished still, no dolly and no crossfade.
+    if (reduced) { player.setProgress(Math.round(target) + 0.3); return; }
+    shown += (target - shown) * DIALS.glide;
+    if (Math.abs(target - shown) < 0.0005) shown = target;
+    player.setProgress(shown);
+  };
+  addEventListener('scroll', () => reduced && tick(), { passive: true });
+  if (reduced) tick(); else loop(tick, { target: walk });
+
+  // Buttons and arrow keys move exactly one room.
+  const go = (step) => {
+    const next = clamp(Math.round(roomPosition()) + step, 0, N - 1);
+    rooms[next].scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+  };
+  walk.querySelectorAll('[data-step]').forEach((b) => b.addEventListener('click', () => go(Number(b.dataset.step))));
+  addEventListener('keydown', (e) => {
+    const r = walk.getBoundingClientRect();
+    const inWalk = r.top <= 1 && r.bottom >= innerHeight - 1;
+    if (!inWalk || e.target.closest('input, select, textarea')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+  });
+</script>
+</body>
+</html>

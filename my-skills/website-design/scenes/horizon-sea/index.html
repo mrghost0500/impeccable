@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Isola Nove · Nine rooms on the open sea</title>
+<meta name="description" content="Scene template: a horizon sea. A live sea and sky drawn by a shader, a wake that follows the pointer, and dusk that turns to night as the visitor scrolls.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../_shared/scene.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js"}}</script>
+<style>
+  :root { --paper: #120f1c; --accent: #ffc58f; }
+  .sea { position: fixed; inset: 0; z-index: -1; width: 100%; height: 100%; }
+  .sea-poster { position: fixed; inset: 0; z-index: -2;
+    background: radial-gradient(40% 18% at 58% 49%, rgba(255, 214, 160, 0.9), transparent 70%),
+      linear-gradient(180deg, #2b2346 0%, #8b4f6e 34%, #f0a070 49%, #6d4a68 50%, #2a2240 72%, #120f1c 100%); }
+  .js:not(.no-webgl) .sea-poster { display: none; }
+
+  .hero { position: relative; height: 100svh; }
+  .hero .display { position: absolute; font-weight: 300; font-size: clamp(40px, 6.6vw, 112px); }
+  .hero .l { left: var(--gutter); top: 14svh; }
+  .hero .r { right: var(--gutter); top: calc(14svh + 1.05em); text-align: right; }
+  .hero .lede { position: absolute; left: var(--gutter); bottom: 78px; }
+  .stay { position: absolute; right: var(--gutter); bottom: 28px; width: min(360px, calc(100vw - 2 * var(--gutter))); border-radius: 16px; padding: 16px; display: grid; gap: 12px; }
+  .stay__row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stay label { display: grid; gap: 4px; font: 500 11px var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
+  .stay input, .stay select { min-height: 44px; border-radius: 10px; border: 1px solid var(--line); background: rgba(0, 0, 0, 0.3); padding: 0 10px; font: 400 15px var(--font-sans); color: var(--ink); text-transform: none; letter-spacing: 0; }
+  @media (max-width: 760px) { .hero .lede { display: none; } .stay { bottom: 66px; } }
+
+  .panel { position: relative; margin: 0 auto; padding: 22svh var(--gutter); display: grid; gap: 18px; max-width: 1200px; }
+  .panel h2 { margin: 0; font-weight: 300; font-size: clamp(34px, 4.4vw, 64px); letter-spacing: -0.02em; line-height: 1.02; max-width: 16ch; }
+  .panel p { margin: 0; color: var(--ink-soft); max-width: 46ch; }
+  .rooms { list-style: none; padding: 0; margin: 24px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+  .rooms .card { max-width: none; }
+  .end { text-align: center; justify-items: center; padding-bottom: 30svh; }
+  .end h2 { max-width: 20ch; }
+  footer { padding: 28px var(--gutter); color: var(--ink-soft); font-size: 14px; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#stay">Skip to booking</a>
+<div class="sea-poster" aria-hidden="true"></div>
+<canvas class="sea" aria-hidden="true"></canvas>
+
+<header class="bar">
+  <a class="bar__mark" href="#top">Isola Nove</a>
+  <ul class="bar__links"><li><a href="#rooms">Rooms</a></li><li><a href="#days">Days</a></li><li><a href="#stay">Book</a></li></ul>
+  <a class="btn btn--ghost" href="#stay">Check dates</a>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="h1">
+    <h1 class="display l" id="h1">Nine rooms</h1>
+    <p class="display r" aria-hidden="true">on the open sea</p>
+    <p class="lede">A small hotel on a rock island, forty minutes by boat. Move across the water to see it answer.</p>
+    <form class="stay glass" id="stay" aria-label="Check availability">
+      <div class="stay__row">
+        <label>Arrive <input type="date" name="from"></label>
+        <label>Nights <select name="nights"><option>2</option><option selected>3</option><option>5</option><option>7</option></select></label>
+      </div>
+      <button class="btn" type="submit">Check availability</button>
+    </form>
+  </section>
+
+  <section class="panel" id="rooms" aria-labelledby="rooms-t">
+    <h2 id="rooms-t" class="reveal">Every room faces west.</h2>
+    <p class="reveal">The sun sets in the window you wake up to. No televisions, a wood stove in each room, and the boat leaves twice a day.</p>
+    <ul class="rooms">
+      <li class="card glass reveal"><p class="card__kicker">Rooms 1 to 4</p><h3 class="card__title">Harbour rooms</h3><p class="card__meta">Queen bed, sea terrace</p><div class="card__foot"><span class="card__price">€240</span><span class="eyebrow">per night</span></div></li>
+      <li class="card glass reveal"><p class="card__kicker">Rooms 5 to 8</p><h3 class="card__title">Cliff rooms</h3><p class="card__meta">King bed, stone bath</p><div class="card__foot"><span class="card__price">€320</span><span class="eyebrow">per night</span></div></li>
+      <li class="card glass reveal"><p class="card__kicker">Room 9</p><h3 class="card__title">The lighthouse</h3><p class="card__meta">Two floors, 360° view</p><div class="card__foot"><span class="card__price">€540</span><span class="eyebrow">per night</span></div></li>
+    </ul>
+  </section>
+
+  <section class="panel" id="days" aria-labelledby="days-t">
+    <h2 id="days-t" class="reveal">Swim before breakfast. Sauna after dark.</h2>
+    <p class="reveal">The water is 19°C in June and clear to six metres. The sauna sits on the rocks and stays lit until midnight.</p>
+  </section>
+
+  <section class="panel end" aria-labelledby="end-t">
+    <h2 id="end-t" class="reveal">The last boat leaves at nine.</h2>
+    <a class="btn" href="#stay">Choose your dates</a>
+  </section>
+</main>
+<footer>Isola Nove · Demo content for a scene template.</footer>
+<button class="motion-toggle" type="button" hidden>Pause motion</button>
+
+<script type="module">
+  import { boot, reveals, loop, config, pixelRatio, webglAvailable, fallbackToPoster, qualityTier, motionPause, clamp } from '../_shared/runtime.js';
+  boot();
+  reveals();
+  document.getElementById('stay').addEventListener('submit', (e) => { e.preventDefault(); e.target.querySelector('button').textContent = 'Three rooms free on those dates'; });
+
+  // Dials: waves (0.3 calm to 1.6 rough), wake (0 off to 1.5 strong), sun = sun height at the top of the page (-0.05 to 0.2), night = how dark the page gets at the bottom (0 to 1).
+  const DIALS = config({ waves: 0.8, wake: 1, sun: 0.04, night: 1 });
+
+  if (!webglAvailable()) fallbackToPoster('no WebGL');
+  else start().catch((e) => fallbackToPoster(e.message));
+
+  async function start() {
+    const THREE = await import('three');
+    const canvas = document.querySelector('.sea');
+    const tier = qualityTier();
+    // The shader is the whole picture, so it renders below screen resolution on smaller devices and is scaled up.
+    const scale = { low: 0.5, mid: 0.7, high: 1 }[tier];
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(pixelRatio(1.5) * scale);
+    const scene = new THREE.Scene();
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    const RIPPLES = 10;
+    const uniforms = {
+      uTime: { value: 0 }, uRes: { value: new THREE.Vector2() }, uNight: { value: 0 }, uSun: { value: DIALS.sun },
+      uWaves: { value: DIALS.waves }, uWake: { value: DIALS.wake },
+      uRipples: { value: Array.from({ length: RIPPLES }, () => new THREE.Vector4(0, 0, -100, 0)) },
+    };
+    const material = new THREE.ShaderMaterial({
+      uniforms,
+      vertexShader: 'void main(){ gl_Position = vec4(position.xy, 0., 1.); }',
+      fragmentShader: /* glsl */`
+        precision highp float;
+        uniform float uTime, uNight, uSun, uWaves, uWake; uniform vec2 uRes; uniform vec4 uRipples[${RIPPLES}];
+        const float H = 1.6; // camera height above the water
+
+        vec3 rayDir(vec2 frag) {
+          vec2 uv = (frag - 0.5 * uRes) / uRes.y;
+          return normalize(vec3(uv.x, uv.y - 0.06, 1.25));
+        }
+        float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+
+        vec3 sky(vec3 d, vec3 sunDir) {
+          float y = max(d.y, 0.0);
+          vec3 dusk = mix(vec3(0.93, 0.50, 0.34), vec3(0.13, 0.11, 0.26), pow(y, 0.38));
+          vec3 night = mix(vec3(0.10, 0.12, 0.25), vec3(0.01, 0.015, 0.05), pow(y, 0.4));
+          vec3 c = mix(dusk, night, uNight);
+          float s = max(dot(d, sunDir), 0.0);
+          c += vec3(1.0, 0.72, 0.45) * (pow(s, 12.0) * 0.45 + pow(s, 900.0) * 6.0) * (1.0 - uNight * 0.9);
+          if (uNight > 0.01 && d.y > 0.02) { // stars
+            vec2 g = floor(d.xz / max(d.y, 0.05) * 160.0);
+            float st = step(0.996, hash(g)) * smoothstep(0.02, 0.2, d.y);
+            c += st * uNight * 0.9;
+          }
+          return c;
+        }
+
+        // Height field: a few long swells plus pointer ripples, with analytic slopes for the normal.
+        vec2 slope(vec2 p, out float h) {
+          vec2 g = vec2(0.0); h = 0.0;
+          vec3 W[4];
+          W[0] = vec3(normalize(vec2(1.0, 0.25)), 0.55); W[1] = vec3(normalize(vec2(-0.6, 1.0)), 0.9);
+          W[2] = vec3(normalize(vec2(0.3, 1.0)), 1.7); W[3] = vec3(normalize(vec2(1.0, -0.8)), 2.9);
+          for (int i = 0; i < 4; i++) {
+            float k = W[i].z, a = 0.06 / k * uWaves;
+            float ph = dot(W[i].xy, p) * k + uTime * sqrt(9.8 * k) * 0.5;
+            h += a * sin(ph);
+            g += a * k * cos(ph) * W[i].xy;
+          }
+          for (int i = 0; i < ${RIPPLES}; i++) {
+            vec4 r = uRipples[i];
+            float age = uTime - r.z;
+            if (age < 0.0 || age > 5.0) continue;
+            vec2 d = p - r.xy; float dist = length(d) + 1e-4;
+            float env = exp(-age * 0.9) * exp(-dist * 0.55) * r.w * uWake;
+            float ph = dist * 7.0 - age * 6.0;
+            float ring = smoothstep(age * 1.1 + 0.4, age * 1.1 - 0.6, dist); // ripples travel outward
+            h += 0.05 * env * sin(ph) * ring;
+            g += 0.05 * env * 7.0 * cos(ph) * ring * (d / dist);
+          }
+          return g;
+        }
+
+        void main() {
+          vec3 d = rayDir(gl_FragCoord.xy);
+          vec3 sunDir = normalize(vec3(-0.32, uSun - uNight * 0.12, 1.0));
+          vec3 col;
+          if (d.y >= 0.0) col = sky(d, sunDir);
+          else {
+            float t = H / -d.y;
+            vec3 p = vec3(0.0, H, 0.0) + d * t;
+            float h; vec2 g = slope(p.xz, h);
+            vec3 n = normalize(vec3(-g.x, 1.0, -g.y));
+            vec3 r = reflect(d, n); r.y = abs(r.y);
+            float fres = 0.04 + 0.96 * pow(1.0 - max(dot(-d, n), 0.0), 5.0);
+            vec3 deep = mix(vec3(0.06, 0.04, 0.10), vec3(0.01, 0.015, 0.04), uNight);
+            col = mix(deep, sky(r, sunDir), fres);
+            float spec = pow(max(dot(r, sunDir), 0.0), 220.0) * (1.0 - uNight);
+            col += vec3(1.0, 0.8, 0.6) * spec * 3.0;
+            float fog = 1.0 - exp(-t * 0.012);
+            col = mix(col, sky(vec3(d.x, 0.0, d.z), sunDir), fog);
+          }
+          col = col / (1.0 + col * 0.18); // soft shoulder so the sun never clips hard
+          gl_FragColor = vec4(col, 1.0);
+        }`,
+    });
+    scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material));
+    const resize = () => {
+      renderer.setSize(innerWidth, innerHeight, false);
+      renderer.getDrawingBufferSize(uniforms.uRes.value);
+    };
+    addEventListener('resize', resize); resize();
+
+    // Pointer to water: cast the same ray the shader casts and drop a ripple where it meets the sea.
+    let next = 0, lastDrop = 0;
+    const drop = (x, y, strength) => {
+      const res = uniforms.uRes.value, k = res.x / innerWidth;
+      const ux = (x * k - 0.5 * res.x) / res.y, uy = ((innerHeight - y) * k - 0.5 * res.y) / res.y;
+      const d = new THREE.Vector3(ux, uy - 0.06, 1.25).normalize();
+      if (d.y >= -0.01) return;
+      const t = 1.6 / -d.y;
+      uniforms.uRipples.value[next].set(d.x * t, d.z * t, uniforms.uTime.value, strength);
+      next = (next + 1) % RIPPLES;
+    };
+    addEventListener('pointermove', (e) => {
+      const now = performance.now();
+      if (paused() || now - lastDrop < 90) return;
+      lastDrop = now; drop(e.clientX, e.clientY, 0.6);
+    }, { passive: true });
+    addEventListener('pointerdown', (e) => drop(e.clientX, e.clientY, 1.4), { passive: true });
+
+    // Scroll turns dusk into night.
+    const night = () => clamp(scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight)) * DIALS.night;
+    const toggle = document.querySelector('.motion-toggle');
+    toggle.hidden = false;
+    let paused = () => false;
+    let frozenAt = 0;
+    paused = motionPause(toggle, (p) => { if (p) frozenAt = uniforms.uTime.value; });
+    let clock = 0;
+    loop((t, dt) => {
+      if (!paused()) clock += dt; else clock = frozenAt;
+      uniforms.uTime.value = clock;
+      uniforms.uNight.value += (night() - uniforms.uNight.value) * 0.08;
+      renderer.render(scene, camera);
+    });
+  }
+</script>
+</body>
+</html>
