@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Osteria Fumo · Cooked over wood</title>
+<meta name="description" content="Scene template: a zoom constellation. Rounded picture tiles float around one centred phrase, and scrolling flies through them to the next phrase. Pure CSS 3D, no WebGL.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../_shared/scene.css">
+<style>
+  :root { --paper: #1b1612; --ink: #f5ece0; --ink-soft: rgba(245, 236, 224, 0.7); --line: rgba(245, 236, 224, 0.16); --accent: #e8763a;
+    --font-serif: "Fraunces", Georgia, "DejaVu Serif", serif; }
+  .hero { min-height: 92svh; display: grid; align-content: end; gap: 18px; padding: 0 var(--gutter) 8svh;
+    background: radial-gradient(60% 50% at 70% 30%, rgba(232, 118, 58, 0.28), transparent 70%); }
+  .hero .display { font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.02em; max-width: 12ch; }
+
+  /* Default (no script, or reduced motion): a calm grid with the phrases as headings. */
+  .zoom { padding: 10svh var(--gutter); display: grid; gap: 40px; }
+  .zoom__phrase { margin: 0; font: 400 clamp(36px, 5vw, 80px)/1 var(--font-serif); letter-spacing: -0.02em; text-align: center; }
+  .zoom__tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; list-style: none; margin: 0; padding: 0; }
+  .tile { aspect-ratio: 1; border-radius: 22%; overflow: hidden; background: var(--g, linear-gradient(150deg, #e8763a, #5a2a14)); }
+  .tile canvas { width: 100%; height: 100%; object-fit: cover; }
+
+  /* 3D mode: a sticky stage with perspective; JavaScript places every tile and phrase in depth. */
+  .zoom.is-3d { display: block; padding: 0; height: 420svh; }
+  .is-3d .zoom__stage { position: sticky; top: 0; height: 100svh; overflow: hidden; perspective: 900px; perspective-origin: 50% 50%; }
+  .is-3d .zoom__tiles, .is-3d .zoom__phrases { position: absolute; inset: 0; display: block; transform-style: preserve-3d; }
+  .is-3d .zoom__phrases { z-index: 2; pointer-events: none; }
+  .is-3d .tile { position: absolute; left: 50%; top: 50%; width: clamp(110px, 15vw, 240px); margin: calc(clamp(110px, 15vw, 240px) / -2) 0 0 calc(clamp(110px, 15vw, 240px) / -2); will-change: transform, opacity; }
+  .is-3d .zoom__phrase { position: absolute; left: 50%; top: 50%; width: min(90vw, 900px); translate: -50% -50%; will-change: transform, opacity; }
+
+  .book { padding: 16svh var(--gutter) 12svh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; }
+  @media (max-width: 860px) { .book { grid-template-columns: 1fr; } }
+  .book h2 { margin: 0; font: 400 clamp(36px, 4.6vw, 70px)/1 var(--font-serif); letter-spacing: -0.02em; }
+  .book p { color: var(--ink-soft); max-width: 38ch; }
+  form { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; align-content: start; }
+  form .btn { grid-column: 1 / -1; justify-content: center; }
+  label { display: grid; gap: 6px; font-size: 13px; color: var(--ink-soft); }
+  input, select { min-height: 48px; border-radius: 10px; border: 1px solid var(--line); background: #241d18; padding: 0 12px; font-size: 16px; color: var(--ink); }
+  @media (max-width: 520px) { form { grid-template-columns: 1fr; } }
+  footer { padding: 28px var(--gutter); color: var(--ink-soft); font-size: 14px; border-top: 1px solid var(--line); }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#book">Skip to booking</a>
+<header class="bar">
+  <a class="bar__mark" href="#top">Osteria Fumo</a>
+  <ul class="bar__links"><li><a href="#zoom">Kitchen</a></li><li><a href="#book">Menu</a></li><li><a href="#book">Find us</a></li></ul>
+  <a class="btn" href="#book">Book a table</a>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="h1">
+    <h1 class="display" id="h1">Everything here is cooked over wood.</h1>
+    <p class="lede">Twenty-two seats, one open fire, and a menu that changes with what the farm sends on Tuesday.</p>
+  </section>
+
+  <section class="zoom" id="zoom" aria-label="The kitchen in pictures">
+    <div class="zoom__stage">
+      <div class="zoom__phrases">
+        <h2 class="zoom__phrase" data-depth="0.12">A closer look</h2>
+        <h2 class="zoom__phrase" data-depth="0.5">Oak, olive and vine</h2>
+        <h2 class="zoom__phrase" data-depth="0.88">One long table</h2>
+      </div>
+      <ul class="zoom__tiles" aria-hidden="true"></ul>
+    </div>
+  </section>
+
+  <section class="book" id="book" aria-labelledby="book-t">
+    <div><h2 id="book-t">Lunch runs until the fire goes out.</h2><p>Thursday to Sunday, 12:00 and 19:30 sittings. Tables for up to eight; bigger groups take the long table.</p></div>
+    <form>
+      <label>Date <input type="date" name="date" required></label>
+      <label>Time <select name="time"><option>12:00</option><option>19:30</option></select></label>
+      <label>Guests <select name="guests"><option>2</option><option>4</option><option>6</option><option>8</option></select></label>
+      <button class="btn" type="submit">Reserve</button>
+    </form>
+  </section>
+</main>
+<footer>Osteria Fumo · Via del Forno 4 · Demo content for a scene template.</footer>
+
+<script type="module">
+  import { boot, isReduced, config, sectionProgress, clamp, smoothstep, loop } from '../_shared/runtime.js';
+  import { artwork } from '../_shared/painters.js';
+  boot();
+  document.querySelector('.book form').addEventListener('submit', (e) => { e.preventDefault(); e.target.querySelector('button').textContent = 'Table held, check your email'; });
+
+  // Dials: tiles = how many pictures (12 to 40), depth = how far the flight goes (2000 to 6000 px), spread = how wide they scatter (0.6 to 1.2).
+  const DIALS = config({ tiles: 26, depth: 3600, spread: 1 });
+  const list = document.querySelector('.zoom__tiles');
+  // Production: real photographs as <img> with width, height and loading="lazy" in place of these painted stand-ins.
+  for (let i = 0; i < DIALS.tiles; i++) {
+    const li = document.createElement('li');
+    li.className = 'tile';
+    li.append(artwork(i + 3, 240, 1));
+    list.append(li);
+  }
+  if (isReduced()) { /* keep the calm grid */ } else start3d();
+
+  function start3d() {
+    const section = document.getElementById('zoom');
+    section.classList.add('is-3d');
+    const tiles = [...list.children];
+    const phrases = [...section.querySelectorAll('.zoom__phrase')];
+    // Seeded layout: tiles scatter in a loose ring around the centre so the phrase stays readable.
+    let s = 11; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
+    const layout = tiles.map((el, i) => {
+      const a = r() * Math.PI * 2, ring = 0.55 + r() * 0.45;
+      return { el, x: Math.cos(a) * ring * 46 * DIALS.spread, y: Math.sin(a) * ring * 40 * DIALS.spread, d: (i + r()) / tiles.length, rot: (r() - 0.5) * 10 };
+    });
+    const place = () => {
+      const p = sectionProgress(section);
+      const cam = p * 1.05;
+      for (const t of layout) {
+        const rel = t.d - cam; // how far ahead of the viewer, in 0..1 of the flight
+        const z = -rel * DIALS.depth;
+        const o = rel < -0.04 ? 0 : clamp(1 - rel * 1.6) * smoothstep(-0.04, 0.02, rel);
+        t.el.style.transform = `translate3d(${t.x}vw, ${t.y}vh, ${z}px) rotate(${t.rot}deg)`;
+        t.el.style.opacity = o.toFixed(3);
+      }
+      for (const ph of phrases) {
+        const rel = Number(ph.dataset.depth) - cam;
+        const z = -rel * DIALS.depth * 0.6;
+        ph.style.transform = `translateZ(${z}px)`;
+        ph.style.opacity = (rel < -0.03 ? 0 : clamp(1 - Math.abs(rel) * 5)).toFixed(3);
+      }
+    };
+    loop(place, { target: section });
+    place();
+  }
+</script>
+</body>
+</html>
