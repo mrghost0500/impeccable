@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>High Mesa Observatory · Night sky tours</title>
+<meta name="description" content="Scene template: a world story. One live 3D world, a camera that travels through four stations, a page that settles on the nearest station, and a pixel dissolve between them.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../_shared/scene.css">
+<script type="importmap">{"imports":{
+  "three":"https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js",
+  "lenis":"https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.mjs"}}</script>
+<style>
+  :root { --paper: #0b0a10; --accent: #f3b37a; }
+  html.lenis, html.lenis body { height: auto; }
+  .world { position: fixed; inset: 0; z-index: -1; width: 100%; height: 100%; }
+  .world-poster { position: fixed; inset: 0; z-index: -2; background:
+      linear-gradient(180deg, #1a1830 0%, #6b3f5c 46%, #e3895a 58%, #3a2024 60%, #120c10 100%); }
+  .js:not(.no-webgl) .world-poster { display: none; }
+  .pills { display: flex; gap: 4px; padding: 4px; border-radius: 999px; list-style: none; margin: 0; }
+  .pills a { display: block; padding: 7px 12px; border-radius: 999px; text-decoration: none; font-size: 13px; color: var(--ink-soft); }
+  .pills a[aria-current] { background: rgba(255, 255, 255, 0.12); color: var(--ink); }
+  @media (max-width: 720px) { .pills { display: none; } }
+
+  .station { min-height: 100svh; display: flex; padding: 0 var(--gutter); }
+  .station > div { margin-block: auto; display: grid; gap: 16px; max-width: 520px; }
+  .station--left { align-items: flex-end; padding-bottom: 12svh; }
+  .station--left > div { margin: auto auto 0 0; }
+  .station--right > div { margin: auto 0 auto auto; text-align: right; justify-items: end; }
+  .station--center > div { margin: 18svh auto auto; text-align: center; justify-items: center; }
+  .station h1, .station h2 { margin: 0; font-weight: 300; font-size: clamp(40px, 6vw, 96px); line-height: 0.98; letter-spacing: -0.03em; }
+  .station p { margin: 0; color: var(--ink-soft); max-width: 40ch; }
+  .hud { position: fixed; left: var(--gutter); bottom: 22px; z-index: 5; font: 500 11px var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); display: flex; gap: 18px; }
+  @media (max-width: 720px) { .hud { display: none; } }
+  .visit form { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: min(440px, 88vw); padding: 14px; border-radius: 16px; }
+  .visit label { display: grid; gap: 4px; font: 500 11px var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); text-align: left; }
+  .visit input, .visit select { min-height: 44px; border-radius: 10px; border: 1px solid var(--line); background: rgba(0, 0, 0, 0.35); padding: 0 10px; color: var(--ink); font: 400 15px var(--font-sans); text-transform: none; letter-spacing: 0; }
+  .visit .btn { grid-column: 1 / -1; justify-content: center; }
+  footer { padding: 28px var(--gutter); color: var(--ink-soft); font-size: 14px; background: rgba(0, 0, 0, 0.5); }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#visit">Skip to booking</a>
+<div class="world-poster" aria-hidden="true"></div>
+<canvas class="world" aria-hidden="true"></canvas>
+
+<header class="bar">
+  <a class="bar__mark" href="#dusk">High Mesa</a>
+  <ul class="pills glass" aria-label="Stations">
+    <li><a href="#dusk">Dusk</a></li><li><a href="#dome">Dome</a></li><li><a href="#sky">Sky</a></li><li><a href="#visit">Visit</a></li>
+  </ul>
+  <a class="btn" href="#visit">Book a night</a>
+</header>
+
+<main>
+  <section class="station station--left" id="dusk" aria-labelledby="h1">
+    <div><p class="eyebrow">2,140 m · twenty minutes above town</p><h1 id="h1">Drive up while the sun goes down.</h1><p>Small-group night tours at a working observatory, from sunset to the last planet.</p></div>
+  </section>
+  <section class="station station--right" id="dome" aria-labelledby="dome-t">
+    <div class="reveal"><h2 id="dome-t">The dome opens at dark.</h2><p>A 60 cm telescope, a guide who has spent twenty years under this sky, and hot chocolate in the control room.</p></div>
+  </section>
+  <section class="station station--center" id="sky" aria-labelledby="sky-t">
+    <div class="reveal"><h2 id="sky-t">Saturn, through the glass.</h2><p>On a clear night you will see its rings, four moons and the dust lanes of a galaxy 30 million light years away.</p></div>
+  </section>
+  <section class="station station--center visit" id="visit" aria-labelledby="visit-t">
+    <div>
+      <h2 id="visit-t">Pick a clear night.</h2>
+      <form class="glass">
+        <label>Night <input type="date" name="night" required></label>
+        <label>Guests <select name="guests"><option>1</option><option selected>2</option><option>4</option><option>6</option></select></label>
+        <button class="btn" type="submit">Check the forecast and book</button>
+      </form>
+    </div>
+  </section>
+</main>
+<footer>High Mesa Observatory · Demo content for a scene template.</footer>
+<p class="hud" aria-hidden="true"><span data-hud-station>Dusk</span><span data-hud-time>19:42</span><span data-hud-alt>Alt 2,140 m</span></p>
+
+<script type="module">
+  import { boot, reveals, isReduced, config, pixelRatio, webglAvailable, fallbackToPoster, qualityTier, onScrollSettle, clamp, smoothstep } from '../_shared/runtime.js';
+  boot();
+  reveals();
+  const reduced = isReduced();
+  document.querySelector('.visit form').addEventListener('submit', (e) => { e.preventDefault(); e.target.querySelector('button').textContent = 'Clear skies forecast. Two seats held.'; });
+  // Dials: settle = snap to the nearest station when scrolling stops (true/false), dissolve = pixel dissolve strength (0 to 1), smooth = Lenis smoothing (0.05 to 0.15).
+  const DIALS = config({ settle: true, dissolve: 0.8, smooth: 0.09 });
+
+  const stations = [...document.querySelectorAll('.station')];
+  const pills = [...document.querySelectorAll('.pills a')];
+  const HUD = [['Dusk', '19:42'], ['Dome', '20:55'], ['Sky', '22:30'], ['Visit', '23:10']];
+  // Where we are, in stations (0..3), from the page scroll.
+  const stationPos = () => {
+    const tops = stations.map((s) => s.offsetTop);
+    const y = scrollY;
+    for (let i = 0; i < tops.length - 1; i++) if (y < tops[i + 1]) return i + clamp((y - tops[i]) / (tops[i + 1] - tops[i]));
+    return tops.length - 1;
+  };
+  let current = -1;
+  const mark = () => {
+    const i = Math.round(stationPos());
+    if (i === current) return;
+    current = i;
+    pills.forEach((a, k) => (k === i ? a.setAttribute('aria-current', 'step') : a.removeAttribute('aria-current')));
+    document.querySelector('[data-hud-station]').textContent = HUD[i][0];
+    document.querySelector('[data-hud-time]').textContent = HUD[i][1];
+  };
+  addEventListener('scroll', mark, { passive: true });
+  mark();
+
+  // Smooth scroll that settles on the nearest station. Never under reduced motion.
+  let lenis = null;
+  if (!reduced) {
+    import('lenis').then(({ default: Lenis }) => {
+      lenis = new Lenis({ lerp: DIALS.smooth, autoRaf: true });
+      lenis.on('scroll', mark);
+      pills.concat([...document.querySelectorAll('a[href^="#"]')]).forEach((a) => a.addEventListener('click', (e) => { const t = document.querySelector(a.getAttribute('href')); if (t) { e.preventDefault(); lenis.scrollTo(t); } }));
+      if (DIALS.settle) onScrollSettle(() => {
+        const p = stationPos(), i = Math.round(p);
+        if (Math.abs(p - i) > 0.02 && Math.abs(p - i) < 0.45) lenis.scrollTo(stations[i], { duration: 0.9 });
+      }, 180);
+    }).catch(() => {});
+  }
+
+  if (!webglAvailable()) fallbackToPoster('no WebGL');
+  else start().catch((e) => fallbackToPoster(e.message));
+
+  async function start() {
+    const THREE = await import('three');
+    const canvas = document.querySelector('.world');
+    const tier = qualityTier();
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: tier === 'high' });
+    renderer.setPixelRatio(pixelRatio(tier === 'high' ? 1.5 : 1));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 600);
+
+    // Sky by station: dusk, blue hour, night, deep night.
+    const SKY = [['#1a1830', '#e3895a'], ['#141a38', '#5b4b7a'], ['#05070f', '#16203a'], ['#020308', '#0b1224']].map(([a, b]) => [new THREE.Color(a), new THREE.Color(b)]);
+    const skyU = { top: { value: SKY[0][0].clone() }, low: { value: SKY[0][1].clone() } };
+    scene.add(new THREE.Mesh(new THREE.SphereGeometry(400, 32, 16), new THREE.ShaderMaterial({ side: THREE.BackSide, depthWrite: false, uniforms: skyU,
+      vertexShader: 'varying vec3 vP; void main(){ vP = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.); }',
+      fragmentShader: 'uniform vec3 top; uniform vec3 low; varying vec3 vP; void main(){ gl_FragColor = vec4(mix(low, top, smoothstep(-0.02, 0.45, vP.y)), 1.); \n#include <colorspace_fragment>\n}' })));
+
+    // Terrain: a mesa with ridges, displaced once on the CPU.
+    const seg = tier === 'low' ? 90 : 160;
+    const ground = new THREE.PlaneGeometry(400, 400, seg, seg);
+    ground.rotateX(-Math.PI / 2);
+    const pos = ground.attributes.position;
+    const nz = (x, z) => Math.sin(x * 0.045) * Math.cos(z * 0.05) * 6 + Math.sin(x * 0.13 + z * 0.07) * 2.2 + Math.sin(z * 0.31 - x * 0.17) * 0.7;
+    for (let i = 0; i < pos.count; i++) {
+      const x = pos.getX(i), z = pos.getZ(i);
+      const mesa = smoothstep(60, 20, Math.hypot(x - 10, z + 40)) * 14; // the plateau the observatory sits on
+      pos.setY(i, nz(x, z) + mesa - 6 + Math.max(0, -z - 120) * 0.25);
+    }
+    ground.computeVertexNormals();
+    const groundMat = new THREE.MeshStandardMaterial({ color: '#6a4c40', roughness: 1, flatShading: true });
+    scene.add(new THREE.Mesh(ground, groundMat));
+
+    // Observatory: a drum and a dome with a slit that opens.
+    const obs = new THREE.Group();
+    const white = new THREE.MeshStandardMaterial({ color: '#d9d4cc', roughness: 0.5, metalness: 0.2 });
+    const drum = new THREE.Mesh(new THREE.CylinderGeometry(5.5, 5.5, 5, 48), white); drum.position.y = 2.5;
+    const domeL = new THREE.Mesh(new THREE.SphereGeometry(5.5, 48, 24, 0, Math.PI - 0.12, 0, Math.PI / 2), white); domeL.position.y = 5;
+    const domeR = new THREE.Mesh(new THREE.SphereGeometry(5.5, 48, 24, Math.PI + 0.12, Math.PI - 0.12, 0, Math.PI / 2), white); domeR.position.y = 5;
+    const glow = new THREE.PointLight('#ffb070', 0, 14); glow.position.y = 5.5;
+    obs.add(drum, domeL, domeR, glow);
+    obs.position.set(10, nz(10, -40) + 14 - 6, -40);
+    scene.add(obs);
+
+    // Stars, fading in with the night.
+    const starGeo = new THREE.BufferGeometry();
+    const sp = new Float32Array(3000 * 3);
+    for (let i = 0; i < 3000; i++) { const u = Math.random(), th = Math.random() * Math.PI * 2, r = 380; const y = 0.05 + u * 0.95; const s = Math.sqrt(1 - y * y); sp.set([r * s * Math.cos(th), r * y, r * s * Math.sin(th)], i * 3); }
+    starGeo.setAttribute('position', new THREE.BufferAttribute(sp, 3));
+    const starMat = new THREE.PointsMaterial({ color: '#ffffff', size: 1.4, sizeAttenuation: false, transparent: true, opacity: 0, depthWrite: false });
+    const stars = new THREE.Points(starGeo, starMat);
+    scene.add(stars);
+
+    const sun = new THREE.DirectionalLight('#ffb27a', 2.2); sun.position.set(-80, 20, -140); scene.add(sun);
+    const amb = new THREE.HemisphereLight('#a596c4', '#2a1c16', 0.9); scene.add(amb);
+    // Soft front light from the viewer's side, so the land and the dome read against the sky.
+    const fill = new THREE.DirectionalLight('#c8b8e8', 0.9); fill.position.set(40, 50, 90); scene.add(fill);
+
+    // Camera stations: arrival road, dome close-up, looking up, a high view over the mesa.
+    const CAM = [[new THREE.Vector3(-30, 8, 40), new THREE.Vector3(10, 10, -40)],
+                 [new THREE.Vector3(0, 13, -24), new THREE.Vector3(10, 12, -40)],
+                 [new THREE.Vector3(6, 14, -30), new THREE.Vector3(-20, 90, -160)],
+                 [new THREE.Vector3(40, 40, 30), new THREE.Vector3(10, 8, -40)]];
+
+    // Post pass: render the world into a texture, then dissolve through an ordered dither between stations.
+    const rt = new THREE.WebGLRenderTarget(1, 1, { samples: tier === 'high' ? 4 : 0 });
+    const post = new THREE.Scene();
+    const postCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    const postU = { tScene: { value: rt.texture }, uDissolve: { value: 0 }, uCell: { value: 3 * renderer.getPixelRatio() }, uFog: { value: new THREE.Color('#0b0a10') } };
+    post.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({ uniforms: postU,
+      vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0., 1.); }',
+      fragmentShader: /* glsl */`uniform sampler2D tScene; uniform float uDissolve, uCell; uniform vec3 uFog; varying vec2 vUv;
+        float bayer(vec2 p){ vec2 q = mod(floor(p), 4.0); int i = int(q.x + q.y * 4.0);
+          float m[16]; m[0]=0.;m[1]=8.;m[2]=2.;m[3]=10.;m[4]=12.;m[5]=4.;m[6]=14.;m[7]=6.;m[8]=3.;m[9]=11.;m[10]=1.;m[11]=9.;m[12]=15.;m[13]=7.;m[14]=13.;m[15]=5.;
+          for (int k = 0; k < 16; k++) if (k == i) return (m[k] + 0.5) / 16.0; return 0.5; }
+        void main(){ vec4 c = texture2D(tScene, vUv);
+          float th = bayer(gl_FragCoord.xy / uCell);
+          float l = dot(c.rgb, vec3(0.299, 0.587, 0.114));
+          float cut = uDissolve * 1.15 - l * 0.4;
+          gl_FragColor = th < cut ? vec4(mix(uFog, c.rgb * 1.6, step(0.5, fract(th * 7.0)) * 0.35), 1.0) : c; }`,
+    })));
+
+    const resize = () => {
+      renderer.setSize(innerWidth, innerHeight, false);
+      const s = renderer.getDrawingBufferSize(new THREE.Vector2());
+      rt.setSize(s.x, s.y);
+      camera.aspect = innerWidth / innerHeight;
+      camera.updateProjectionMatrix();
+    };
+    addEventListener('resize', resize); resize();
+
+    const eyeA = new THREE.Vector3(), lookA = new THREE.Vector3();
+    let shown = stationPos();
+    const frame = () => {
+      requestAnimationFrame(frame);
+      if (document.hidden) return;
+      const target = reduced ? Math.round(stationPos()) : stationPos();
+      shown += (target - shown) * (reduced ? 1 : 0.08);
+      const i = Math.min(2, Math.floor(shown)), f = smoothstep(0, 1, shown - i);
+      eyeA.lerpVectors(CAM[i][0], CAM[i + 1][0], f);
+      lookA.lerpVectors(CAM[i][1], CAM[i + 1][1], f);
+      camera.position.copy(eyeA); camera.lookAt(lookA);
+      skyU.top.value.copy(SKY[i][0]).lerp(SKY[i + 1][0], f);
+      skyU.low.value.copy(SKY[i][1]).lerp(SKY[i + 1][1], f);
+      const night = clamp(shown / 2);
+      starMat.opacity = smoothstep(0.3, 1, night);
+      sun.intensity = 2.2 * (1 - night);
+      amb.intensity = 0.9 - night * 0.5;
+      fill.intensity = 0.9 - night * 0.5;
+      glow.intensity = smoothstep(0.6, 1.2, shown) * 40;
+      const open = smoothstep(0.7, 1.3, shown) * 0.9; // the slit opens as night falls
+      domeL.rotation.y = open * 0.5; domeR.rotation.y = -open * 0.5;
+      const frac = shown - Math.round(shown);
+      postU.uDissolve.value = reduced ? 0 : Math.pow(Math.sin(Math.min(1, Math.abs(frac) * 2) * Math.PI / 2), 3) * DIALS.dissolve * smoothstep(0.02, 0.2, Math.abs(frac));
+      document.querySelector('[data-hud-alt]').textContent = `Alt ${Math.round(2140 + eyeA.y * 3)} m`;
+      renderer.setRenderTarget(rt); renderer.render(scene, camera);
+      renderer.setRenderTarget(null); renderer.render(post, postCam);
+    };
+    frame();
+  }
+</script>
+</body>
+</html>
