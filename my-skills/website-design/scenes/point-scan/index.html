@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ferro &amp; Lind · Architecture</title>
+<meta name="description" content="Scene template: a point scan. A city block drawn as lines and points, a ruler preloader that folds into the mark, a scrambled headline, and a camera dive that dissolves the city into points.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../_shared/scene.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js"}}</script>
+<style>
+  :root { --paper: #eceef0; --ink: #16181b; --ink-soft: rgba(22, 24, 27, 0.66); --line: rgba(22, 24, 27, 0.16); --accent: #d2452c; color-scheme: light; }
+  .dive { height: 260svh; position: relative; }
+  .dive__stage { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+  .dive canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .dive__poster { position: absolute; inset: 0; display: grid; place-items: center; }
+  .dive__poster svg { width: min(70vw, 760px); opacity: 0.7; }
+  .js:not(.no-webgl) .dive__poster { display: none; }
+
+  .hero-copy { position: absolute; left: var(--gutter); top: 92px; z-index: 2; }
+  .hero-copy h1 { margin: 0; font-weight: 500; font-size: clamp(46px, 7vw, 118px); line-height: 0.92; letter-spacing: -0.045em; }
+  .hero-copy h1 span { display: block; }
+  .glyph { font-family: var(--font-mono); font-weight: 400; color: var(--accent); }
+  .hero-foot { position: absolute; left: var(--gutter); right: var(--gutter); bottom: 28px; z-index: 2; display: flex; justify-content: space-between; align-items: end; gap: 18px; flex-wrap: wrap; }
+  .hero-foot p { margin: 0; max-width: 34ch; font-size: 15px; color: var(--ink-soft); }
+  .glass-light { background: rgba(255, 255, 255, 0.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, 0.7); border-radius: 14px; color: #16181b; }
+  @media (prefers-reduced-transparency: reduce) { .glass-light { background: #fff; backdrop-filter: none; -webkit-backdrop-filter: none; } }
+  .project { display: flex; gap: 12px; align-items: center; padding: 10px; max-width: 320px; }
+  .project i { width: 64px; height: 64px; border-radius: 10px; flex: none; background: linear-gradient(160deg, #9fb3c8, #3d4f63 60%, #1d2733); }
+  .project small { display: block; font: 500 11px var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: #4a4e55; }
+  .btn { background: var(--ink); color: var(--paper); }
+  .btn--ghost { background: transparent; color: var(--ink); }
+  .statement { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 0 var(--gutter); z-index: 2; opacity: 0; pointer-events: none; }
+  .statement p { margin: 0; max-width: 24ch; font-size: clamp(28px, 3.6vw, 54px); line-height: 1.08; letter-spacing: -0.02em; }
+
+  .services { padding: 16svh var(--gutter); display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; border-top: 1px solid var(--line); }
+  .services h2 { margin: 0 0 14px; font-weight: 500; font-size: clamp(30px, 3vw, 44px); letter-spacing: -0.02em; }
+  .services ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .services li { padding: 14px 0; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; }
+  .services li span { font: 400 12px var(--font-mono); color: var(--ink-soft); }
+  footer { padding: 28px var(--gutter); color: var(--ink-soft); font-size: 14px; border-top: 1px solid var(--line); }
+
+  /* Preloader: a ruler ticks to 100 and folds into the mark. Content underneath is already there. */
+  .loader { position: fixed; inset: 0; z-index: 50; background: var(--paper); display: grid; place-items: center; transition: opacity 500ms ease 200ms; }
+  .loader__ruler { width: min(60vw, 520px); height: 22px; position: relative; transform-origin: 50% 50%; transition: transform 600ms var(--ease-out);
+    background: repeating-linear-gradient(90deg, var(--ink) 0 1px, transparent 1px 10px) bottom / 100% 8px no-repeat,
+                repeating-linear-gradient(90deg, var(--ink) 0 1px, transparent 1px 50px) bottom / 100% 18px no-repeat; }
+  .loader__num { position: absolute; right: 0; top: -26px; font: 500 12px var(--font-mono); }
+  .loader.is-folded .loader__ruler { transform: scaleX(0.04); }
+  .loader.is-done { opacity: 0; pointer-events: none; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#services">Skip to services</a>
+<div class="loader" aria-hidden="true" hidden><div class="loader__ruler"><span class="loader__num">000</span></div></div>
+
+<header class="bar">
+  <a class="bar__mark" href="#top">Ferro &amp; Lind</a>
+  <ul class="bar__links"><li><a href="#services">Services</a></li><li><a href="#services">Projects</a></li><li><a href="#contact">Studio</a></li></ul>
+  <a class="btn" href="#contact">Start a project</a>
+</header>
+
+<main id="top">
+  <section class="dive" aria-labelledby="h1">
+    <div class="dive__stage">
+      <div class="dive__poster" aria-hidden="true">
+        <svg viewBox="0 0 600 340" fill="none" stroke="#16181b" stroke-width="1">
+          <path d="M80 250l90-45 90 45-90 45zM80 250v-90l90-45 90 45v90M170 205v-90"/>
+          <path d="M260 220l60-30 60 30-60 30zM260 220V60l60-30 60 30v160M320 190V30"/>
+          <path d="M380 260l70-35 70 35-70 35zM380 260v-60l70-35 70 35v60M450 225v-60"/>
+        </svg>
+      </div>
+      <canvas aria-hidden="true"></canvas>
+      <div class="hero-copy">
+        <h1 id="h1" data-scramble><span>Spaces built</span><span>to stay.</span></h1>
+      </div>
+      <div class="hero-foot">
+        <div style="display:grid;gap:14px">
+          <p>An independent studio for homes, workplaces and public buildings, based in Rotterdam.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="#contact">Start a project</a><a class="btn btn--ghost" href="#services">Our work</a></div>
+        </div>
+        <a class="project glass-light" href="#services"><i aria-hidden="true"></i><span><small>Latest project</small>Harbour Library, 2026</span></a>
+      </div>
+      <div class="statement" aria-hidden="true"><p>We draw every building as if it will outlive us. Most of them will.</p></div>
+    </div>
+  </section>
+
+  <section class="services" id="services" aria-label="Services">
+    <div class="reveal"><h2>Architecture</h2><ul><li>New buildings <span>01</span></li><li>Restoration <span>02</span></li><li>Planning and permits <span>03</span></li></ul></div>
+    <div class="reveal"><h2>Interiors</h2><ul><li>Workplaces <span>04</span></li><li>Homes <span>05</span></li><li>Furniture <span>06</span></li></ul></div>
+  </section>
+</main>
+<footer id="contact">Ferro &amp; Lind Architects · studio@example.com · Demo content for a scene template.</footer>
+
+<script type="module">
+  import { boot, reveals, isReduced, loop, config, pixelRatio, webglAvailable, fallbackToPoster, qualityTier, sectionProgress, smoothstep } from '../_shared/runtime.js';
+  boot();
+  reveals();
+  const reduced = isReduced();
+  // Dials: blocks = city size per side (4 to 10), height = tallest tower (2 to 8), dissolve = how far points fly (0 to 3), loader = intro on or off.
+  const DIALS = config({ blocks: 7, height: 5, dissolve: 1.6, loader: true });
+
+  // Preloader, at most 1.6 s, never for reduced motion.
+  if (DIALS.loader && !reduced) {
+    const el = document.querySelector('.loader');
+    el.hidden = false;
+    const num = el.querySelector('.loader__num');
+    const t0 = performance.now();
+    const tick = (now) => {
+      const t = Math.min(1, (now - t0) / 1000);
+      num.textContent = String(Math.round(t * 100)).padStart(3, '0');
+      if (t < 1) requestAnimationFrame(tick);
+      else { el.classList.add('is-folded'); setTimeout(() => el.classList.add('is-done'), 450); setTimeout(() => el.remove(), 1200); }
+    };
+    requestAnimationFrame(tick);
+  }
+
+  // Headline scramble: letters cycle through glyphs and settle left to right. The real text is in the HTML.
+  if (!reduced) {
+    const glyphs = '<>/[]{}#*+=_01';
+    document.querySelectorAll('[data-scramble] span').forEach((line, li) => {
+      const text = line.textContent;
+      const t0 = performance.now() + 900 + li * 220;
+      const step = (now) => {
+        const done = Math.floor(Math.max(0, now - t0) / 38);
+        line.innerHTML = [...text].map((ch, i) => i < done || ch === ' ' ? ch : `<span class="glyph">${glyphs[(Math.random() * glyphs.length) | 0]}</span>`).join('');
+        if (done < text.length) requestAnimationFrame(step); else line.textContent = text;
+      };
+      requestAnimationFrame(step);
+    });
+  }
+
+  if (!webglAvailable()) fallbackToPoster('no WebGL');
+  else start().catch((e) => fallbackToPoster(e.message));
+
+  async function start() {
+    const THREE = await import('three');
+    const section = document.querySelector('.dive');
+    const stage = section.querySelector('.dive__stage');
+    const tier = qualityTier();
+    const renderer = new THREE.WebGLRenderer({ canvas: stage.querySelector('canvas'), antialias: true, alpha: true });
+    renderer.setPixelRatio(pixelRatio(tier === 'high' ? 2 : 1.5));
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 200);
+
+    // Build the city: one box per lot, drawn as edges, with floor lines and points along every edge.
+    const R = (() => { let s = 7; return () => { s = (s * 16807) % 2147483647; return s / 2147483647; }; })();
+    const lines = [], pts = [];
+    const N = DIALS.blocks, lot = 1.4;
+    for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) {
+      if (R() < 0.18) continue;
+      const cx = (i - (N - 1) / 2) * lot * 1.25, cz = (j - (N - 1) / 2) * lot * 1.25;
+      const centre = 1 - Math.hypot(i - N / 2, j - N / 2) / N;
+      const h = 0.4 + Math.pow(R(), 2.2) * DIALS.height * (0.4 + centre);
+      const w = lot * (0.55 + R() * 0.3), d = lot * (0.55 + R() * 0.3);
+      const x0 = cx - w / 2, x1 = cx + w / 2, z0 = cz - d / 2, z1 = cz + d / 2;
+      const corners = [[x0, z0], [x1, z0], [x1, z1], [x0, z1]];
+      const floors = Math.max(1, Math.round(h / 0.28));
+      for (let f = 0; f <= floors; f++) {
+        const y = (f / floors) * h;
+        for (let k = 0; k < 4; k++) { const a = corners[k], b = corners[(k + 1) % 4]; lines.push(a[0], y, a[1], b[0], y, b[1]); }
+      }
+      for (const c of corners) {
+        lines.push(c[0], 0, c[1], c[0], h, c[1]);
+        for (let y = 0; y < h; y += 0.07) pts.push(c[0], y, c[1]);
+      }
+      for (let k = 0; k < 40 * h; k++) { const c = corners[(R() * 4) | 0]; const c2 = corners[(R() * 4) | 0]; const t = R(); pts.push(c[0] + (c2[0] - c[0]) * t, R() * h, c[1] + (c2[1] - c[1]) * t); }
+    }
+    const lineGeo = new THREE.BufferGeometry();
+    lineGeo.setAttribute('position', new THREE.Float32BufferAttribute(lines, 3));
+    const lineMat = new THREE.LineBasicMaterial({ color: 0x16181b, transparent: true, opacity: 0.5 });
+    scene.add(new THREE.LineSegments(lineGeo, lineMat));
+
+    const ptGeo = new THREE.BufferGeometry();
+    ptGeo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
+    const dirs = new Float32Array(pts.length);
+    for (let i = 0; i < dirs.length; i++) dirs[i] = (Math.random() * 2 - 1);
+    ptGeo.setAttribute('aDir', new THREE.BufferAttribute(dirs, 3));
+    const uniforms = { uDissolve: { value: 0 }, uSize: { value: 2.2 * renderer.getPixelRatio() }, uAccent: { value: new THREE.Color('#d2452c') } };
+    const ptMat = new THREE.ShaderMaterial({
+      uniforms, transparent: true, depthWrite: false,
+      vertexShader: `uniform float uDissolve, uSize; attribute vec3 aDir; varying float vD;
+        void main(){ vec3 p = position + aDir * uDissolve * (1.0 + position.y * 0.4); vD = uDissolve;
+          vec4 mv = modelViewMatrix * vec4(p, 1.0); gl_Position = projectionMatrix * mv; gl_PointSize = min(uSize * (8.0 / -mv.z), uSize * 2.5); }`,
+      fragmentShader: `uniform vec3 uAccent; varying float vD;
+        void main(){ if (length(gl_PointCoord - 0.5) > 0.5) discard; vec3 c = mix(vec3(0.09), uAccent, clamp(vD * 0.6, 0.0, 0.7)); gl_FragColor = vec4(c, 0.75); }`,
+    });
+    scene.add(new THREE.Points(ptGeo, ptMat));
+
+    const resize = () => {
+      const r = stage.getBoundingClientRect();
+      renderer.setSize(r.width, r.height, false);
+      camera.aspect = r.width / r.height;
+      camera.fov = camera.aspect < 0.9 ? 52 : 38;
+      camera.updateProjectionMatrix();
+    };
+    addEventListener('resize', resize); resize();
+
+    const statement = stage.querySelector('.statement');
+    const heroBits = stage.querySelectorAll('.hero-copy, .hero-foot');
+    // Camera path: a high oblique view, a slow orbit, then a dive down a street while the city lets go.
+    const from = new THREE.Vector3(14, 11, 16), to = new THREE.Vector3(1.2, 1.1, 3.2);
+    const look0 = new THREE.Vector3(0, 1.4, 0), look1 = new THREE.Vector3(0, 1.2, -6);
+    let shown = 0;
+    loop((t) => {
+      const p = sectionProgress(section);
+      shown += (p - shown) * (reduced ? 1 : 0.08);
+      const dive = smoothstep(0.05, 0.75, shown);
+      const orbit = reduced ? 0 : Math.sin(t * 0.08) * 0.25;
+      camera.position.lerpVectors(from, to, dive);
+      camera.position.applyAxisAngle(new THREE.Vector3(0, 1, 0), orbit * (1 - dive));
+      camera.lookAt(new THREE.Vector3().lerpVectors(look0, look1, dive));
+      uniforms.uDissolve.value = smoothstep(0.35, 0.95, shown) * DIALS.dissolve * 3;
+      lineMat.opacity = 0.5 * (1 - smoothstep(0.3, 0.7, shown));
+      const out = smoothstep(0.12, 0.35, shown);
+      heroBits.forEach((el) => { el.style.opacity = String(1 - out); el.style.pointerEvents = out > 0.5 ? 'none' : ''; });
+      statement.style.opacity = String(smoothstep(0.45, 0.62, shown) * (1 - smoothstep(0.94, 1, shown)));
+      renderer.render(scene, camera);
+    }, { target: stage });
+  }
+</script>
+</body>
+</html>

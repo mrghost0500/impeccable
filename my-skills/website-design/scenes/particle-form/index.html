@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sable · Forecasts you can see</title>
+<meta name="description" content="Scene template: a particle form. Tens of thousands of points hold a shape, scatter along the pointer's path and drift back, then morph into the next form as the visitor scrolls.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../_shared/scene.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js"}}</script>
+<style>
+  :root { --paper: #04060f; --accent: #8fb7ff; --ink: #eef2ff; --ink-soft: rgba(238, 242, 255, 0.7); --line: rgba(160, 185, 255, 0.18); }
+  .field { position: fixed; inset: 0; z-index: -1; width: 100%; height: 100%; }
+  .field-poster { position: fixed; inset: 0; z-index: -2; background: radial-gradient(34% 40% at 64% 50%, rgba(80, 120, 255, 0.35), transparent 70%), #04060f; }
+  .js:not(.no-webgl) .field-poster { display: none; }
+
+  /* A thin measurement grid frames the hero; it carries the type. */
+  .grid { position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: calc(100% / 12) calc(100% / 8); mask-image: radial-gradient(ellipse at 50% 50%, #000 30%, transparent 85%); opacity: 0.45; }
+
+  .hero { min-height: 100svh; display: grid; align-content: end; gap: 22px; padding: 0 var(--gutter) 9svh; }
+  .hero .display { font-weight: 400; max-width: 11ch; font-size: clamp(44px, 6.8vw, 116px); }
+  .statement { min-height: 1.6em; margin: 0; font: 400 clamp(17px, 1.5vw, 21px)/1.5 var(--font-sans); color: var(--ink-soft); }
+  .statement span { display: inline-block; white-space: pre; transition: filter 600ms ease, opacity 600ms ease, transform 600ms var(--ease-out); }
+  .statement span.out { filter: blur(8px); opacity: 0; transform: translateY(6px); }
+  .figures { position: absolute; right: var(--gutter); top: 22svh; display: grid; gap: 22px; text-align: right; list-style: none; margin: 0; padding: 0; }
+  .figures b { display: block; font: 300 clamp(32px, 3.4vw, 52px)/1 var(--font-sans); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .figures span { font: 500 11px var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); }
+  @media (max-width: 760px) { .figures { display: none; } }
+  .cta { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn .arrow { display: inline-block; transition: transform 240ms var(--ease-out); }
+  .btn:hover .arrow { transform: translateX(4px); }
+
+  .chapter { min-height: 120svh; display: grid; align-content: center; padding: 0 var(--gutter); }
+  .chapter > div { max-width: 460px; display: grid; gap: 14px; }
+  .chapter.right > div { margin-left: auto; }
+  .chapter h2 { margin: 0; font-weight: 400; font-size: clamp(32px, 3.8vw, 56px); line-height: 1.02; letter-spacing: -0.025em; }
+  .chapter p { margin: 0; color: var(--ink-soft); }
+  .access { min-height: 90svh; display: grid; place-items: center; text-align: center; padding: 0 var(--gutter); }
+  .access form { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 22px; }
+  .access input { min-height: 48px; min-width: min(320px, 80vw); padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); background: rgba(10, 14, 30, 0.7); color: var(--ink); font-size: 16px; }
+  footer { padding: 28px var(--gutter); color: var(--ink-soft); font-size: 14px; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#access">Skip to request access</a>
+<div class="field-poster" aria-hidden="true"></div>
+<canvas class="field" aria-hidden="true"></canvas>
+<div class="grid" aria-hidden="true"></div>
+
+<header class="bar">
+  <a class="bar__mark" href="#top">Sable</a>
+  <ul class="bar__links"><li><a href="#how">How it works</a></li><li><a href="#trust">Trust</a></li><li><a href="#access">Access</a></li></ul>
+  <a class="btn btn--ghost" href="#access">Sign in</a>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="h1">
+    <h1 class="display" id="h1">Forecasts you can see coming.</h1>
+    <p class="statement" aria-live="off">Sable reads your sales, stock and weather data and tells you what next week looks like.</p>
+    <div class="cta"><a class="btn" href="#access">Request access <span class="arrow" aria-hidden="true">→</span></a><a class="btn btn--ghost" href="#how">How it works</a></div>
+    <ul class="figures" aria-label="Results">
+      <li><b data-count="94">94</b><span>% forecast accuracy</span></li>
+      <li><b data-count="38">38</b><span>% less waste</span></li>
+      <li><b data-count="2.4" data-decimals="1">2.4</b><span>hours saved per day</span></li>
+    </ul>
+  </section>
+
+  <section class="chapter right" id="how" aria-labelledby="how-t">
+    <div class="reveal"><p class="eyebrow">01 / Connect</p><h2 id="how-t">Every signal, in one place.</h2><p>Plug in your till, your warehouse and a weather feed. Sable cleans and joins them overnight.</p></div>
+  </section>
+  <section class="chapter" id="trust" aria-labelledby="trust-t">
+    <div class="reveal"><p class="eyebrow">02 / Forecast</p><h2 id="trust-t">A shape you can read at a glance.</h2><p>Each morning you get one forecast per shop, with the three reasons that moved it most.</p></div>
+  </section>
+
+  <section class="access" id="access" aria-labelledby="acc-t">
+    <div>
+      <h2 id="acc-t" class="display" style="font-size: clamp(36px, 5vw, 80px)">Start with one shop.</h2>
+      <form><label class="visually-hidden" for="email">Work email</label><input id="email" type="email" placeholder="you@company.com" autocomplete="email" required><button class="btn" type="submit">Request access <span class="arrow" aria-hidden="true">→</span></button></form>
+    </div>
+  </section>
+</main>
+<footer>Sable Forecasting · Demo content for a scene template.</footer>
+<button class="motion-toggle" type="button" hidden>Pause motion</button>
+
+<script type="module">
+  import { boot, reveals, isReduced, loop, config, pixelRatio, webglAvailable, fallbackToPoster, qualityTier, motionPause, clamp, smoothstep } from '../_shared/runtime.js';
+  boot();
+  reveals();
+  document.querySelector('.access form').addEventListener('submit', (e) => { e.preventDefault(); e.target.querySelector('button').textContent = 'You are on the list'; });
+
+  // Dials: word = the wordmark the particles spell, scatter = pointer strength (0 to 2), drift = return speed (0.5 to 4), hue = 0 blue, 1 violet, 2 gold.
+  const DIALS = config({ word: 'SABLE', scatter: 1, drift: 1.6, hue: 0 });
+  const reduced = isReduced();
+
+  // Counting figures, once, when the hero is on screen. Reduced motion: the final numbers, as written in the HTML.
+  if (!reduced) document.querySelectorAll('[data-count]').forEach((el) => {
+    const end = Number(el.dataset.count), dec = Number(el.dataset.decimals || 0);
+    const t0 = performance.now() + 400;
+    const step = (now) => { const t = clamp((now - t0) / 1600); el.textContent = (end * (1 - Math.pow(1 - t, 3))).toFixed(dec); if (t < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  });
+
+  // Rotating statement with a per-letter blur. The first line is the real copy; the rest are alternates.
+  const lines = [
+    'Sable reads your sales, stock and weather data and tells you what next week looks like.',
+    'It flags the shops that will run short before Friday, not after.',
+    'Every forecast comes with the three reasons that moved it most.',
+  ];
+  const statement = document.querySelector('.statement');
+  if (!reduced) {
+    let i = 0;
+    const show = (text) => {
+      statement.innerHTML = '';
+      [...text].forEach((ch, k) => { const s = document.createElement('span'); s.textContent = ch; s.className = 'out'; s.style.transitionDelay = `${k * 12}ms`; statement.append(s); });
+      requestAnimationFrame(() => requestAnimationFrame(() => statement.querySelectorAll('span').forEach((s) => s.classList.remove('out'))));
+    };
+    setInterval(() => {
+      if (document.hidden) return;
+      statement.querySelectorAll('span').forEach((s, k) => { s.style.transitionDelay = `${k * 6}ms`; s.classList.add('out'); });
+      setTimeout(() => show(lines[(i = (i + 1) % lines.length)]), 700);
+    }, 6000);
+  }
+
+  if (!webglAvailable()) fallbackToPoster('no WebGL');
+  else start().catch((e) => fallbackToPoster(e.message));
+
+  async function start() {
+    const THREE = await import('three');
+    const tier = qualityTier();
+    const COUNT = { low: 16000, mid: 32000, high: 60000 }[tier];
+    const canvas = document.querySelector('.field');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(pixelRatio(tier === 'high' ? 2 : 1.25));
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
+    camera.position.z = 9;
+
+    // Three target forms, sampled once. A: a breathing sphere shell. B: the wordmark. C: a data wave.
+    const A = new Float32Array(COUNT * 3), B = new Float32Array(COUNT * 3), C = new Float32Array(COUNT * 3), seed = new Float32Array(COUNT);
+    for (let i = 0; i < COUNT; i++) {
+      const u = Math.random() * 2 - 1, th = Math.random() * Math.PI * 2, r = 2.3 + (Math.random() - 0.5) * 0.18;
+      const s = Math.sqrt(1 - u * u);
+      A.set([r * s * Math.cos(th), r * u, r * s * Math.sin(th)], i * 3);
+      const x = (i / COUNT) * 2 - 1, z = (Math.random() * 2 - 1);
+      C.set([x * 4.2, Math.sin(x * 5 + z * 2) * 0.55 + Math.cos(z * 3) * 0.25, z * 1.6], i * 3);
+      seed[i] = Math.random();
+    }
+    // Wordmark: draw the word on a canvas and keep only the inked pixels.
+    const tc = document.createElement('canvas'); tc.width = 1024; tc.height = 256;
+    const tx = tc.getContext('2d');
+    tx.fillStyle = '#fff'; tx.textAlign = 'center'; tx.textBaseline = 'middle';
+    tx.font = '700 190px "Inter Tight", "Helvetica Neue", Arial, sans-serif';
+    tx.fillText(DIALS.word.slice(0, 8), 512, 132);
+    const data = tx.getImageData(0, 0, 1024, 256).data;
+    const inked = [];
+    for (let y = 0; y < 256; y += 2) for (let x = 0; x < 1024; x += 2) if (data[(y * 1024 + x) * 4 + 3] > 128) inked.push([x, y]);
+    for (let i = 0; i < COUNT; i++) {
+      const [x, y] = inked[(Math.random() * inked.length) | 0] || [512, 128];
+      B.set([(x - 512) / 1024 * 8.6 + (Math.random() - 0.5) * 0.02, -(y - 128) / 1024 * 8.6, (Math.random() - 0.5) * 0.3], i * 3);
+    }
+
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(A, 3));
+    geo.setAttribute('aB', new THREE.BufferAttribute(B, 3));
+    geo.setAttribute('aC', new THREE.BufferAttribute(C, 3));
+    geo.setAttribute('aSeed', new THREE.BufferAttribute(seed, 1));
+    const TRAIL = 12;
+    const uniforms = {
+      uTime: { value: 0 }, uMorph: { value: 0 }, uSize: { value: (tier === 'low' ? 3.2 : 2.6) * renderer.getPixelRatio() },
+      uScatter: { value: DIALS.scatter }, uDrift: { value: DIALS.drift }, uHue: { value: DIALS.hue },
+      uTrail: { value: Array.from({ length: TRAIL }, () => new THREE.Vector4(0, 0, -100, 0)) },
+    };
+    const mat = new THREE.ShaderMaterial({
+      uniforms, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+      vertexShader: /* glsl */`
+        uniform float uTime, uMorph, uSize, uScatter, uDrift; uniform vec4 uTrail[${TRAIL}];
+        attribute vec3 aB; attribute vec3 aC; attribute float aSeed; varying float vGlow;
+        void main() {
+          vec3 p = uMorph < 1.0 ? mix(position, aB, smoothstep(0.0, 1.0, uMorph)) : mix(aB, aC, smoothstep(1.0, 2.0, uMorph));
+          p += 0.035 * vec3(sin(uTime * 0.9 + aSeed * 40.0), cos(uTime * 0.7 + aSeed * 31.0), sin(uTime * 0.5 + aSeed * 17.0));
+          vGlow = 0.0;
+          // Each trail point pushes nearby particles outward; the push fades, so they drift back home.
+          for (int i = 0; i < ${TRAIL}; i++) {
+            vec4 t = uTrail[i]; float age = uTime - t.z;
+            if (age < 0.0 || age > 3.0) continue;
+            vec2 d = p.xy - t.xy; float dist = length(d) + 1e-3;
+            float push = t.w * uScatter * exp(-dist * dist * 2.2) * exp(-age * uDrift);
+            p.xy += (d / dist) * push * (0.6 + aSeed);
+            p.z += push * (aSeed - 0.5) * 2.0;
+            vGlow += push;
+          }
+          vec4 mv = modelViewMatrix * vec4(p, 1.0);
+          gl_Position = projectionMatrix * mv;
+          gl_PointSize = uSize * (0.6 + aSeed * 0.9) * (6.0 / -mv.z);
+        }`,
+      fragmentShader: /* glsl */`
+        uniform float uHue; varying float vGlow;
+        void main() {
+          float d = length(gl_PointCoord - 0.5); if (d > 0.5) discard;
+          vec3 base = uHue < 0.5 ? vec3(0.45, 0.62, 1.0) : uHue < 1.5 ? vec3(0.66, 0.5, 1.0) : vec3(1.0, 0.78, 0.45);
+          vec3 c = mix(base, vec3(1.0), clamp(vGlow * 0.8, 0.0, 1.0));
+          gl_FragColor = vec4(c, (1.0 - d * 2.0) * 0.85);
+        }`,
+    });
+    const points = new THREE.Points(geo, mat);
+    scene.add(points);
+
+    const resize = () => {
+      renderer.setSize(innerWidth, innerHeight, false);
+      camera.aspect = innerWidth / innerHeight;
+      // Wide screens: the form sits right of centre, away from the headline. Phones: centred, further back.
+      points.position.x = camera.aspect > 1.1 ? 2.3 : 0;
+      points.position.y = camera.aspect > 1.1 ? 0.2 : 1.2;
+      camera.position.z = camera.aspect > 1.1 ? 9 : 13;
+      camera.updateProjectionMatrix();
+    };
+    addEventListener('resize', resize); resize();
+
+    // Pointer trail, in the form's own plane.
+    let next = 0, last = 0;
+    const ndc = new THREE.Vector3();
+    addEventListener('pointermove', (e) => {
+      const now = performance.now();
+      if (reduced || paused() || now - last < 40) return;
+      last = now;
+      ndc.set((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1, 0.5).unproject(camera);
+      const dir = ndc.sub(camera.position).normalize();
+      const t = -camera.position.z / dir.z;
+      const hit = camera.position.clone().add(dir.multiplyScalar(t)).sub(points.position);
+      uniforms.uTrail.value[next].set(hit.x, hit.y, uniforms.uTime.value, 0.5);
+      next = (next + 1) % TRAIL;
+    }, { passive: true });
+
+    // Scroll morphs A to B over the first chapter and B to C over the second.
+    const chapters = [...document.querySelectorAll('.chapter')];
+    const morphTarget = () => {
+      let m = 0;
+      chapters.forEach((el) => { const r = el.getBoundingClientRect(); m += smoothstep(innerHeight * 0.9, innerHeight * 0.2, r.top); });
+      return m;
+    };
+    const toggle = document.querySelector('.motion-toggle');
+    toggle.hidden = false;
+    const paused = motionPause(toggle, () => {});
+    let clock = 0;
+    loop((t, dt) => {
+      if (!paused()) clock += dt;
+      uniforms.uTime.value = clock;
+      const m = morphTarget();
+      uniforms.uMorph.value += (m - uniforms.uMorph.value) * (reduced ? 1 : 0.06);
+      if (!paused() && !reduced) points.rotation.y = Math.sin(clock * 0.15) * 0.35 * (1 - Math.min(1, uniforms.uMorph.value));
+      renderer.render(scene, camera);
+    });
+  }
+</script>
+</body>
+</html>

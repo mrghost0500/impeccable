@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wren · A quiet assistant</title>
+<meta name="description" content="Scene template: a material orb. A rendered orb that shows an assistant's state (idle, listening, thinking, speaking), driven by a working prompt composer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../_shared/scene.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js"}}</script>
+<style>
+  :root { --paper: #07070a; --accent: #b9a6ff; --ink: #f2f0fa; --ink-soft: rgba(242, 240, 250, 0.66); --line: rgba(242, 240, 250, 0.14); }
+  .home { min-height: 100svh; display: grid; grid-template-rows: 1fr auto; justify-items: center; padding: 84px var(--gutter) 28px; gap: 18px; }
+  .orb { position: relative; width: min(42vh, 70vw); aspect-ratio: 1; align-self: center; }
+  .orb canvas { position: absolute; inset: -12%; width: 124%; height: 124%; }
+  .orb__css { position: absolute; inset: 14%; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff 0%, #d9ccff 12%, #8f7cf0 38%, #3b2f7a 68%, #0b0a14 100%);
+    box-shadow: inset -20px -30px 60px rgba(0, 0, 0, 0.55); }
+  .js.motion-ok .orb__css { animation: breathe 5s ease-in-out infinite; }
+  @keyframes breathe { 50% { transform: scale(1.04); } }
+  .js:not(.no-webgl) .orb__css { display: none; }
+  .greet { text-align: center; display: grid; gap: 8px; margin-top: -4vh; }
+  .greet h1 { margin: 0; font-weight: 500; font-size: clamp(30px, 3.6vw, 52px); letter-spacing: -0.025em; }
+  .state { font: 500 11px var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+  .reply { min-height: 3em; max-width: 52ch; margin: 0 auto; color: var(--ink-soft); }
+
+  .composer { width: min(720px, 100%); border-radius: 20px; padding: 12px; display: grid; gap: 10px; }
+  .composer textarea { width: 100%; min-height: 56px; resize: none; border: 0; background: none; color: var(--ink); font: 400 17px/1.5 var(--font-sans); padding: 8px 10px; }
+  .composer textarea:focus { outline: none; }
+  .composer:focus-within { border-color: rgba(185, 166, 255, 0.6); }
+  .composer__row { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .modes { display: flex; gap: 6px; }
+  .modes button { min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line); background: none; font-size: 13px; cursor: pointer; color: var(--ink-soft); }
+  .modes button[aria-pressed="true"] { color: var(--ink); border-color: var(--ink-soft); }
+  .send { width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--ink); color: var(--paper); font-size: 18px; cursor: pointer; }
+  .send:disabled { opacity: 0.35; cursor: default; }
+  .ideas { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; list-style: none; margin: 0; padding: 0; }
+  .ideas button { min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03); color: var(--ink-soft); font-size: 14px; cursor: pointer; }
+  .ideas button:hover { color: var(--ink); border-color: var(--ink-soft); }
+  .kbd { font: 500 11px var(--font-mono); color: var(--ink-soft); }
+  @media (max-width: 640px) { .kbd { display: none; } }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#prompt">Skip to the prompt</a>
+<header class="bar">
+  <a class="bar__mark" href="#top">Wren</a>
+  <ul class="bar__links"><li><a href="#prompt">Home</a></li><li><a href="#prompt">Library</a></li><li><a href="#prompt">Settings</a></li></ul>
+  <span class="eyebrow">Good evening, Sam</span>
+</header>
+
+<main id="top" class="home">
+  <div class="orb" aria-hidden="true"><div class="orb__css"></div><canvas></canvas></div>
+  <div style="display:grid;gap:18px;justify-items:center;width:100%">
+    <div class="greet">
+      <p class="state" aria-live="polite" data-state>Ready</p>
+      <h1>What should we untangle?</h1>
+      <p class="reply" aria-live="polite" data-reply></p>
+    </div>
+    <form class="composer glass" aria-label="Ask Wren">
+      <label class="visually-hidden" for="prompt">Your message</label>
+      <textarea id="prompt" rows="2" placeholder="Ask anything, or paste a note to tidy up"></textarea>
+      <div class="composer__row">
+        <div class="modes" role="group" aria-label="Answer style">
+          <button type="button" aria-pressed="true" data-mode="brief">Brief</button>
+          <button type="button" aria-pressed="false" data-mode="deep">Thorough</button>
+        </div>
+        <span class="kbd">Ctrl + Enter to send</span>
+        <button class="send" type="submit" aria-label="Send" disabled>↑</button>
+      </div>
+    </form>
+    <ul class="ideas" aria-label="Suggestions">
+      <li><button type="button">Plan my week around three deadlines</button></li>
+      <li><button type="button">Turn these notes into an email</button></li>
+      <li><button type="button">Explain this invoice</button></li>
+    </ul>
+  </div>
+</main>
+
+<script type="module">
+  import { boot, isReduced, loop, config, pixelRatio, webglAvailable, fallbackToPoster, qualityTier, pointer } from '../_shared/runtime.js';
+  boot();
+  const reduced = isReduced();
+  // Dials: palette = violet | ember | sea, detail = surface detail (1 smooth to 3 busy), glow = rim light strength (0.5 to 2).
+  const DIALS = config({ palette: 'violet', detail: 1.6, glow: 1 });
+
+  // ----- Assistant states. Everything here works without the orb. -----
+  const STATES = {
+    idle:      { label: 'Ready',     amp: 0.07, freq: 1.4, speed: 0.25, energy: 0.0 },
+    listening: { label: 'Listening', amp: 0.10, freq: 1.8, speed: 0.55, energy: 0.35 },
+    thinking:  { label: 'Thinking',  amp: 0.16, freq: 3.0, speed: 1.30, energy: 0.9 },
+    speaking:  { label: 'Answering', amp: 0.12, freq: 2.2, speed: 0.80, energy: 0.6 },
+  };
+  let state = 'idle';
+  const stateEl = document.querySelector('[data-state]');
+  const setState = (s) => { state = s; stateEl.textContent = STATES[s].label; };
+  const form = document.querySelector('.composer');
+  const input = form.querySelector('textarea');
+  const send = form.querySelector('.send');
+  const reply = document.querySelector('[data-reply]');
+  input.addEventListener('input', () => { send.disabled = !input.value.trim(); if (state === 'idle' || state === 'listening') setState(input.value.trim() ? 'listening' : 'idle'); });
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) form.requestSubmit(); });
+  document.querySelectorAll('.ideas button').forEach((b) => b.addEventListener('click', () => { input.value = b.textContent; input.dispatchEvent(new Event('input')); input.focus(); }));
+  document.querySelectorAll('.modes button').forEach((b) => b.addEventListener('click', () => document.querySelectorAll('.modes button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)))));
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!input.value.trim()) return;
+    input.value = ''; send.disabled = true; reply.textContent = '';
+    setState('thinking');
+    // Demo answer. Connect your model here: stream tokens into `reply` and keep the state on 'speaking' while they arrive.
+    const text = 'Here is a plan: Monday for the report draft, Wednesday for the client deck, Friday morning for review. I left Tuesday afternoon free.';
+    setTimeout(() => {
+      setState('speaking');
+      if (reduced) { reply.textContent = text; setTimeout(() => setState('idle'), 800); return; }
+      let i = 0;
+      const typeOn = setInterval(() => { reply.textContent = text.slice(0, (i += 2)); if (i >= text.length) { clearInterval(typeOn); setTimeout(() => setState('idle'), 900); } }, 28);
+    }, 1600);
+  });
+
+  // ----- The orb -----
+  if (!webglAvailable()) fallbackToPoster('no WebGL');
+  else start().catch((e) => fallbackToPoster(e.message));
+
+  async function start() {
+    const THREE = await import('three');
+    const host = document.querySelector('.orb');
+    const canvas = host.querySelector('canvas');
+    const tier = qualityTier();
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(pixelRatio(tier === 'high' ? 2 : 1.5));
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 20);
+    camera.position.z = 5.2;
+    // Each palette: deep core, body, rim light.
+    const palettes = { violet: ['#140e2e', '#6a52e0', '#d8e4ff'], ember: ['#220a04', '#d9582a', '#ffe0b0'], sea: ['#031a22', '#2794ab', '#d6fbff'] };
+    const pal = (palettes[DIALS.palette] || palettes.violet).map((h) => new THREE.Color(h));
+    const u = { uTime: { value: 0 }, uAmp: { value: 0.07 }, uFreq: { value: 1.4 }, uEnergy: { value: 0 }, uDetail: { value: DIALS.detail }, uGlow: { value: DIALS.glow },
+                uDeep: { value: pal[0] }, uBody: { value: pal[1] }, uRim: { value: pal[2] } };
+    const noise = /* glsl */`
+      float h3(vec3 p){ p = fract(p * 0.3183099 + 0.1); p *= 17.0; return fract(p.x * p.y * p.z * (p.x + p.y + p.z)); }
+      float n3(vec3 x){ vec3 i = floor(x), f = fract(x); f = f * f * (3.0 - 2.0 * f);
+        return mix(mix(mix(h3(i), h3(i + vec3(1,0,0)), f.x), mix(h3(i + vec3(0,1,0)), h3(i + vec3(1,1,0)), f.x), f.y),
+                   mix(mix(h3(i + vec3(0,0,1)), h3(i + vec3(1,0,1)), f.x), mix(h3(i + vec3(0,1,1)), h3(i + vec3(1,1,1)), f.x), f.y), f.z); }
+      float fbm(vec3 p, float detail){ float a = 0.5, s = 0.0; for (int i = 0; i < 4; i++) { if (float(i) > detail) break; s += a * n3(p); p *= 2.03; a *= 0.5; } return s; }`;
+    const mat = new THREE.ShaderMaterial({
+      uniforms: u, transparent: true,
+      vertexShader: /* glsl */`
+        uniform float uTime, uAmp, uFreq, uDetail; varying vec3 vN; varying vec3 vV; varying float vH; ${noise}
+        void main(){
+          vec3 p = position; float h = fbm(normalize(p) * uFreq + vec3(0.0, uTime * 0.6, uTime * 0.3), uDetail);
+          p += normal * (h - 0.45) * uAmp * 2.0; vH = h;
+          vec4 mv = modelViewMatrix * vec4(p, 1.0); vV = normalize(-mv.xyz); vN = normalize(normalMatrix * normal);
+          gl_Position = projectionMatrix * mv; }`,
+      fragmentShader: /* glsl */`
+        uniform float uTime, uEnergy, uGlow; uniform vec3 uDeep, uBody, uRim; varying vec3 vN; varying vec3 vV; varying float vH;
+        void main(){
+          vec3 n = normalize(vN);
+          float fres = pow(1.0 - max(dot(n, vV), 0.0), 2.2);
+          // Body: dark in the middle, lit where the surface swells, bright at the rim like a lit marble.
+          vec3 c = mix(uDeep, uBody, smoothstep(0.25, 0.85, vH * 0.8 + fres * 0.6));
+          c = mix(c, uRim, clamp(pow(fres, 1.6) * 0.85 * uGlow, 0.0, 1.0));
+          float spec = pow(max(dot(reflect(-vV, n), normalize(vec3(-0.45, 0.6, 0.65))), 0.0), 28.0);
+          c += uRim * spec * 0.8;
+          // Energy: slow bands of light travel through the surface while it works.
+          c += uBody * uEnergy * 0.45 * smoothstep(0.6, 1.0, sin(vH * 18.0 - uTime * 3.0) * 0.5 + 0.5);
+          gl_FragColor = vec4(c, 1.0);
+          #include <colorspace_fragment>
+        }`,
+    });
+    const detail = { low: 48, mid: 80, high: 128 }[tier];
+    const orb = new THREE.Mesh(new THREE.IcosahedronGeometry(1, detail), mat);
+    scene.add(orb);
+    const resize = () => { const r = canvas.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / r.height; camera.updateProjectionMatrix(); };
+    addEventListener('resize', resize); resize();
+    const p = pointer();
+    let clock = 0;
+    loop((t, dt) => {
+      const s = STATES[state];
+      const k = reduced ? 1 : 0.05;
+      u.uAmp.value += ((reduced ? s.amp * 0.5 : s.amp) - u.uAmp.value) * k;
+      u.uFreq.value += (s.freq - u.uFreq.value) * k;
+      u.uEnergy.value += (s.energy - u.uEnergy.value) * k;
+      if (!reduced) clock += dt * (0.6 + s.speed);
+      u.uTime.value = clock;
+      p.ease(0.05);
+      orb.rotation.y = p.sx * 0.5 + clock * 0.05;
+      orb.rotation.x = -p.sy * 0.35;
+      const breathe = reduced ? 1 : 1 + Math.sin(t * (state === 'speaking' ? 7 : 1.2)) * (state === 'speaking' ? 0.012 : 0.02);
+      orb.scale.setScalar(breathe);
+      renderer.render(scene, camera);
+    }, { target: host });
+  }
+</script>
+</body>
+</html>
