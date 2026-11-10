@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tidepool · Notes</title>
+<meta name="description" content="Scene template: an ASCII ambient app. A kelp forest drawn live in characters behind a notes app home screen, reacting to the pointer and to typing, with a pause control and a command palette.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../_shared/scene.css">
+<style>
+  :root { --paper: #03100f; --ink: #e6f4ef; --ink-soft: rgba(230, 244, 239, 0.66); --line: rgba(230, 244, 239, 0.13); --accent: #7fe0c0; }
+  .sea { position: fixed; inset: 0; z-index: -1; width: 100%; height: 100%; }
+  .app { min-height: 100svh; display: grid; grid-template-columns: 64px minmax(0, 1fr); }
+  .siderail { border-right: 1px solid var(--line); display: grid; align-content: start; gap: 6px; padding: 76px 10px 10px; background: rgba(3, 16, 15, 0.6); }
+  .siderail button { width: 44px; height: 44px; border-radius: 12px; border: 1px solid transparent; background: none; color: var(--ink-soft); cursor: pointer; font-size: 18px; }
+  .siderail button:hover, .siderail button[aria-current] { border-color: var(--line); color: var(--ink); background: rgba(255, 255, 255, 0.04); }
+  @media (max-width: 640px) { .app { grid-template-columns: 1fr; } .siderail { display: none; } }
+  .home { display: grid; align-content: center; justify-items: center; gap: 18px; padding: 90px var(--gutter) 60px; text-align: center; }
+  .hello { font: 500 12px var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin: 0; }
+  .task { margin: 0; min-height: 1.15em; font-weight: 500; font-size: clamp(30px, 4vw, 58px); letter-spacing: -0.025em; line-height: 1.1; max-width: 18ch; }
+  .task span { display: inline-block; transition: filter 500ms ease, opacity 500ms ease, transform 500ms var(--ease-out); }
+  .task span.out { filter: blur(10px); opacity: 0; transform: translateY(8px); }
+  .note { width: min(680px, 100%); border-radius: 18px; padding: 12px; display: grid; gap: 8px; text-align: left; }
+  .note textarea { width: 100%; min-height: 84px; resize: vertical; border: 0; background: none; color: var(--ink); font: 400 17px/1.55 var(--font-sans); padding: 8px; }
+  .note textarea:focus { outline: none; }
+  .note__row { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tags button { min-height: 34px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line); background: none; color: var(--ink-soft); font-size: 13px; cursor: pointer; }
+  .tags button[aria-pressed="true"] { color: var(--paper); background: var(--accent); border-color: var(--accent); }
+  .hint { font: 500 11px var(--font-mono); color: var(--ink-soft); }
+  .palette { position: fixed; inset: 0; z-index: 60; display: grid; place-items: start center; padding-top: 16vh; background: rgba(0, 0, 0, 0.45); }
+  .palette[hidden] { display: none; }
+  .palette__box { width: min(560px, 92vw); border-radius: 16px; overflow: hidden; }
+  .palette input { width: 100%; min-height: 54px; border: 0; border-bottom: 1px solid var(--line); background: none; padding: 0 18px; color: var(--ink); font-size: 17px; }
+  .palette input:focus { outline: none; }
+  .palette ul { list-style: none; margin: 0; padding: 6px; max-height: 50vh; overflow: auto; }
+  .palette li button { width: 100%; text-align: left; min-height: 44px; padding: 0 12px; border-radius: 10px; border: 0; background: none; color: var(--ink); cursor: pointer; display: flex; justify-content: space-between; }
+  .palette li button:hover, .palette li button:focus-visible { background: rgba(255, 255, 255, 0.07); outline: none; }
+  .palette small { color: var(--ink-soft); font: 400 12px var(--font-mono); }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#note">Skip to the note</a>
+<canvas class="sea" aria-hidden="true"></canvas>
+<header class="bar">
+  <a class="bar__mark" href="#top">Tidepool</a>
+  <button class="btn btn--ghost" type="button" data-open-palette>Find a note <span class="hint">Ctrl K</span></button>
+</header>
+
+<main id="top" class="app">
+  <nav class="siderail" aria-label="Sections">
+    <button type="button" aria-current="page" aria-label="Write">✎</button>
+    <button type="button" aria-label="Notes">≡</button>
+    <button type="button" aria-label="Tags">#</button>
+    <button type="button" aria-label="Settings">⚙</button>
+  </nav>
+  <section class="home" aria-labelledby="task">
+    <p class="hello">Thursday evening</p>
+    <h1 class="task" id="task">Write down what happened today.</h1>
+    <form class="note glass" aria-label="New note">
+      <label class="visually-hidden" for="note">Your note</label>
+      <textarea id="note" placeholder="Start anywhere. Tidepool files it for you."></textarea>
+      <div class="note__row">
+        <div class="tags" role="group" aria-label="Tag">
+          <button type="button" aria-pressed="true">Journal</button><button type="button" aria-pressed="false">Idea</button><button type="button" aria-pressed="false">To do</button>
+        </div>
+        <button class="btn" type="submit">Save note</button>
+      </div>
+    </form>
+  </section>
+</main>
+
+<div class="palette" role="dialog" aria-modal="true" aria-label="Find a note" hidden>
+  <div class="palette__box glass">
+    <label class="visually-hidden" for="find">Search notes</label>
+    <input id="find" placeholder="Search notes" autocomplete="off">
+    <ul data-results></ul>
+  </div>
+</div>
+<button class="motion-toggle" type="button">Pause motion</button>
+
+<script type="module">
+  import { boot, config, pixelRatio, pointer, motionPause } from '../_shared/runtime.js';
+  boot();
+  // Dials: stalks = kelp count (6 to 30), fish = how many (0 to 16), cell = character size in px (8 to 18), hue = 0 sea green, 1 deep blue.
+  const DIALS = config({ stalks: 22, fish: 7, cell: 12, hue: 0 });
+
+  // ----- Rotating headline: word by word, held while there is text in the note. -----
+  const tasks = ['Write down what happened today.', 'Catch the idea before it goes.', 'Turn a long thought into three lines.', 'Plan tomorrow in one breath.'];
+  const task = document.getElementById('task');
+  const note = document.getElementById('note');
+  let ti = 0, paused = () => false;
+  const showTask = (text) => {
+    task.innerHTML = text.split(' ').map((w) => `<span class="out">${w}</span>`).join(' ');
+    task.querySelectorAll('span').forEach((s, i) => setTimeout(() => s.classList.remove('out'), 60 + i * 70));
+  };
+  setInterval(() => {
+    if (paused() || note.value.trim() || document.hidden) return;
+    task.querySelectorAll('span').forEach((s, i) => setTimeout(() => s.classList.add('out'), i * 40));
+    setTimeout(() => showTask(tasks[(ti = (ti + 1) % tasks.length)]), 600);
+  }, 5200);
+
+  // ----- Note form -----
+  document.querySelectorAll('.tags button').forEach((b) => b.addEventListener('click', () => document.querySelectorAll('.tags button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)))));
+  let typing = 0;
+  note.addEventListener('input', () => { typing = 1; });
+  const saved = [{ t: 'Call the plumber about the boiler', d: 'Tue' }, { t: 'Gift ideas for Ana', d: 'Mon' }, { t: 'Notes from the design review', d: 'Last week' }, { t: 'Garden plan for spring', d: 'March' }];
+  document.querySelector('.note').addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!note.value.trim()) return;
+    saved.unshift({ t: note.value.trim().split('\n')[0].slice(0, 60), d: 'Just now' });
+    note.value = '';
+    task.textContent = 'Saved. What next?';
+  });
+
+  // ----- Command palette: Ctrl/Cmd K, arrows, Esc; focus returns where it was. -----
+  const pal = document.querySelector('.palette');
+  const find = document.getElementById('find');
+  const results = pal.querySelector('[data-results]');
+  let lastFocus = null;
+  const list = () => { const q = find.value.toLowerCase(); results.innerHTML = saved.filter((n) => n.t.toLowerCase().includes(q)).map((n) => `<li><button type="button">${n.t}<small>${n.d}</small></button></li>`).join('') || '<li><small style="padding:12px;display:block">No notes match</small></li>'; };
+  const open = () => { lastFocus = document.activeElement; pal.hidden = false; find.value = ''; list(); find.focus(); };
+  const close = () => { pal.hidden = true; lastFocus?.focus(); };
+  document.querySelector('[data-open-palette]').addEventListener('click', open);
+  addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); pal.hidden ? open() : close(); }
+    if (!pal.hidden && e.key === 'Escape') close();
+    if (!pal.hidden && e.key === 'Tab') { // keep focus inside the dialog
+      const f = [...pal.querySelectorAll('input, button')]; const i = f.indexOf(document.activeElement);
+      e.preventDefault(); f[(i + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+    }
+  });
+  pal.addEventListener('click', (e) => { if (e.target === pal) close(); if (e.target.closest('li button')) { note.value = e.target.closest('button').firstChild.textContent; close(); } });
+  find.addEventListener('input', list);
+
+  // ----- The ASCII kelp forest -----
+  const canvas = document.querySelector('.sea');
+  const ctx = canvas.getContext('2d');
+  const ptr = pointer();
+  let W = 0, H = 0, cols = 0, rows = 0, cw = 0, ch = 0;
+  const k = pixelRatio(1.5);
+  const resize = () => {
+    W = canvas.width = Math.round(innerWidth * k); H = canvas.height = Math.round(innerHeight * k);
+    cw = DIALS.cell * 0.62 * k; ch = DIALS.cell * k; cols = Math.ceil(W / cw); rows = Math.ceil(H / ch);
+  };
+  addEventListener('resize', resize); resize();
+  const stalks = Array.from({ length: DIALS.stalks }, (_, i) => ({ x: (i + 0.5 + (Math.sin(i * 7.3) * 0.4)) / DIALS.stalks, h: 0.35 + ((i * 37) % 10) / 22, ph: i * 1.7 }));
+  const fish = Array.from({ length: DIALS.fish }, (_, i) => ({ x: Math.random(), y: 0.25 + Math.random() * 0.55, v: (Math.random() < 0.5 ? -1 : 1) * (0.02 + Math.random() * 0.03), flee: 0 }));
+  const bubbles = Array.from({ length: 40 }, () => ({ x: Math.random(), y: Math.random(), s: 0.02 + Math.random() * 0.05 }));
+  const green = DIALS.hue ? ['#5aa9ff', '#2d5f9e'] : ['#7fe0c0', '#2f8f74'];
+  let t = 0, last = performance.now(), frame = 0, lean = 0;
+
+  const draw = () => {
+    ctx.fillStyle = DIALS.hue ? '#020814' : '#03100f';
+    ctx.fillRect(0, 0, W, H);
+    ctx.font = `500 ${ch * 0.95}px "JetBrains Mono", "DejaVu Sans Mono", monospace`;
+    ctx.textBaseline = 'top';
+    // Bubbles rise.
+    ctx.fillStyle = 'rgba(200, 240, 230, 0.28)';
+    for (const b of bubbles) ctx.fillText(b.s > 0.05 ? 'o' : '.', Math.floor(b.x * cols) * cw, Math.floor(b.y * rows) * ch);
+    // Kelp: each stalk sways from its root; the pointer pushes nearby stalks and typing makes them all lean.
+    for (const s of stalks) {
+      const len = Math.floor(s.h * rows);
+      for (let j = 0; j < len; j++) {
+        const yy = rows - 1 - j, f = j / len;
+        const dxp = (ptr.x * k / W) - s.x;
+        const push = Math.exp(-dxp * dxp * 120) * Math.sign(dxp) * -3 * f;
+        const sway = Math.sin(j * 0.18 + t * 0.9 + s.ph) * 2.2 * f + lean * 4 * f * f + push;
+        const x = Math.round(s.x * cols + sway);
+        const next = Math.sin((j + 1) * 0.18 + t * 0.9 + s.ph) * 2.2 * ((j + 1) / len) - Math.sin(j * 0.18 + t * 0.9 + s.ph) * 2.2 * f;
+        const c = next > 0.12 ? '/' : next < -0.12 ? '\\' : '|';
+        ctx.fillStyle = f > 0.7 ? green[0] : green[1];
+        ctx.fillText(j % 6 === 3 ? (sway > 0 ? '}' : '{') : c, x * cw, yy * ch);
+        if (j % 6 === 3) { ctx.fillStyle = green[1]; ctx.fillText('~', (x + (sway > 0 ? 1 : -1)) * cw, yy * ch); }
+      }
+    }
+    // Fish swim across and dart away from the pointer.
+    for (const f of fish) {
+      const r = f.v > 0 ? '><>' : '<><';
+      ctx.fillStyle = f.flee > 0.1 ? '#ffd27a' : '#f2b46b';
+      ctx.fillText(r, Math.floor(f.x * cols) * cw, Math.floor(f.y * rows) * ch);
+    }
+  };
+
+  const step = (dt) => {
+    t += dt;
+    lean += ((typing ? 1 : 0) - lean) * 0.03; typing *= 0.97;
+    for (const b of bubbles) { b.y -= b.s * dt; if (b.y < 0) { b.y = 1; b.x = Math.random(); } }
+    for (const f of fish) {
+      const dx = f.x - ptr.x / innerWidth, dy = f.y - ptr.y / innerHeight;
+      const d = Math.hypot(dx, dy);
+      f.flee = ptr.active && d < 0.12 ? 1 : f.flee * 0.95;
+      if (f.flee > 0.5) f.v = Math.sign(dx || 1) * 0.12;
+      else f.v += (Math.sign(f.v) * 0.03 - f.v) * 0.02;
+      f.x += f.v * dt;
+      if (f.x > 1.05) f.x = -0.05; if (f.x < -0.05) f.x = 1.05;
+    }
+  };
+
+  let raf = 0;
+  const tick = (now) => {
+    raf = requestAnimationFrame(tick);
+    const dt = Math.min(0.05, (now - last) / 1000); last = now;
+    if (paused() || document.hidden) return;
+    step(dt);
+    if (++frame % 2 === 0) draw(); // 30 fps is plenty for characters
+  };
+  paused = motionPause(document.querySelector('.motion-toggle'), () => draw());
+  draw();
+  raf = requestAnimationFrame(tick);
+</script>
+</body>
+</html>
