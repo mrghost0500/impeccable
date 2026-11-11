@@ -47,7 +47,7 @@ button, input { font: inherit; color: inherit; }
   display: flex; align-items: center; justify-content: space-between; gap: 24px;
   padding: 22px var(--gutter);
 }
-.bar__mark { font-weight: 600; letter-spacing: -0.01em; text-decoration: none; font-size: 18px; }
+.bar__mark { font-weight: 600; letter-spacing: -0.01em; text-decoration: none; font-size: 18px; display: inline-block; padding-block: 12px; margin-block: -12px; }
 .bar__links { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; font-size: 14px; }
 .bar__links a { text-decoration: none; color: var(--ink-soft); }
 .bar__links a:hover { color: var(--ink); }
@@ -110,8 +110,10 @@ button, input { font: inherit; color: inherit; }
   display: grid; gap: 14px; list-style: none; margin: 0; padding: 0;
   font: 500 11px var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase;
 }
-.rail li { display: flex; align-items: center; justify-content: flex-end; gap: 10px; color: var(--ink-soft); opacity: 0.5;
+.rail li { display: flex; align-items: center; justify-content: flex-end; gap: 10px; color: var(--ink); opacity: 0.78;
   transition: opacity 300ms ease; }
+/* The list sits on a dark backing so its small labels keep their contrast over any picture. */
+.rail { padding: 12px 14px; border-radius: 14px; background: rgba(8, 8, 10, 0.55); }
 .rail li::after { content: ""; width: 6px; height: 6px; border-radius: 50%; border: 1px solid currentColor; }
 .rail li[aria-current="step"] { opacity: 1; color: var(--ink); }
 .rail li[aria-current="step"]::after { background: currentColor; }
@@ -132,7 +134,7 @@ button, input { font: inherit; color: inherit; }
 
 /* Motion toggle: a small, always-reachable control for scenes that move on their own. */
 .motion-toggle {
-  position: fixed; left: var(--gutter); bottom: 18px; z-index: 20; min-height: 36px; padding: 0 14px;
+  position: fixed; left: var(--gutter); bottom: 18px; z-index: 20; min-height: 44px; padding: 0 16px;
   border-radius: 999px; border: 1px solid var(--line); background: rgba(0, 0, 0, 0.42); color: var(--ink);
   font: 500 12px var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer;
 }

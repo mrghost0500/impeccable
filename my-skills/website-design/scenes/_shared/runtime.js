@@ -173,3 +173,15 @@ export function onScrollSettle(fn, ms = 140) {
   let t = 0;
   addEventListener('scroll', () => { clearTimeout(t); t = setTimeout(fn, ms); }, { passive: true });
 }
+
+/**
+ * True when WebGL is drawn on the CPU (SwiftShader, llvmpipe, Microsoft Basic Render): old laptops,
+ * some virtual machines, phones with blocked drivers. Scenes should drop resolution and frame rate there.
+ */
+export function isSoftwareGL(gl) {
+  try {
+    const ext = gl.getExtension('WEBGL_debug_renderer_info');
+    const name = String(gl.getParameter(ext ? ext.UNMASKED_RENDERER_WEBGL : gl.RENDERER));
+    return /swiftshader|llvmpipe|software|basic render/i.test(name);
+  } catch { return false; }
+}

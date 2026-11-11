@@ -8,7 +8,8 @@
 // (full page). Reports console and page errors, failed requests, sideways overflow on phones, page
 // length in screens, words readable without JavaScript, headings hidden without JavaScript, and the
 // weight of what loaded, layout shift and main-thread blocking (Google's limits: 0.1 and 200 ms),
-// sideways scroll at 320 px, the nav landmark, and share tags. --launch also fails on share tags that
+// sideways scroll at 320 px, the nav landmark, share tags, touch targets, and the contrast of text that
+// sits on a photograph (measured with the letters hidden). --launch also fails on share tags that
 // are missing or still point at example.com. Exit code 1 when something must be fixed.
 //
 // Needs Playwright: npm i -D playwright && npx playwright install chromium
@@ -97,6 +98,48 @@ const shot = async (page, name, full = false) => { const f = path.join(outDir, `
   for (const f of [0.4, 0.75]) if (span > 50) { await page.evaluate((y) => scrollTo(0, y), Math.round(span * f)); await page.waitForTimeout(1300); await shot(page, `desktop-${f * 100}`); }
   report.errors.push(...log.errors); report.failedRequests.push(...log.failed);
   report.requests = log.requests; report.kilobytes = Math.round(log.bytes / 1024);
+  // Text over a photograph, video or canvas on the first screen: hide the letters, photograph what is
+  // behind them, and compare the text colour with the brighter background (the 90th percentile).
+  await page.evaluate(() => scrollTo(0, 0)); await page.waitForTimeout(400);
+  const overMedia = await page.evaluate(() => {
+    const opaque = (el) => { const c = getComputedStyle(el).backgroundColor; const m = c.match(/[\d.]+/g); return m && (m.length < 4 || Number(m[3]) > 0.9) && c !== 'transparent'; };
+    const out = [];
+    document.querySelectorAll('h1, h2, h3, p, a, li, span, button, label').forEach((el, i) => {
+      const own = [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim());
+      const r = el.getBoundingClientRect();
+      if (!own || r.width < 2 || r.top > innerHeight || r.bottom < 0) return;
+      let a = el, media = false;
+      while (a && a !== document.documentElement) { if (a.querySelector(':scope > img, :scope > video, :scope > canvas, :scope > picture')) { media = true; break; } if (a !== el && opaque(a)) return; a = a.parentElement; }
+      if (!media || opaque(el)) return;
+      const cs = getComputedStyle(el);
+      el.dataset.contrastCheck = String(i);
+      out.push({ id: String(i), text: el.textContent.trim().slice(0, 40), color: cs.color, size: parseFloat(cs.fontSize), bold: Number(cs.fontWeight) >= 700,
+        x: r.x, y: r.y, w: r.width, h: r.height });
+    });
+    return out.slice(0, 12);
+  });
+  report.contrastOverMedia = [];
+  for (const t of overMedia) {
+    await page.addStyleTag({ content: `[data-contrast-check="${t.id}"], [data-contrast-check="${t.id}"] * { color: transparent !important; text-decoration-color: transparent !important; }` });
+    const png = await page.screenshot({ clip: { x: Math.max(0, t.x), y: Math.max(0, t.y), width: Math.max(1, t.w), height: Math.max(1, t.h) } });
+    await page.evaluate((id) => { document.querySelectorAll('style').forEach((st) => { if (st.textContent.includes(`"${id}"`)) st.remove(); }); }, t.id);
+    const ratio = await page.evaluate(async ({ b64, color }) => {
+      const img = await createImageBitmap(await (await fetch(`data:image/png;base64,${b64}`)).blob());
+      const c = new OffscreenCanvas(img.width, img.height); const x = c.getContext('2d'); x.drawImage(img, 0, 0);
+      const d = x.getImageData(0, 0, img.width, img.height).data;
+      const lin = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
+      const L = (r, g, b) => 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+      const ls = []; for (let i = 0; i < d.length; i += 16) ls.push(L(d[i], d[i + 1], d[i + 2]));
+      ls.sort((a, b) => a - b);
+      const [r, g, b] = color.match(/\d+/g).map(Number);
+      const fg = L(r, g, b), lo = ls[Math.floor(ls.length * 0.1)], hi = ls[Math.floor(ls.length * 0.9)];
+      // Light text is limited by the brightest background, dark text by the darkest.
+      const bg = fg > 0.5 ? hi : lo;
+      return +(((Math.max(fg, bg) + 0.05) / (Math.min(fg, bg) + 0.05)).toFixed(2));
+    }, { b64: png.toString('base64'), color: t.color });
+    const need = t.size >= 24 || (t.bold && t.size >= 18.66) ? 3 : 4.5;
+    report.contrastOverMedia.push({ text: t.text, ratio, need });
+  }
   Object.assign(report, await page.evaluate(() => ({ layoutShift: +window.__vitals.cls.toFixed(3), blockingMs: Math.round(window.__vitals.tbt) })));
   Object.assign(report, await page.evaluate(() => {
     const m = (sel, attr = 'content') => document.querySelector(sel)?.getAttribute(attr) || '';
@@ -109,9 +152,14 @@ const shot = async (page, name, full = false) => { const f = path.join(outDir, `
   const { ctx, page, log } = await open({ viewport: { width: 390, height: 844 }, mobile: true });
   await shot(page, 'phone');
   report.phoneOverflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1);
-  report.smallTapTargets = await page.evaluate(() => [...document.querySelectorAll('a, button, input, select, textarea')].filter((e) => {
-    const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && (r.height < 32 || r.width < 32) && getComputedStyle(e).visibility !== 'hidden';
-  }).length);
+  // Touch targets: under 24 px fails WCAG 2.5.8; under 44 px is worth fixing. Links inside running text are exempt.
+  Object.assign(report, await page.evaluate(() => {
+    const items = [...document.querySelectorAll('a, button, input, select, textarea, summary')].filter((e) => {
+      const r = e.getBoundingClientRect(); if (!(r.width > 0 && r.height > 0) || getComputedStyle(e).visibility === 'hidden') return false;
+      return !(e.tagName === 'A' && e.closest('p') && getComputedStyle(e).display === 'inline');
+    }).map((e) => { const r = e.getBoundingClientRect(); return { t: (e.textContent || e.name || e.tagName).trim().slice(0, 30), w: Math.round(r.width), h: Math.round(r.height) }; });
+    return { tinyTapTargets: items.filter((i) => i.h < 24 || i.w < 24), smallTapTargets: items.filter((i) => i.h < 44 || i.w < 44).length };
+  }));
   report.errors.push(...log.errors.map((e) => `phone ${e}`));
   await ctx.close();
 }
@@ -147,6 +195,8 @@ if (report.failedRequests.length) must.push(`${report.failedRequests.length} fai
 if (report.phoneOverflow) must.push('the page scrolls sideways on a phone');
 if (report.hiddenWithoutJs.length) must.push(`${report.hiddenWithoutJs.length} headings or paragraphs are invisible without JavaScript`);
 if (report.h1 !== 1) must.push(`${report.h1} h1 headings (want exactly 1)`);
+for (const c of report.contrastOverMedia || []) if (c.ratio < c.need) must.push(`text over a picture "${c.text}" has contrast ${c.ratio} (needs ${c.need}); deepen the scrim behind it or move it`);
+if ((report.tinyTapTargets || []).length) must.push(`${report.tinyTapTargets.length} touch targets under 24 px on a phone: ${report.tinyTapTargets.map((t) => t.t).join(', ')}`);
 if (!report.metaDescription) must.push('no meta description');
 if (report.overflowAt320) must.push('the page scrolls sideways on a 320 px phone');
 if (report.layoutShift > 0.1) must.push(`layout shift ${report.layoutShift} (Google's limit is 0.1)`);
@@ -154,6 +204,7 @@ if (report.blockingMs > 200) must.push(`main thread blocked ${report.blockingMs}
 if (!report.lang) must.push('no lang attribute on <html>');
 const hasMenu = await Promise.resolve(report.nav);
 if (!hasMenu) report.warnings = [...(report.warnings || []), 'no <nav> landmark (fine for a one-screen tool, not for a site)'];
+if (report.smallTapTargets) report.warnings = [...(report.warnings || []), `${report.smallTapTargets} touch targets under 44 px on a phone`];
 if (launch) {
   if (!report.shareImage || /example\.com/.test(report.shareImage)) must.push('share image (og:image) missing or still example.com');
   if (!report.canonical || /example\.com/.test(report.canonical)) must.push('canonical address missing or still example.com');
@@ -161,5 +212,5 @@ if (launch) {
 }
 report.mustFix = must;
 fs.writeFileSync(path.join(outDir, 'report.json'), JSON.stringify(report, null, 2));
-console.log(JSON.stringify({ url: report.url, mustFix: must, warnings: report.warnings || [], layoutShift: report.layoutShift, blockingMs: report.blockingMs, screens: report.screens, requests: report.requests, kilobytes: report.kilobytes, smallTapTargets: report.smallTapTargets, wordsWithoutJs: report.wordsWithoutJs, out: outDir }, null, 2));
+console.log(JSON.stringify({ url: report.url, mustFix: must, warnings: report.warnings || [], layoutShift: report.layoutShift, blockingMs: report.blockingMs, screens: report.screens, requests: report.requests, kilobytes: report.kilobytes, contrastOverMedia: report.contrastOverMedia, wordsWithoutJs: report.wordsWithoutJs, out: outDir }, null, 2));
 process.exit(must.length ? 1 : 0);

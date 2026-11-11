@@ -17,7 +17,8 @@ impeccable build.
   configurator, shader seas and skies, particle heroes, galleries, GSAP choreography) with previews,
   settings you can try live, and fallbacks for every visitor. `website-design/scene-craft.md` holds
   the rules behind them, and `website-design/tools/` checks pages in four states, makes scroll
-  previews for clients, studies sites you admire and turns films into frame sequences.
+  previews for clients, studies sites you admire and turns films into frame sequences. `website-design/examples/casa-dei-venti/`
+  is a full run of the skill on one brief, from kickoff to hand-over, with its scores.
 - `setup-skills.sh` installs the master skill and everything it calls into `~/.claude/skills`:
   impeccable, design-taste-frontend, ui-ux-pro-max, web-design-guidelines, webapp-testing,
   fixing-metadata, Claude SEO (26 skills and 19 helper agents), HyperFrames (4 core skills, for

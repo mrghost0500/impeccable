@@ -80,7 +80,7 @@
 <footer id="contact">Halvard Studio · studio@example.com · Demo content for a scene template.</footer>
 
 <script type="module">
-  import { boot, isReduced, loop, config, pixelRatio, webglAvailable, fallbackToPoster, qualityTier, clamp } from '../_shared/runtime.js';
+  import { boot, isReduced, loop, config, pixelRatio, webglAvailable, fallbackToPoster, qualityTier, clamp, isSoftwareGL } from '../_shared/runtime.js';
   import { artwork } from '../_shared/painters.js';
   boot();
   const reduced = isReduced();
@@ -102,13 +102,15 @@
     const canvas = hero.querySelector('canvas');
     const tier = qualityTier();
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-    renderer.setPixelRatio(pixelRatio(tier === 'high' ? 2 : 1.5));
+    // Drawn on the CPU: draw a third of the pixels and every other frame.
+    const soft = isSoftwareGL(renderer.getContext());
+    renderer.setPixelRatio(soft ? 0.6 : pixelRatio(tier === 'high' ? 1.5 : 1));
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
     camera.position.set(0, 0, 5);
 
     const N = WORKS.length, total = N * DIALS.gap;
-    const geo = new THREE.PlaneGeometry(1.2, 1.5, 24, 1);
+    const geo = new THREE.PlaneGeometry(1.2, 1.5, 12, 1);
     // Pictures arrive one per frame, so start-up never blocks; each plane shows the haze until its picture is ready.
     const blank = new THREE.DataTexture(new Uint8Array([241, 238, 232, 255]), 1, 1); blank.needsUpdate = true;
     const planes = WORKS.map((w, i) => {
@@ -120,8 +122,8 @@
           void main(){ vUv = uv; vec3 p = position; float x = uv.x - 0.5; p.z += -x * x * 4.0 * uFold; p.x *= 1.0 - abs(uFold) * 0.15;
             gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0); }`,
         fragmentShader: `uniform sampler2D map; uniform float uFringe, uFade; varying vec2 vUv;
-          void main(){ vec2 o = vec2(uFringe * 0.012, 0.0);
-            vec3 c = vec3(texture2D(map, vUv + o).r, texture2D(map, vUv).g, texture2D(map, vUv - o).b);
+          void main(){ vec3 c = texture2D(map, vUv).rgb;
+            if (uFringe > 0.01) { vec2 o = vec2(uFringe * 0.012, 0.0); c.r = texture2D(map, vUv + o).r; c.b = texture2D(map, vUv - o).b; }
             vec3 haze = vec3(0.945, 0.933, 0.91); gl_FragColor = vec4(mix(haze, c, uFade), 1.0);
             #include <colorspace_fragment>
           }`,
@@ -137,7 +139,7 @@
       const t = new THREE.CanvasTexture(artwork(i + 1, tier === 'low' ? 200 : 300, 1.25));
       t.colorSpace = THREE.SRGBColorSpace;
       planes[i].material.uniforms.map.value = t;
-      requestAnimationFrame(paintNext);
+      setTimeout(() => requestAnimationFrame(paintNext), 32);
     };
     requestAnimationFrame(paintNext);
 
@@ -184,7 +186,9 @@
     });
 
     const caption = hero.querySelector('[data-caption]');
+    let frameNo = 0;
     loop((t, dt) => {
+      if (soft && (frameNo++ & 1)) return;
       const cruise = paused ? 0 : DIALS.cruise;
       if (!dragging) offset += (cruise + vel) * dt;
       vel *= Math.pow(0.04, dt);

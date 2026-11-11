@@ -89,7 +89,7 @@
 <p class="hud" aria-hidden="true"><span data-hud-station>Dusk</span><span data-hud-time>19:42</span><span data-hud-alt>Alt 2,140 m</span></p>
 
 <script type="module">
-  import { boot, reveals, isReduced, config, pixelRatio, webglAvailable, fallbackToPoster, qualityTier, onScrollSettle, clamp, smoothstep } from '../_shared/runtime.js';
+  import { boot, reveals, isReduced, config, pixelRatio, webglAvailable, fallbackToPoster, qualityTier, onScrollSettle, clamp, smoothstep, isSoftwareGL } from '../_shared/runtime.js';
   boot();
   reveals();
   const reduced = isReduced();
@@ -133,15 +133,19 @@
     }).catch(() => {});
   }
 
+  // The world waits for the browser to be idle, so the first screen is readable first.
+  const whenIdle = (fn) => ('requestIdleCallback' in window ? requestIdleCallback(fn, { timeout: 1200 }) : setTimeout(fn, 200));
   if (!webglAvailable()) fallbackToPoster('no WebGL');
-  else start().catch((e) => fallbackToPoster(e.message));
+  else whenIdle(() => start().catch((e) => fallbackToPoster(e.message)));
 
   async function start() {
     const THREE = await import('three');
     const canvas = document.querySelector('.world');
     const tier = qualityTier();
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: tier === 'high' });
-    renderer.setPixelRatio(pixelRatio(tier === 'high' ? 1.5 : 1));
+    // Drawn on the CPU: a third of the pixels, no multisampling, a lighter terrain, every other frame.
+    const soft = isSoftwareGL(renderer.getContext());
+    renderer.setPixelRatio(soft ? 0.6 : pixelRatio(tier === 'high' ? 1.5 : 1));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 600);
@@ -154,7 +158,7 @@
       fragmentShader: 'uniform vec3 top; uniform vec3 low; varying vec3 vP; void main(){ gl_FragColor = vec4(mix(low, top, smoothstep(-0.02, 0.45, vP.y)), 1.); \n#include <colorspace_fragment>\n}' })));
 
     // Terrain: a mesa with ridges, displaced once on the CPU.
-    const seg = tier === 'low' ? 90 : 160;
+    const seg = tier === 'low' || soft ? 64 : 160;
     const ground = new THREE.PlaneGeometry(400, 400, seg, seg);
     ground.rotateX(-Math.PI / 2);
     const pos = ground.attributes.position;
@@ -200,7 +204,7 @@
                  [new THREE.Vector3(40, 40, 30), new THREE.Vector3(10, 8, -40)]];
 
     // Post pass: render the world into a texture, then dissolve through an ordered dither between stations.
-    const rt = new THREE.WebGLRenderTarget(1, 1, { samples: tier === 'high' ? 4 : 0 });
+    const rt = new THREE.WebGLRenderTarget(1, 1, { samples: tier === 'high' && !soft ? 4 : 0 });
     const post = new THREE.Scene();
     const postCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
     const postU = { tScene: { value: rt.texture }, uDissolve: { value: 0 }, uCell: { value: 3 * renderer.getPixelRatio() }, uFog: { value: new THREE.Color('#0b0a10') } };
@@ -228,9 +232,10 @@
 
     const eyeA = new THREE.Vector3(), lookA = new THREE.Vector3();
     let shown = stationPos();
+    let frameNo = 0;
     const frame = () => {
       requestAnimationFrame(frame);
-      if (document.hidden) return;
+      if (document.hidden || (soft && (frameNo++ & 1))) return;
       const target = reduced ? Math.round(stationPos()) : stationPos();
       shown += (target - shown) * (reduced ? 1 : 0.08);
       const i = Math.min(2, Math.floor(shown)), f = smoothstep(0, 1, shown - i);

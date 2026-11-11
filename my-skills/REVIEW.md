@@ -167,6 +167,28 @@ it.
       modules, network timeline, scenario screenshots); Agent Reach adds YouTube subtitles and X and
       Reddit threads, useful for designers' own breakdowns of how they built a site.
 
+21. **First full run, end to end (2026-11-11).** The skill was run on one invented brief, Casa dei
+    Venti, a twelve-room clifftop hotel, with the user as the client at every checkpoint. It is kept as
+    `website-design/examples/casa-dei-venti/` (page, copy deck, direction sheet, REPORT.md, DESIGN.md).
+    - Pictures: ten photorealistic stills from Figma's `generate_image`, consistent as one place.
+      Generating straight into the mockup file let the mockup and the build share them. Weave (video)
+      needs the user to link Figma to Weave first; Higgsfield was not connected in this session.
+    - Gate: the taste skill's inspector failed the first build five ways (a label above the headline,
+      a blank band where an entrance had not finished, text against the screen edge, 15 type sizes, a
+      bare-name title). All fixed; 0 FAIL, two warnings defended.
+    - Scores: design rubric 8.1 then 8.5 after two critique rounds (Sites of the Day land at 7.5 to
+      8.0). Developer criteria measured: animations 8.5, performance 9.5, responsive 9.0, semantics 9.0,
+      markup 8.5 (example.com until launch), accessibility 9.0.
+    - New in `tools/check-page.mjs`, from what the run caught: the contrast of text on a photograph,
+      measured with the letters hidden (it found a menu at 1.42 over a bright sky that every other
+      check passed), touch targets at WCAG's 24 and 44 px, layout shift, blocking, 320 px, and a
+      `--launch` mode that fails on share tags left at example.com.
+    - New in `scene-craft.md`: the picture recipe, entrance timing, non-overlapping cards in
+      cross-fades, the scrim recipe, self-hosted fonts, rebuilding a scene's chrome under the taste
+      house rules, and scoring honestly.
+    - Still short of 9 on the design rubric: film instead of stills, a drawn wordmark, a stronger
+      signature move. See the report.
+
 ## Connected tools (checked 2026-11-04)
 
 | Tool | Helpful? | How the master skill uses it |

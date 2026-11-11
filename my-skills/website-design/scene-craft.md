@@ -63,6 +63,25 @@ out, is what lifts the result. That is what `scenes/` is for.
   atmosphere rather than content; keep `high-performance` for the scene the page is about.
 - **Preview films stream.** Long or many videos go through adaptive streaming (HLS), not one large
   MP4; short loops stay as small MP4 or WebM with a poster.
+- **Entrances start before they arrive.** Trigger them about 18% below the screen and keep them under
+  650 ms with a 70 ms stagger. Screenshots, link previews and fast scrolls catch anything slower half
+  faded, and the inspector reads that as a blank band. The conversion itself (the booking card, the
+  checkout, the contact form) is never hidden behind an entrance.
+- **Cards in a cross-fade never overlap.** When pictures cross-fade, each card waits until its picture
+  is about 60% in, so two cards are never half visible together.
+- **Text on a photograph is measured, not eyeballed.** `tools/check-page.mjs` hides the letters,
+  photographs what is behind them and compares the text with the brighter tenth of that background.
+  Menus over a bright sky are the usual failure. Fix with the one neutral scrim the house rules allow:
+  bottom 62% of the picture from clear to 0.5 at 38% and 0.8 at the edge; top 26% from 0.74 to clear.
+- **Plan for no graphics chip.** Some laptops, virtual machines and phones with blocked drivers draw
+  WebGL on the CPU. `isSoftwareGL()` in `_shared/runtime.js` detects it; drop to about 0.6 pixel
+  density, no multisampling, lighter geometry and every other frame. Start any heavy scene when the
+  browser is idle, so the first screen is readable first. In testing this took the world story from
+  7.7 s of blocked main thread to under 0.2 s.
+- **Self-host the fonts.** A Fontsource package (open licence) with the regular weight preloaded is
+  faster than a font service and avoids the EU privacy problem with Google-hosted fonts.
+- **Touch targets of 44 px on phones.** Links in a line of text grow their hit area with padding and
+  an equal negative margin, so the line does not move.
 - **One fluid unit** (a `clamp()` scale tied to the window) keeps proportions identical from phone to
   wide screen.
 - **Ship notes for the next person**: what to replace, where the dials are, how it degrades. HorizonX
@@ -78,8 +97,17 @@ expensive was the picture inside them, so settle where it comes from at kickoff 
    background plate plus a cut-out of the foreground; cut-outs from an image tool or a photo editor).
 2. **Made in code.** Sea, sky, aurora, fire, particles, point clouds, terrain and simple products are
    procedural in these scenes and cost nothing to load. Prefer this whenever the subject allows.
-3. **Generated (costs credits, ask first).** A still in the chosen look from an image tool, then a short
-   camera move from a video tool (Higgsfield when connected), then `tools/frames.sh`. Keep one camera
+3. **Generated (costs credits, ask first).** Proven on the Casa dei Venti example
+   (`examples/casa-dei-venti/`): Figma's `generate_image` (gpt-image-2.5-flare), called into the
+   mockup file so the mockup and the build share the pictures. One shared style line for every shot
+   ("Photorealistic editorial travel photograph, 35mm film, natural light, soft grain, true-to-life
+   colour, no people, no text") plus one sentence per shot naming the place, the light, and where the
+   calm area for text is. Generate the opening picture first and look at it before spending on the
+   rest. It returns 1536 × 864 for 16:9, 960 × 1280 for 3:4 and 1024 × 1024 for squares: sharp at
+   1× and slightly soft full-bleed on 2× screens. Download each from its `image.url` (the environment
+   must allow www.figma.com), then make WebP at 640, 1024 and native width and a 1200 × 630 share
+   picture. For motion, a short camera move from a video tool (Higgsfield, or Weave once the user links
+   it) goes through `tools/frames.sh`. Keep one camera
    move per chapter, slow and level, 4 to 8 seconds; generate the portrait version separately rather
    than cropping when the subject is wide. Check every frame for warped hands, text and logos.
 4. **3D models.** A glTF of the product from the client's maker, or `img2threejs` for a simple object
@@ -100,9 +128,13 @@ how it degrades. `scenes/README.md` is the same list for people, with previews.
    template.
 3. **Tune live.** Open the scene with dials in the address bar to try colours and strength with the user
    before writing code. Then copy the scene into the project and set the dials as defaults.
-4. **Replace every stand-in.** Brand, words (through `humanizer`), pictures, frames, models, prices. The
+4. **Rebuild the scene's chrome in the chosen look.** Under the taste skill's house rules a scene keeps
+   its mechanics (the sticky stage, the cross-fade, the dials) and loses whatever the rules ban: mono
+   or tracked-caps captions, numbered counters (01 / 05), outlined pills, glass panels. Use the look's
+   type, buttons and colours instead.
+5. **Replace every stand-in.** Brand, words (through `humanizer`), pictures, frames, models, prices. The
    painted stand-ins in `_shared/painters.js` must not survive into a client site. Keep the fallbacks.
-5. **Check it.** `node tools/check-page.mjs <folder or url>`: desktop, scroll positions, phone, reduced
+6. **Check it.** `node tools/check-page.mjs <folder or url>`: desktop, scroll positions, phone, reduced
    motion and JavaScript off, with errors, sideways scroll, invisible text, missing title or
    description. 0 must-fix items before the user sees it. Then `tools/scroll-preview.mjs` for the image
    you send them.
@@ -122,3 +154,24 @@ When the user points at a site and says "like this":
    them to the user. Build those ideas with our own content and code.
 4. Never copy code, images, names, copy or 3D models from a paid or licensed library, even when they
    are reachable. Evidence is for understanding; the build is ours.
+
+## 6. Scoring honestly
+
+Two rubrics, kept apart. A worked example with both, and the fixes each round needed, is
+`examples/casa-dei-venti/REPORT.md`.
+
+- **Design, usability, creativity, content** (the taste skill's `references/critique.md`, Awwwards
+  weights). Score as the juror who did not build it. Real Sites of the Day land at 7.5 to 8.0 from the
+  jury; an honest 8.5 is rare. What lifted the example from 8.1 to 8.5: fixing a grid that dropped half
+  a section to the next row, filling an empty field around a centred sheet with a large photograph,
+  and setting a focal point for every photograph on phones. What holds it under 9: generated stills
+  instead of film, a common typeface for the name, and a signature move that is good rather than
+  unforgettable.
+- **The six Developer Award criteria**, measured. These reach 9 and above with evidence: speed (main
+  content time, layout shift, blocking, weight from `check-page`), every screen size from 320 px,
+  semantics (one h1, an outline, landmarks, text without JavaScript), share tags and structured data
+  (held at 8.5 until the real address replaces example.com), and accessibility (keyboard order with a
+  visible ring at every stop, names, contrast over photographs measured, reduced motion). The winners
+  studied average 7.0 to 8.3 on these; this is where a careful build beats them.
+
+Never round up. Report the scores, the caps that applied and what still falls short.

@@ -113,7 +113,10 @@ in. A product site that shows its app is a page.
    computer width and phone width, following section 8. Show them the Figma link and the screenshot,
    and ask: love it, a few changes, or not right. They can also mark it up in Figma and tell you.
    Changes are made in the mockup and shown again; "not right" goes back to stage 2. Without Figma,
-   skip this stage; stage 5 is their first look.
+   skip this stage; stage 5 is their first look. When the pictures are generated (the user agreed to
+   the credits), generate them into the mockup file with Figma's `generate_image`, so the mockup and the
+   build share them: the opening picture first, checked, then the rest (`scene-craft.md` section 3 has
+   the prompt recipe, the sizes it returns and how to download them).
 4. **Build.** The taste skill's steps 6 to 8: build, gate, look. Build what the user approved in the
    mockup. Use `ui-ux-pro-max` only to look things up (font pairings, usability rules, framework
    rules), never to choose the look. With a chosen scene, start from its folder: set the dials,
@@ -140,19 +143,24 @@ in. A product site that shows its app is a page.
    and read the browser console. `impeccable harden` when there are forms or error states. Then run
    `node tools/check-page.mjs <folder or url>`: it captures the page on a computer, at two scroll
    positions, on a phone, with reduced motion and with JavaScript off, and lists what must be fixed
-   (script errors, failed requests, sideways scroll on phones, text invisible without JavaScript, the
-   h1, the description). Fix until it reports nothing. Without JavaScript is what search engines, link
+   (script errors, failed requests, sideways scroll on phones down to 320 px, text invisible without
+   JavaScript, layout shift, blocking at start, touch targets, the contrast of text that sits on a
+   photograph measured with the letters hidden, the h1, the description). Fix until it reports
+   nothing; before launch run it again with `--launch`. Without JavaScript is what search engines, link
    previews and slow phones see, and two of five award winners studied showed blank slabs.
 8. **Review.** In this order: `impeccable critique`, `impeccable audit` (accessibility lives there),
    `web-design-guidelines`, `review-animations`, and `humanizer` over any words added since stage 3
    (error messages, labels, alt text). Merge the findings into one list and fix them. Then score the
    build out of 10 on the six Developer Award criteria in `award-patterns.md` section 3, with the
    evidence beside each score, and fix anything under 8; accessibility is where the winners lose the
-   most. Tell the user the five fixes that mattered most, in plain words. Ask only when a fix would
+   most. Score the design rubric as a juror who did not build it and never round up
+   (`scene-craft.md` section 6; `examples/casa-dei-venti/REPORT.md` is a worked example of both score
+   tables). Tell the user the five fixes that mattered most, in plain words. Ask only when a fix would
    change their words or claims.
 9. **Launch prep (Ask).** Section 7. Then `impeccable polish`, the taste gate once more (`lint.mjs`,
    `inspect.mjs`, and `scenes.mjs` when there are scroll scenes: 0 FAIL at every width), and
-   `impeccable document` so DESIGN.md records the look for later changes.
+   `impeccable document` so DESIGN.md records the look for later changes
+   (`examples/casa-dei-venti/DESIGN.md` shows the shape).
 10. **Hand-over (Ask).** Final screenshots and a short plain report: what was built and why it suits
     them; the Figma mockup link; what is still a placeholder for them to replace; photo credits; what
     you assumed; how to ask for changes later ("/website-design make the prices bigger"). Put the
