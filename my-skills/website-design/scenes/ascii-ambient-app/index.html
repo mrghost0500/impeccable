@@ -18,7 +18,8 @@
   .siderail button:hover, .siderail button[aria-current] { border-color: var(--line); color: var(--ink); background: rgba(255, 255, 255, 0.04); }
   @media (max-width: 640px) { .app { grid-template-columns: 1fr; } .siderail { display: none; } }
   .home { display: grid; align-content: center; justify-items: center; gap: 18px; padding: 90px var(--gutter) 60px; text-align: center; }
-  .hello { font: 500 12px var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin: 0; }
+  .hello { font: 500 13px var(--font-sans); color: var(--ink-soft); margin-right: auto; margin-left: 18px; }
+  @media (max-width: 520px) { .hello { display: none; } }
   .task { margin: 0; min-height: 1.15em; font-weight: 500; font-size: clamp(30px, 4vw, 58px); letter-spacing: -0.025em; line-height: 1.1; max-width: 18ch; }
   .task span { display: inline-block; transition: filter 500ms ease, opacity 500ms ease, transform 500ms var(--ease-out); }
   .task span.out { filter: blur(10px); opacity: 0; transform: translateY(8px); }
@@ -46,6 +47,7 @@
 <canvas class="sea" aria-hidden="true"></canvas>
 <header class="bar">
   <a class="bar__mark" href="#top">Tidepool</a>
+  <span class="hello">Thursday evening</span>
   <button class="btn btn--ghost" type="button" data-open-palette>Find a note <span class="hint">Ctrl K</span></button>
 </header>
 
@@ -57,7 +59,6 @@
     <button type="button" aria-label="Settings">⚙</button>
   </nav>
   <section class="home" aria-labelledby="task">
-    <p class="hello">Thursday evening</p>
     <h1 class="task" id="task">Write down what happened today.</h1>
     <form class="note glass" aria-label="New note">
       <label class="visually-hidden" for="note">Your note</label>

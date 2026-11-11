@@ -33,6 +33,42 @@
         ],
         "createdAt": "2026-11-10T20:24:21.931Z",
         "reason": "Agent: editorial chapter story; the serif italic is one accent phrase in the hero only, removed from all other headings"
+      },
+      {
+        "rule": "radial-halo",
+        "value": "*",
+        "files": [
+          "my-skills/website-design/scenes/horizon-sea/index.html"
+        ],
+        "createdAt": "2026-11-11T02:25:59.898Z",
+        "reason": "Agent: the gradient is the sun in the no-WebGL poster of a dusk-sea scene, a literal subject, not decorative glow"
+      },
+      {
+        "rule": "repeating-stripes-gradient",
+        "value": "*",
+        "files": [
+          "my-skills/website-design/scenes/point-scan/index.html"
+        ],
+        "createdAt": "2026-11-11T02:25:59.909Z",
+        "reason": "Agent: the repeating gradient draws the tick marks of the ruler preloader, a literal ruler"
+      },
+      {
+        "rule": "tight-leading",
+        "value": "*",
+        "files": [
+          "my-skills/website-design/scenes/point-scan/index.html"
+        ],
+        "createdAt": "2026-11-11T02:25:59.919Z",
+        "reason": "Agent: only display type (100px two-line hero, 28-54px statement) is under 1.3; body text is 1.55. Measured in Chromium"
+      },
+      {
+        "rule": "tight-leading",
+        "value": "*",
+        "files": [
+          "my-skills/website-design/scenes/card-fan/index.html"
+        ],
+        "createdAt": "2026-11-11T02:25:59.929Z",
+        "reason": "Agent: only display type (36-72px headline, 26px card titles) is under 1.3; body text is 1.55. Measured in Chromium"
       }
     ]
   },
