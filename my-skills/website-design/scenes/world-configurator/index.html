@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tidewell Flask · Choose your finish</title>
 <meta name="description" content="Scene template: a world configurator. Choosing a finish recolours the product and the whole scene around it, and the page ends at the bag.">
+<!-- Share previews and search. At launch, replace example.com with the real address and
+     share.jpg with a 1200x630 picture of the page; check-page --launch fails until you do. -->
+<link rel="canonical" href="https://example.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tidewell Flask · Choose your finish">
+<meta property="og:description" content="Scene template: a world configurator. Choosing a finish recolours the product and the whole scene around it, and the page ends at the bag.">
+<meta property="og:image" content="https://example.com/share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1a0f0b">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Product", "name": "Tidewell Flask", "description": "Double-walled steel flask, cold for 24 hours.", "offers": {"@type": "AggregateOffer", "lowPrice": "38", "highPrice": "46", "priceCurrency": "EUR"}, "url": "https://example.com/"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -57,6 +67,7 @@
   .total { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid var(--line); padding-top: 18px; }
   .total b { font-size: 28px; font-weight: 500; }
   .notes { color: var(--ink-soft); font-size: 14px; margin: 0; }
+  .foot { padding: 24px var(--gutter); color: var(--ink-soft); font-size: 14px; border-top: 1px solid var(--line); }
   .toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 220%); visibility: hidden; z-index: 30; padding: 12px 18px; border-radius: 999px;
     background: var(--ink); color: var(--paper); font-weight: 500; transition: transform 400ms var(--ease-out); }
   .toast.is-on { transform: translate(-50%, 0); visibility: visible; }
@@ -72,7 +83,7 @@
 <a class="skip-link" href="#configure">Skip to the configurator</a>
 <header class="bar">
   <a class="bar__mark" href="#top">Tidewell</a>
-  <ul class="bar__links"><li><a href="#configure">Flask</a></li><li><a href="#configure">Care</a></li><li><a href="#configure">Stores</a></li></ul>
+  <nav aria-label="Main"><ul class="bar__links"><li><a href="#configure">Flask</a></li><li><a href="#configure">Care</a></li><li><a href="#configure">Stores</a></li></ul></nav>
   <a class="btn btn--ghost" href="#configure">Bag (<span data-bag>0</span>)</a>
 </header>
 
@@ -117,6 +128,7 @@
     <button class="btn" type="submit">Add to bag</button>
   </form>
 </main>
+<footer class="foot">Tidewell Goods · Free returns for 60 days · Demo content for a scene template.</footer>
 <div class="toast" role="status" aria-live="polite"></div>
 
 <script type="module">
@@ -199,8 +211,10 @@
   }
 
   // ----- 3D scene -----
+  // The scene waits for the browser to be idle, so the page is readable and the form usable first.
+  const whenIdle = (fn) => ('requestIdleCallback' in window ? requestIdleCallback(fn, { timeout: 1200 }) : setTimeout(fn, 200));
   if (!webglAvailable()) fallbackToPoster('no WebGL');
-  else build().catch((e) => fallbackToPoster(e.message));
+  else whenIdle(() => build().catch((e) => fallbackToPoster(e.message)));
 
   async function build() {
     const THREE = await import('three');
@@ -215,7 +229,7 @@
     renderer.toneMappingExposure = 0.92;
     const scene = new THREE.Scene();
     const pmrem = new THREE.PMREMGenerator(renderer);
-    scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+    if (tier !== 'low') scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
     scene.environmentIntensity = 0.55;
     const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
 

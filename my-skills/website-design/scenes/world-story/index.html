@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>High Mesa Observatory · Night sky tours</title>
 <meta name="description" content="Scene template: a world story. One live 3D world, a camera that travels through four stations, a page that settles on the nearest station, and a pixel dissolve between them.">
+<!-- Share previews and search. At launch, replace example.com with the real address and
+     share.jpg with a 1200x630 picture of the page; check-page --launch fails until you do. -->
+<link rel="canonical" href="https://example.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="High Mesa Observatory · Night sky tours">
+<meta property="og:description" content="Scene template: a world story. One live 3D world, a camera that travels through four stations, a page that settles on the nearest station, and a pixel dissolve between them.">
+<meta property="og:image" content="https://example.com/share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0a10">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TouristAttraction", "name": "High Mesa Observatory", "description": "Small-group night sky tours at a working observatory.", "url": "https://example.com/"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -48,9 +58,9 @@
 
 <header class="bar">
   <a class="bar__mark" href="#dusk">High Mesa</a>
-  <ul class="pills glass" aria-label="Stations">
+  <nav aria-label="Stations"><ul class="pills glass">
     <li><a href="#dusk">Dusk</a></li><li><a href="#dome">Dome</a></li><li><a href="#sky">Sky</a></li><li><a href="#visit">Visit</a></li>
-  </ul>
+  </ul></nav>
   <a class="btn" href="#visit">Book a night</a>
 </header>
 

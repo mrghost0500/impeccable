@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Wren · A quiet assistant</title>
 <meta name="description" content="Scene template: a material orb. A rendered orb that shows an assistant's state (idle, listening, thinking, speaking), driven by a working prompt composer.">
+<!-- Share previews and search. At launch, replace example.com with the real address and
+     share.jpg with a 1200x630 picture of the page; check-page --launch fails until you do. -->
+<link rel="canonical" href="https://example.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Wren · A quiet assistant">
+<meta property="og:description" content="Scene template: a material orb. A rendered orb that shows an assistant's state (idle, listening, thinking, speaking), driven by a working prompt composer.">
+<meta property="og:image" content="https://example.com/share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#07070a">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Wren", "applicationCategory": "ProductivityApplication", "description": "A quiet personal assistant.", "url": "https://example.com/"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -47,7 +57,7 @@
 <a class="skip-link" href="#prompt">Skip to the prompt</a>
 <header class="bar">
   <a class="bar__mark" href="#top">Wren</a>
-  <ul class="bar__links"><li><a href="#prompt">Home</a></li><li><a href="#prompt">Library</a></li><li><a href="#prompt">Settings</a></li></ul>
+  <nav aria-label="Main"><ul class="bar__links"><li><a href="#prompt">Home</a></li><li><a href="#prompt">Library</a></li><li><a href="#prompt">Settings</a></li></ul></nav>
   <span class="eyebrow">Good evening, Sam</span>
 </header>
 

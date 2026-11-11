@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Halvard Studio · Photographs</title>
 <meta name="description" content="Scene template: a picture tunnel. Pictures travel along a curved track you can drag, scroll sideways or steer with the keys, folding toward the viewer when they move fast.">
+<!-- Share previews and search. At launch, replace example.com with the real address and
+     share.jpg with a 1200x630 picture of the page; check-page --launch fails until you do. -->
+<link rel="canonical" href="https://example.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Halvard Studio · Photographs">
+<meta property="og:description" content="Scene template: a picture tunnel. Pictures travel along a curved track you can drag, scroll sideways or steer with the keys, folding toward the viewer when they move fast.">
+<meta property="og:image" content="https://example.com/share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f1eee8">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfessionalService", "name": "Halvard Studio", "description": "Portraits, interiors and slow travel, made on film.", "url": "https://example.com/"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -41,7 +51,7 @@
 <a class="skip-link" href="#works">Skip to the list of work</a>
 <header class="bar">
   <a class="bar__mark" href="#top">Halvard Studio</a>
-  <ul class="bar__links"><li><a href="#works">Work</a></li><li><a href="#contact">Commissions</a></li><li><a href="#contact">About</a></li></ul>
+  <nav aria-label="Main"><ul class="bar__links"><li><a href="#works">Work</a></li><li><a href="#contact">Commissions</a></li><li><a href="#contact">About</a></li></ul></nav>
   <a class="btn btn--ghost" href="#contact">Get in touch</a>
 </header>
 
@@ -82,8 +92,9 @@
   const WORKS = Array.from({ length: DIALS.count }, (_, i) => ({ title: places[i % places.length], year: 2019 + (i % 7) }));
   document.querySelector('[data-list]').innerHTML = WORKS.map((w, i) => `<li>${w.title}<span>${String(i + 1).padStart(2, '0')} · ${w.year}</span></li>`).join('');
 
+  const whenIdle = (fn) => ('requestIdleCallback' in window ? requestIdleCallback(fn, { timeout: 1200 }) : setTimeout(fn, 200));
   if (!webglAvailable()) fallbackToPoster('no WebGL');
-  else start().catch((e) => fallbackToPoster(e.message));
+  else whenIdle(() => start().catch((e) => fallbackToPoster(e.message)));
 
   async function start() {
     const THREE = await import('three');
@@ -98,9 +109,10 @@
 
     const N = WORKS.length, total = N * DIALS.gap;
     const geo = new THREE.PlaneGeometry(1.2, 1.5, 24, 1);
+    // Pictures arrive one per frame, so start-up never blocks; each plane shows the haze until its picture is ready.
+    const blank = new THREE.DataTexture(new Uint8Array([241, 238, 232, 255]), 1, 1); blank.needsUpdate = true;
     const planes = WORKS.map((w, i) => {
-      const tex = new THREE.CanvasTexture(artwork(i + 1, tier === 'low' ? 256 : 400, 1.25));
-      tex.colorSpace = THREE.SRGBColorSpace;
+      const tex = blank;
       const mat = new THREE.ShaderMaterial({
         transparent: true,
         uniforms: { map: { value: tex }, uFold: { value: 0 }, uFringe: { value: 0 }, uFade: { value: 1 } },
@@ -118,6 +130,16 @@
       scene.add(mesh);
       return mesh;
     });
+    let painted = 0;
+    const paintNext = () => {
+      if (painted >= planes.length) return;
+      const i = painted++;
+      const t = new THREE.CanvasTexture(artwork(i + 1, tier === 'low' ? 200 : 300, 1.25));
+      t.colorSpace = THREE.SRGBColorSpace;
+      planes[i].material.uniforms.map.value = t;
+      requestAnimationFrame(paintNext);
+    };
+    requestAnimationFrame(paintNext);
 
     // The track: a corridor. Pictures alternate between the left and right walls, angled inward, and come
     // toward the viewer out of a pale haze, leaving the middle clear for the headline.

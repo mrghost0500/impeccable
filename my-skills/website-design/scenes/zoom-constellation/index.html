@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Osteria Fumo · Cooked over wood</title>
 <meta name="description" content="Scene template: a zoom constellation. Rounded picture tiles float around one centred phrase, and scrolling flies through them to the next phrase. Pure CSS 3D, no WebGL.">
+<!-- Share previews and search. At launch, replace example.com with the real address and
+     share.jpg with a 1200x630 picture of the page; check-page --launch fails until you do. -->
+<link rel="canonical" href="https://example.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Osteria Fumo · Cooked over wood">
+<meta property="og:description" content="Scene template: a zoom constellation. Rounded picture tiles float around one centred phrase, and scrolling flies through them to the next phrase. Pure CSS 3D, no WebGL.">
+<meta property="og:image" content="https://example.com/share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1b1612">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Restaurant", "name": "Osteria Fumo", "servesCuisine": "Italian", "description": "Twenty-two seats and one open wood fire.", "url": "https://example.com/"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=JetBrains+Mono:wght@500&display=swap">
@@ -14,7 +24,8 @@
     --font-osteria: "Bodoni Moda", Didot, "Bodoni 72", "DejaVu Serif", serif; }
   .hero { min-height: 92svh; display: grid; align-content: end; gap: 18px; padding: 0 var(--gutter) 8svh;
     background: radial-gradient(60% 50% at 70% 30%, rgba(232, 118, 58, 0.28), transparent 70%); }
-  .hero .display { font-family: "Bodoni Moda", Didot, "Bodoni 72", "DejaVu Serif", serif; font-weight: 400; letter-spacing: -0.02em; max-width: 12ch; }
+  .hero > * { min-width: 0; }
+  .hero .display { font-size: clamp(34px, 7.4vw, 112px); font-family: "Bodoni Moda", Didot, "Bodoni 72", "DejaVu Serif", serif; font-weight: 400; letter-spacing: -0.02em; max-width: 12ch; }
 
   /* Default (no script, or reduced motion): a calm grid with the phrases as headings. */
   .zoom { padding: 10svh var(--gutter); display: grid; gap: 40px; }
@@ -47,7 +58,7 @@
 <a class="skip-link" href="#book">Skip to booking</a>
 <header class="bar">
   <a class="bar__mark" href="#top">Osteria Fumo</a>
-  <ul class="bar__links"><li><a href="#zoom">Kitchen</a></li><li><a href="#book">Menu</a></li><li><a href="#book">Find us</a></li></ul>
+  <nav aria-label="Main"><ul class="bar__links"><li><a href="#zoom">Kitchen</a></li><li><a href="#book">Menu</a></li><li><a href="#book">Find us</a></li></ul></nav>
   <a class="btn" href="#book">Book a table</a>
 </header>
 

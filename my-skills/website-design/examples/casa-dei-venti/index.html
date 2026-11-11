@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Casa dei Venti · A clifftop hotel of twelve rooms</title>
+<meta name="description" content="A hotel of twelve rooms in a 1928 lemon merchant's house on the cliff, each named for the wind it faces. 214 steps to a swimming rock, the boat to town at eight and seven. Open April to October.">
+<!-- At launch, replace example.com with the real address; check-page --launch fails until you do. -->
+<link rel="canonical" href="https://example.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Casa dei Venti · A clifftop hotel of twelve rooms">
+<meta property="og:description" content="Twelve rooms on a cliff above the sea, each named for the wind it faces.">
+<meta property="og:image" content="https://example.com/img/share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The coast at sunset from the hotel's top terrace, with a lemon tree in a pot.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#38450f">
+<link rel="preload" href="fonts/archivo-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="img/hero-1536.webp" imagesrcset="img/hero-640.webp 640w, img/hero-1024.webp 1024w, img/hero-1536.webp 1536w" imagesizes="100vw" fetchpriority="high">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Hotel","name":"Casa dei Venti","url":"https://example.com/",
+ "description":"A hotel of twelve rooms in a 1928 lemon merchant's house on the cliff, each named for the wind it faces.",
+ "image":"https://example.com/img/share.jpg","numberOfRooms":12,"priceRange":"€390 to €680",
+ "telephone":"+39 089 000 000","email":"ciao@example.com",
+ "address":{"@type":"PostalAddress","streetAddress":"Via del Capo 14","postalCode":"84010","addressLocality":"Marina di Vento","addressCountry":"IT"},
+ "checkinTime":"14:00","checkoutTime":"11:00",
+ "amenityFeature":[{"@type":"LocationFeatureSpecification","name":"Private swimming rock","value":true},{"@type":"LocationFeatureSpecification","name":"Boat to town at 8:00 and 19:00","value":true},{"@type":"LocationFeatureSpecification","name":"Breakfast included","value":true}]}
+</script>
+<style>
+  @font-face { font-family: "Archivo"; src: url(fonts/archivo-latin-400-normal.woff2) format("woff2"); font-weight: 400; font-display: swap; }
+  @font-face { font-family: "Archivo"; src: url(fonts/archivo-latin-500-normal.woff2) format("woff2"); font-weight: 500; font-display: swap; }
+  @font-face { font-family: "Archivo"; src: url(fonts/archivo-latin-600-normal.woff2) format("woff2"); font-weight: 600; font-display: swap; }
+
+  /* Direction: the place carries it. Type: Archivo. Colour: olive on bone; colour lives in the pictures. */
+  :root {
+    --bg: #ecebe7; --surface: #e1dfd9; --ink: #38450f; --muted: #4f5a2c; --accent: #38450f; --accent-ink: #ecebe7;
+    --field: #38450f; --field-ink: #ecebe7;
+    --font: "Archivo", "Helvetica Neue", Arial, "Liberation Sans", sans-serif;
+    --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+    --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+    --step-lead: clamp(1.375rem, 1.05rem + 1.1vw, 2rem);
+    --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
+    --step-display: clamp(4.25rem, 12.78vw, 14.2rem);
+    --margin: clamp(16px, 2.3vw, 32px);
+    --gap: clamp(72px, 8vw, 116px);
+    --btn-size: 0.9375rem;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    color-scheme: light;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-padding-top: 16px; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 var(--step-body)/1.55 var(--font); -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+  h1, h2, h3 { font-weight: 400; margin: 0; text-wrap: balance; }
+  p { margin: 0; }
+  :focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .skip { position: absolute; left: 12px; top: -60px; z-index: 50; background: var(--ink); color: var(--bg); padding: 12px 16px; }
+  .skip:focus { top: 12px; }
+  .wrap { padding-inline: max(var(--margin), env(safe-area-inset-left, 0px)) max(var(--margin), env(safe-area-inset-right, 0px)); }
+  @media (max-width: 760px) { :root { --gap: 52px; } }
+  .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 1.6vw, 24px); }
+
+  /* One button shape for the whole page: square corners, one fill. */
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px; border: 0; border-radius: 0;
+    background: var(--accent); color: var(--accent-ink); font: 600 var(--step-small)/1 var(--font); text-decoration: none; cursor: pointer;
+    transition: transform 160ms var(--ease), background-color 200ms ease; }
+  .btn:hover { background: #2c370b; }
+  .btn:active { transform: scale(0.97); }
+  .btn--paper { background: var(--bg); color: var(--ink); }
+  .btn--paper:hover { background: #fff; }
+  .link { font-weight: 500; text-decoration: underline; text-underline-offset: 0.25em; }
+  /* Touch targets of 44px without changing the line: links grow their hit area, not their text. */
+  .link, .rows a, .hero__mark { display: inline-block; padding-block: 12px; margin-block: -12px; }
+  .card address a { display: inline-flex; align-items: center; min-height: 44px; }
+
+  /* 1. First screen: the view, the name along the bottom like a film title. */
+  .hero { position: relative; height: 100svh; min-height: 560px; overflow: hidden; color: var(--bg); background: #1b2230; }
+  .hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 38% 50%; transform-origin: 60% 60%; }
+  .hero__scrim { position: absolute; inset: auto 0 0 0; height: 62%; pointer-events: none;
+    background: linear-gradient(to bottom, rgba(14, 16, 8, 0) 0%, rgba(14, 16, 8, 0.5) 38%, rgba(14, 16, 8, 0.8) 100%); /* taste-skill-ignore: the one neutral scrim under the title on the photograph, measured for contrast */ }
+  .hero__bar { position: absolute; inset: 0 0 auto 0; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-block: 22px; z-index: 2; }
+  .hero__bar a:not(.btn) { color: var(--bg); text-decoration: none; font-size: var(--step-small); }
+  .hero__bar .btn { min-height: 44px; }
+  .hero__mark { font-weight: 600; }
+  .hero__nav { display: flex; gap: 28px; margin-left: auto !important; list-style: none; margin: 0; padding: 0; }
+  .hero__nav a:hover { text-decoration: underline; }
+  .hero__foot { position: absolute; inset: auto 0 0 0; z-index: 2; padding-bottom: 26px; }
+  .hero__lines { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 14px; }
+  .hero__lines p { max-width: 32ch; font-size: max(18px, var(--step-body)); line-height: 1.45; }
+  .hero h1 { font-size: var(--step-display); line-height: 0.86; letter-spacing: -0.035em; white-space: nowrap; margin-left: -0.04em; }
+  @media (max-width: 760px) {
+    .hero__img { object-position: 30% 50%; }
+    .hero__nav { display: none; }
+    .hero h1 { white-space: normal; font-size: 20vw; line-height: 0.9; }
+    .hero__lines { display: block; }
+  }
+
+  /* 2. The house: a right-half statement, a lone photograph hanging below its last line, a note. */
+  .house { padding-block: var(--gap); row-gap: 48px; }
+  .house h2 { grid-column: 1 / 6; grid-row: 1; font-size: var(--step-head); line-height: 1; letter-spacing: -0.02em; }
+  .house__text { grid-column: 7 / 13; grid-row: 1; font-size: var(--step-lead); line-height: 1.3; text-indent: 3em; max-width: 30ch; }
+  .house__body { grid-column: 7 / 12; grid-row: 2; max-width: 46ch; align-self: start; }
+  .house__photo { grid-column: 1 / 6; grid-row: 2 / 4; margin: 0; }
+  .house__photo img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+  .house__note { grid-column: 7 / 10; grid-row: 3; align-self: end; font-size: var(--step-small); color: var(--muted); max-width: 26ch; }
+  @media (max-width: 760px) {
+    .house h2, .house__text, .house__body { grid-column: 1 / -1; grid-row: auto; }
+    .house__text { text-indent: 0; }
+    .house__photo { grid-column: 5 / 13; grid-row: auto; }
+    .house__photo img { aspect-ratio: 4 / 5; }
+    .house__note { grid-column: 1 / 5; grid-row: auto; }
+  }
+
+  /* 3. The wind rose: choose the light you wake up to. */
+  .rose { background: var(--surface); padding-block: var(--gap); row-gap: 40px; align-items: center; }
+  .rose__intro { grid-column: 1 / 6; display: grid; gap: 22px; align-content: start; }
+  .rose h2 { font-size: var(--step-head); line-height: 1; letter-spacing: -0.02em; }
+  .rose__intro > p { max-width: 40ch; }
+  .lights { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 0; padding: 0; border: 0; }
+  .lights legend { padding: 0; margin-bottom: 10px; font-weight: 500; }
+  .light { position: relative; }
+  .light input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .light span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; background: var(--bg); color: var(--ink); transition: background-color 200ms ease, color 200ms ease; }
+  .light input:checked + span { background: var(--ink); color: var(--bg); }
+  .light input:focus-visible + span { outline: 2px solid var(--ink); outline-offset: 3px; }
+  .light:hover span { background: #fff; }
+  .light:hover input:checked + span { background: var(--ink); }
+  .rose__answer { min-height: 3.2em; font-size: var(--step-body); }
+  .rose__answer b { font-weight: 600; }
+  .rose__figure { grid-column: 7 / 13; position: relative; margin: 0; aspect-ratio: 1; max-width: 620px; width: 100%; justify-self: end; }
+  .rose__figure svg { position: absolute; inset: 9%; width: 82%; height: 82%; overflow: visible; }
+  .rose__figure svg .petal { fill: var(--ink); opacity: 0.06; transition: opacity 400ms var(--ease); }
+  .rose__figure svg .petal.is-on { opacity: 0.22; }
+  .rose__figure { --rad: 47%; }
+  .wind { position: absolute; left: calc(50% + var(--cx) * var(--rad)); top: calc(50% + var(--cy) * var(--rad)); transform: translate(-50%, -50%); min-height: 40px; padding: 0 10px; border: 0; border-radius: 999px; background: transparent; color: var(--muted);
+    font: 400 var(--step-small)/1 var(--font); cursor: pointer; transition: color 200ms ease, background-color 200ms ease; white-space: nowrap; }
+  .wind:hover { color: var(--ink); background: var(--bg); }
+  .wind.is-on { color: var(--bg); background: var(--ink); font-weight: 500; }
+  @media (max-width: 860px) {
+    .rose__intro, .rose__figure { grid-column: 1 / -1; }
+    .rose__figure { max-width: 440px; }
+    .rose__figure { --rad: 36%; }
+    .rose__figure .wind { padding: 0 6px; }
+  }
+
+  /* 4. Rooms: a full-bleed room with a column card; the card moves one column right per room. */
+  .rooms { position: relative; background: #11140a; }
+  .room { position: relative; height: 100svh; min-height: 620px; overflow: hidden; scroll-snap-align: start; }
+  .room__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); }
+  .room__card { position: absolute; top: 50%; transform: translateY(-50%); width: clamp(280px, 22vw, 340px); min-height: 52svh;
+    background: var(--field); color: var(--field-ink); padding: 26px 24px 24px; display: grid; gap: 12px; align-content: start; }
+  .room__card h3 { font-size: var(--step-lead); line-height: 1.05; letter-spacing: -0.015em; }
+  .room__card p { line-height: 1.45; }
+  .room__card .rate { font-weight: 500; }
+  .room__card img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; margin-top: 6px; }
+  .room__card .btn { width: 100%; margin-top: auto; }
+  .room:nth-child(1) .room__card { left: calc(var(--margin) + 25vw * 0.25); }
+  .room:nth-child(2) .room__card { left: 26vw; }
+  .room:nth-child(3) .room__card { left: 44vw; }
+  .room:nth-child(4) .room__card { left: 62vw; }
+  .room:nth-child(5) .room__card { right: var(--margin); }
+  .room[data-type=sunrise] .room__bg { object-position: 72% 50%; }
+  .room[data-type=sunset] .room__bg { object-position: 66% 50%; }
+  .room[data-type=lemon] .room__bg { object-position: 64% 50%; }
+  .room[data-type=tower] .room__bg { object-position: 58% 50%; }
+  .room[data-type=rock] .room__bg { object-position: 52% 50%; }
+  @media (max-width: 760px) {
+    .room { min-height: 0; }
+    .room .room__card { left: 0 !important; right: 0 !important; top: auto; bottom: 0; transform: none; width: 100%; min-height: 46svh; padding: 20px max(var(--margin), env(safe-area-inset-left, 0px)) calc(20px + env(safe-area-inset-bottom, 0px));
+      grid-template-columns: 1fr 96px; column-gap: 16px; }
+    .room__card h3 { grid-column: 1; }
+    .room__card img { grid-column: 2; grid-row: 1 / 3; width: 96px; margin: 0; }
+    .room__card p, .room__card .btn { grid-column: 1 / -1; }
+  }
+  /* With script and motion: the rooms share one sticky stage and crossfade as the visitor scrolls. */
+  .js.motion-ok .rooms { height: calc(var(--rooms) * 100svh); }
+  .js.motion-ok .rooms__stage { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+  .js.motion-ok .room { position: absolute; inset: 0; height: 100%; opacity: 0; scroll-snap-align: none; }
+  .js.motion-ok .room.is-first { opacity: 1; }
+  .rooms__marks { position: absolute; inset: 0; pointer-events: none; }
+  .rooms__marks span { display: block; height: 100svh; scroll-snap-align: start; }
+  html.rooms-snap { scroll-snap-type: y proximity; }
+
+  /* 5. The day: one printed sheet with scalloped top and bottom edges, on the olive field. */
+  .day { background: var(--field); padding-block: var(--gap); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(12px, 1.6vw, 24px); align-items: start; }
+  .day__photo { grid-column: 1 / 7; position: sticky; top: var(--gap); margin: 0; }
+  .day__photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+  .day__photo figcaption { margin-top: 12px; color: var(--field-ink); font-size: var(--step-small); }
+  .day .sheet { grid-column: 7 / 13; justify-self: end; }
+  @media (max-width: 860px) { .day__photo { grid-column: 1 / -1; position: static; } .day .sheet { grid-column: 1 / -1; justify-self: center; margin-top: 48px; } .day__photo img { aspect-ratio: 4 / 3; } }
+  .sheet { position: relative; width: min(640px, 100%); background: var(--bg); color: var(--ink); padding: 64px clamp(24px, 6vw, 64px); margin-block: 14px; }
+  /* Scalloped edges: a row of paper-coloured half circles, drawn as a tiny repeating SVG. */
+  .sheet::before, .sheet::after { content: ""; position: absolute; left: 0; right: 0; height: 10px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='10'%3E%3Ccircle cx='10' cy='10' r='10' fill='%23ecebe7'/%3E%3C/svg%3E") 0 0 / 20px 10px repeat-x; }
+  .sheet::before { top: -10px; }
+  .sheet::after { bottom: -10px; transform: scaleY(-1); }
+  .sheet h2 { text-align: center; font-size: var(--step-lead); line-height: 1.05; letter-spacing: -0.015em; }
+  .sheet > p { text-align: center; color: var(--muted); max-width: 40ch; margin: 14px auto 0; font-size: var(--step-small); }
+  .group { margin-top: 52px; }
+  .group h3 { text-align: center; font-size: var(--step-body); font-weight: 600; margin-bottom: 18px; }
+  .group ul { list-style: none; margin: 0 auto; padding: 0; max-width: 440px; display: grid; gap: 14px; }
+  .group li { display: grid; grid-template-columns: 1fr auto; gap: 2px 18px; }
+  .group li span:last-child { font-variant-numeric: tabular-nums; text-align: right; }
+  .group li small { grid-column: 1 / -1; font-size: var(--step-small); color: var(--muted); }
+  .sheet .hours { margin-top: 52px; text-align: center; font-size: var(--step-small); color: var(--muted); }
+
+  /* 6. Questions beside a tall photograph. */
+  .faq { background: var(--surface); padding-block: var(--gap) 0; row-gap: 48px; overflow: hidden; }
+  .faq__text { grid-column: 1 / 6; grid-row: 1; padding-bottom: var(--gap); display: grid; gap: 28px; align-content: start; }
+  .faq h2 { font-size: var(--step-head); line-height: 1; letter-spacing: -0.02em; }
+  .facts { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .faq details { padding-block: 14px; }
+  .faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 44px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: ""; width: 9px; height: 9px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translate(-2px, -2px); transition: transform 240ms var(--ease); flex: none; }
+  .faq details[open] summary::after { transform: rotate(225deg) translate(-2px, -2px); }
+  .faq details p { color: var(--muted); padding-top: 6px; max-width: 46ch; }
+  .faq__actions { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+  .faq__pics { grid-column: 7 / 13; grid-row: 1; position: relative; margin-top: calc(var(--gap) * -1); padding-bottom: 80px; }
+  .faq__tall { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+  .faq__square { position: absolute; left: -40px; bottom: 40px; width: 34%; aspect-ratio: 1; object-fit: cover; }
+  @media (max-width: 860px) {
+    .faq__pics { grid-column: 1 / -1; grid-row: 1; margin-top: 0; }
+    .faq__tall { aspect-ratio: 4 / 5; }
+    .faq__square { left: auto; right: 0; bottom: 40px; width: 38%; }
+    .faq__text { grid-column: 1 / -1; grid-row: 2; }
+  }
+
+  /* 7. Book: the visit card on the evening terrace. */
+  .book { position: relative; min-height: 120svh; }
+  .book__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; }
+  .book__card { position: sticky; top: 60px; margin-left: auto; width: min(400px, 100%); background: var(--bg); padding: 32px; display: grid; gap: 16px; border-radius: 8px; }
+  .book__inner { position: relative; padding-block: 60px; display: flex; }
+  .book h2 { font-size: var(--step-lead); line-height: 1.1; }
+  .rows { margin: 0; display: grid; gap: 4px; }
+  .rows div { display: flex; justify-content: space-between; gap: 16px; }
+  .rows dt { color: var(--muted); }
+  .rows dd { margin: 0; font-variant-numeric: tabular-nums; text-align: right; }
+  form { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 6px; }
+  label { display: grid; gap: 6px; font-size: var(--step-small); color: var(--muted); }
+  input, select { width: 100%; min-height: 48px; border-radius: 4px; border: 1px solid rgba(56, 69, 15, 0.35); background: #f6f5f1; padding: 0 12px; font: 400 max(16px, var(--step-body)) var(--font); color: var(--ink); }
+  .quote { grid-column: 1 / -1; min-height: 1.5em; font-variant-numeric: tabular-nums; }
+  .book form .btn { grid-column: 1 / -1; min-height: 52px; margin: 6px -32px -32px; border-radius: 0 0 8px 8px; }
+  .thanks { grid-column: 1 / -1; font-weight: 500; }
+  @media (max-width: 760px) {
+    .book { min-height: 0; }
+    .book__img { position: relative; height: 70svh; }
+    .book__inner { padding-block: 0 40px; margin-top: -80px; }
+    .book__card { position: relative; top: 0; padding: 24px; }
+    .book form .btn { margin: 6px -24px -24px; min-height: 56px; }
+  }
+
+  /* 8. Footer: the back of the postcard, and the name at full width. */
+  .foot { background: var(--field); color: var(--field-ink); padding-block: 120px 28px; }
+  .card { position: relative; background: var(--bg); color: var(--ink); padding: clamp(28px, 4vw, 56px); display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-inline: auto; max-width: 1200px; margin-top: 30px; }
+  .card::before { content: ""; position: absolute; left: 0; right: 0; top: -24px; height: 24px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='24'%3E%3Cellipse cx='50' cy='24' rx='50' ry='24' fill='%23ecebe7'/%3E%3C/svg%3E") 0 0 / 100px 24px repeat-x; }
+  .card h2 { font-size: var(--step-lead); line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 14px; }
+  .card address { font-style: normal; display: grid; gap: 12px; align-content: start; }
+  .card__right { position: relative; padding-top: 110px; }
+  .stamp { position: absolute; top: 0; right: 0; width: 88px; aspect-ratio: 3 / 4; object-fit: cover; border: 6px solid var(--bg); outline: 1px solid rgba(56, 69, 15, 0.25); }
+  .imprint { grid-column: 1 / -1; text-align: center; font-size: var(--step-small); color: var(--muted); }
+  .foot__name { font-size: var(--step-display); line-height: 0.82; letter-spacing: -0.035em; white-space: nowrap; margin-top: 80px; overflow: hidden; }
+  @media (max-width: 760px) {
+    .card { grid-template-columns: 1fr; }
+    .card__right { padding-top: 0; }
+    .stamp { top: -96px; width: 64px; }
+    .foot__name { font-size: 15.5vw; white-space: normal; }
+  }
+
+  /* Motion layer: entrances stay visible without script; travel only when motion is allowed. */
+  .js.motion-ok [data-rise] { opacity: 0; transform: translateY(24px); transition: opacity 640ms var(--ease), transform 640ms var(--ease); transition-delay: calc(var(--i, 0) * 70ms); }
+  .js.motion-ok [data-rise].is-in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    .js .hero__img { animation: push 24s var(--ease) both; }
+    @keyframes push { from { transform: scale(1.08); } to { transform: scale(1); } }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: 0.01ms !important; animation: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#book">Skip to booking</a>
+
+<header class="hero" id="top">
+  <img class="hero__img" src="img/hero-1536.webp" srcset="img/hero-640.webp 640w, img/hero-1024.webp 1024w, img/hero-1536.webp 1536w" sizes="100vw"
+       width="1536" height="864" alt="The coast at sunset from the hotel's top terrace: a lemon tree in a pot, the cliff dropping to a deep blue sea." fetchpriority="high">
+  <div class="hero__scrim" aria-hidden="true"></div>
+  <nav class="hero__bar wrap" aria-label="Main">
+    <a class="hero__mark" href="#top">Casa dei Venti</a>
+    <ul class="hero__nav">
+      <li><a href="#rooms">Rooms</a></li><li><a href="#day">The day</a></li><li><a href="#questions">Questions</a></li><li><a href="#book">Book</a></li>
+    </ul>
+    <a class="btn btn--paper" href="#book">Book a room</a>
+  </nav>
+  <div class="hero__foot wrap">
+    <div class="hero__lines">
+      <p>A hotel of twelve rooms on a cliff above the sea, each named for the wind it faces.</p>
+    </div>
+    <h1>Casa dei Venti</h1>
+  </div>
+</header>
+
+<main>
+  <section class="house wrap grid" aria-labelledby="house-t">
+    <h2 id="house-t" data-rise>The house</h2>
+    <p class="house__text" data-rise style="--i:1">In 1928 a lemon merchant built this house where the cliff was too steep for anyone else.</p>
+    <p class="house__body" data-rise style="--i:2">His crates went down 214 steps to a boat and on to Naples. His lemons still grow on the terraces, and the boat still leaves at eight and comes back at seven. At the bottom of the steps is a flat rock where you can swim before breakfast.</p>
+    <figure class="house__photo" data-rise style="--i:2">
+      <img src="img/lemons-640.webp" srcset="img/lemons-640.webp 640w, img/lemons-1024.webp 1024w" sizes="(max-width: 760px) 66vw, 25vw" width="1024" height="1024" loading="lazy"
+           alt="Ripe lemons hanging from the chestnut pergola, the sea behind.">
+    </figure>
+    <p class="house__note" data-rise style="--i:3">Open 1 April to 25 October. Twelve rooms, two of them for families. Breakfast and the boat are included.</p>
+  </section>
+
+  <section class="rose wrap grid" id="rooms" aria-labelledby="rose-t">
+    <div class="rose__intro">
+      <h2 id="rose-t" data-rise>Choose the light you wake up to</h2>
+      <p data-rise style="--i:1">Every room is named for a wind and faces it. Pick the light you want, and the rose shows the rooms that get it.</p>
+      <fieldset class="lights" data-rise style="--i:2">
+        <legend>Rooms facing</legend>
+        <label class="light"><input type="radio" name="light" value="sunrise" checked><span>Sunrise, east</span></label>
+        <label class="light"><input type="radio" name="light" value="sunset"><span>Sunset, west</span></label>
+        <label class="light"><input type="radio" name="light" value="lemon"><span>Lemon garden</span></label>
+        <label class="light"><input type="radio" name="light" value="rock"><span>The sea, south</span></label>
+        <label class="light"><input type="radio" name="light" value="tower"><span>Cool tower, north</span></label>
+      </fieldset>
+      <p class="rose__answer" aria-live="polite" data-answer data-rise style="--i:3"><b>Grecale, Levante and Scirocco</b> face east: the sunrise rooms, from €420 a night. <a class="link" href="#room-sunrise">See them</a></p>
+    </div>
+    <figure class="rose__figure" aria-label="A wind rose of the twelve rooms" data-rise style="--i:2">
+      <svg viewBox="-100 -100 200 200" aria-hidden="true" data-petals></svg>
+    </figure>
+  </section>
+
+  <section class="rooms" aria-label="The rooms, one by one" data-rooms>
+    <div class="rooms__stage">
+      <article class="room is-first" id="room-sunrise" data-type="sunrise">
+        <img class="room__bg" src="img/room-sunrise-1536.webp" srcset="img/room-sunrise-640.webp 640w, img/room-sunrise-1024.webp 1024w, img/room-sunrise-1536.webp 1536w" sizes="100vw" width="1536" height="864" loading="lazy" alt="">
+        <div class="room__card">
+          <h3>Sunrise rooms</h3>
+          <img src="img/room-sunrise-640.webp" width="640" height="360" loading="lazy" alt="A sunrise room: a white bed, terracotta floor and doors open onto the terrace at dawn.">
+          <p>Grecale, Levante and Scirocco face east. A private terrace and a bath under a sea window.</p>
+          <p class="rate">24 m² · from €420 a night</p>
+          <a class="btn btn--paper" href="#book" data-pick="sunrise">Book a sunrise room</a>
+        </div>
+      </article>
+      <article class="room" id="room-sunset" data-type="sunset">
+        <img class="room__bg" src="img/room-sunset-1536.webp" srcset="img/room-sunset-640.webp 640w, img/room-sunset-1024.webp 1024w, img/room-sunset-1536.webp 1536w" sizes="100vw" width="1536" height="864" loading="lazy" alt="">
+        <div class="room__card">
+          <h3>Sunset rooms</h3>
+          <img src="img/room-sunset-640.webp" width="640" height="360" loading="lazy" alt="A sunset room: a writing desk and armchair, the balcony doors open to the sun over the bay.">
+          <p>Ponente, Zefiro and Maestrale face west over the bay, with a balcony for the last light.</p>
+          <p class="rate">22 m² · from €440 a night</p>
+          <a class="btn btn--paper" href="#book" data-pick="sunset">Book a sunset room</a>
+        </div>
+      </article>
+      <article class="room" id="room-lemon" data-type="lemon">
+        <img class="room__bg" src="img/room-lemon-1536.webp" srcset="img/room-lemon-640.webp 640w, img/room-lemon-1024.webp 1024w, img/room-lemon-1536.webp 1536w" sizes="100vw" width="1536" height="864" loading="lazy" alt="">
+        <div class="room__card">
+          <h3>Lemon rooms</h3>
+          <img src="img/room-lemon-640.webp" width="640" height="360" loading="lazy" alt="A lemon room: a large bed and a daybed, the door open onto the lemon garden under the pergola.">
+          <p>Garbino and Libeccio face south-west onto the pergola, with a door into the lemon garden. Room for four.</p>
+          <p class="rate">26 m² · from €390 a night</p>
+          <a class="btn btn--paper" href="#book" data-pick="lemon">Book a lemon room</a>
+        </div>
+      </article>
+      <article class="room" id="room-tower" data-type="tower">
+        <img class="room__bg" src="img/room-tower-1536.webp" srcset="img/room-tower-640.webp 640w, img/room-tower-1024.webp 1024w, img/room-tower-1536.webp 1536w" sizes="100vw" width="1536" height="864" loading="lazy" alt="">
+        <div class="room__card">
+          <h3>Tower suites</h3>
+          <img src="img/room-tower-640.webp" width="640" height="360" loading="lazy" alt="A tower suite: a stone stair up to a sleeping loft and a window seat over the sea.">
+          <p>Tramontana and Bora fill the old drying tower: two floors, north light, the coolest rooms in August.</p>
+          <p class="rate">38 m² · from €620 a night</p>
+          <a class="btn btn--paper" href="#book" data-pick="tower">Book a tower suite</a>
+        </div>
+      </article>
+      <article class="room" id="room-rock" data-type="rock">
+        <img class="room__bg" src="img/room-rock-1536.webp" srcset="img/room-rock-640.webp 640w, img/room-rock-1024.webp 1024w, img/room-rock-1536.webp 1536w" sizes="100vw" width="1536" height="864" loading="lazy" alt="">
+        <div class="room__card">
+          <h3>Rock suites</h3>
+          <img src="img/room-rock-640.webp" width="640" height="360" loading="lazy" alt="A rock suite opening onto a stone terrace above clear water, with a ladder into the sea.">
+          <p>Meltemi and Ostro sit lowest, 120 steps down, with a ladder from the terrace into the sea.</p>
+          <p class="rate">42 m² · from €680 a night</p>
+          <a class="btn btn--paper" href="#book" data-pick="rock">Book a rock suite</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="day wrap" id="day" aria-labelledby="day-t">
+    <figure class="day__photo" data-rise>
+      <img src="img/boat-1024.webp" srcset="img/boat-640.webp 640w, img/boat-1024.webp 1024w" sizes="(max-width: 860px) 100vw, 50vw" width="1024" height="1024" loading="lazy"
+           alt="The hotel boat, white with a pale blue stripe, at the stone landing at eight in the morning.">
+      <figcaption>The boat at the landing, eight in the morning.</figcaption>
+    </figure>
+    <div class="sheet" data-rise style="--i:1">
+      <h2 id="day-t">A day at Casa dei Venti</h2>
+      <p>Dinner is on the lemon terrace from 20:00. There are nine tables, so book yours with your room.</p>
+      <div class="group">
+        <h3>Morning</h3>
+        <ul>
+          <li><span>7:30 Breakfast on the pergola</span><span>Included</span></li>
+          <li><span>8:00 The boat to Marina Grande</span><span>Included</span><small>Twenty minutes; back at 19:00.</small></li>
+          <li><span>9:00 Down the 214 steps to the rock</span><span>Towels at the top</span></li>
+        </ul>
+      </div>
+      <div class="group">
+        <h3>From the kitchen</h3>
+        <ul>
+          <li><span>Anchovies grilled on lemon leaves</span><span>€14</span></li>
+          <li><span>Spaghetti with clams and wild fennel</span><span>€22</span></li>
+          <li><span>Fish of the day baked in salt</span><span>€64</span><small>For two, from the morning's boat.</small></li>
+          <li><span>Ricotta and lemon cake</span><span>€9</span></li>
+        </ul>
+      </div>
+      <div class="group">
+        <h3>Evening</h3>
+        <ul>
+          <li><span>19:00 The boat back from Marina Grande</span><span>Included</span></li>
+          <li><span>19:30 Aperitivo on the tower roof</span><span>From €12</span></li>
+          <li><span>20:00 Dinner under the lemons</span><span>À la carte</span></li>
+        </ul>
+      </div>
+      <p class="hours">Reception 7:00 to 23:00<br>Kitchen 12:30 to 14:30 and 20:00 to 22:30</p>
+    </div>
+  </section>
+
+  <section class="faq wrap grid" id="questions" aria-labelledby="faq-t">
+    <div class="faq__pics" data-rise>
+      <img class="faq__tall" src="img/steps-960.webp" srcset="img/steps-640.webp 640w, img/steps-960.webp 960w" sizes="(max-width: 860px) 100vw, 50vw" width="960" height="1280" loading="lazy"
+           alt="The 214 whitewashed steps zigzagging down the cliff past the lemon terraces to the swimming rock.">
+      <img class="faq__square" src="img/lemons-640.webp" srcset="img/lemons-640.webp 640w, img/lemons-1024.webp 1024w" sizes="(max-width: 860px) 38vw, 17vw" width="1024" height="1024" loading="lazy"
+           alt="Lemons on the pergola at the top of the steps.">
+    </div>
+    <div class="faq__text">
+      <h2 id="faq-t" data-rise>Before you come</h2>
+      <ul class="facts" data-rise style="--i:1">
+        <li>Via del Capo 14, Marina di Vento</li>
+        <li>Check-in from 14:00, check-out by 11:00</li>
+        <li>Naples airport is 75 minutes by car to the gate at the top</li>
+      </ul>
+      <div data-rise style="--i:2">
+        <details open><summary>How do bags get down the steps?</summary><p>Our porters carry them. The road ends at the top gate, and the house is 40 steps below it.</p></details>
+        <details><summary>Are the 214 steps the only way to the sea?</summary><p>They are wide, with rails and two benches on the way. If you would rather not climb, the boat can take you from the house landing to the beach at Marina Grande.</p></details>
+        <details><summary>Can children stay?</summary><p>Yes, in Garbino and Libeccio, the lemon rooms, which sleep four. The other rooms are for two.</p></details>
+        <details><summary>Is the house accessible?</summary><p>It is built into a cliff. A ramp from the top gate reaches Garbino and the lemon terrace without steps; the rest of the house has stairs. Tell us what you need and we will plan your stay with you.</p></details>
+        <details><summary>Do I need to book dinner?</summary><p>Yes. The terrace has nine tables, and guests of the house come first.</p></details>
+        <details><summary>What if the sea is rough?</summary><p>Our driver takes you to town by road at the same times as the boat.</p></details>
+      </div>
+      <div class="faq__actions" data-rise style="--i:3"><a class="btn" href="#book">Book a room</a><a class="link" href="mailto:ciao@example.com">Email us</a></div>
+    </div>
+  </section>
+
+  <section class="book" id="book" aria-labelledby="book-t">
+    <img class="book__img" src="img/dinner-1536.webp" srcset="img/dinner-640.webp 640w, img/dinner-1024.webp 1024w, img/dinner-1536.webp 1536w" sizes="100vw" width="1536" height="864" loading="lazy"
+         alt="The lemon terrace at blue hour: candlelit tables under the pergola above the dark sea.">
+    <div class="book__inner wrap">
+      <div class="book__card">
+        <h2 id="book-t">Book a room</h2>
+        <p>Via del Capo 14<br>84010 Marina di Vento</p>
+        <dl class="rows">
+          <div><dt>Reception</dt><dd>7:00 to 23:00</dd></div>
+          <div><dt>Season</dt><dd>1 April to 25 October</dd></div>
+          <div><dt>Boat</dt><dd>8:00 and 19:00</dd></div>
+          <div><dt>Telephone</dt><dd><a href="tel:+39089000000">+39 089 000 000</a></dd></div>
+        </dl>
+        <form action="#book" method="get" data-book>
+          <label>Arrive <input type="date" name="arrive" required></label>
+          <label>Nights
+            <select name="nights"><option>2</option><option selected>3</option><option>4</option><option>5</option><option>7</option></select>
+          </label>
+          <label>Room
+            <select name="room">
+              <option value="sunrise" data-rate="420" data-max="2">Sunrise room</option>
+              <option value="sunset" data-rate="440" data-max="2">Sunset room</option>
+              <option value="lemon" data-rate="390" data-max="4">Lemon room</option>
+              <option value="tower" data-rate="620" data-max="2">Tower suite</option>
+              <option value="rock" data-rate="680" data-max="2">Rock suite</option>
+            </select>
+          </label>
+          <label>Guests
+            <select name="guests"><option>1</option><option selected>2</option><option>3</option><option>4</option></select>
+          </label>
+          <p class="quote" aria-live="polite" data-quote>3 nights in a sunrise room: from €1,260, breakfast and the boat included.</p>
+          <button class="btn" type="submit">Request these dates</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot wrap">
+  <div class="card">
+    <div>
+      <h2>See you in April</h2>
+      <p>We close in winter to mend the terraces. Write to us any time; Marta at the desk answers every letter herself.</p>
+    </div>
+    <div class="card__right">
+      <img class="stamp" src="img/lemons-640.webp" width="640" height="640" loading="lazy" alt="">
+      <address>
+        <a href="mailto:ciao@example.com">ciao@example.com</a>
+        <a href="tel:+39089000000">+39 089 000 000</a>
+        <span>Via del Capo 14, Marina di Vento</span>
+        <a href="https://www.instagram.com/" rel="noopener">Instagram</a>
+      </address>
+    </div>
+    <p class="imprint">© 2026 Casa dei Venti. Photographs generated for this example.</p>
+  </div>
+  <p class="foot__name" aria-hidden="true">Casa dei Venti</p>
+</footer>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  root.classList.add('js');
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const setMotion = () => root.classList.toggle('motion-ok', !motion.matches);
+  setMotion(); motion.addEventListener('change', setMotion);
+
+  // Entrances: each section's parts rise in order, once. Visible by default without script.
+  const risers = document.querySelectorAll('[data-rise]');
+  if ('IntersectionObserver' in window && !motion.matches) {
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px 18% 0px' });
+    risers.forEach((el) => io.observe(el));
+  } else risers.forEach((el) => el.classList.add('is-in'));
+
+  // The wind rose: twelve winds at their compass bearings, grouped by the light their rooms get.
+  const TYPES = {
+    tower:   { winds: ['Tramontana', 'Bora'], name: 'the tower suites', facing: 'north', rate: 620 },
+    sunrise: { winds: ['Grecale', 'Levante', 'Scirocco'], name: 'the sunrise rooms', facing: 'east', rate: 420 },
+    rock:    { winds: ['Meltemi', 'Ostro'], name: 'the rock suites', facing: 'south over the swimming rock', rate: 680 },
+    lemon:   { winds: ['Garbino', 'Libeccio'], name: 'the lemon rooms', facing: 'south-west onto the pergola', rate: 390 },
+    sunset:  { winds: ['Ponente', 'Zefiro', 'Maestrale'], name: 'the sunset rooms', facing: 'west over the bay', rate: 440 },
+  };
+  const WINDS = ['Tramontana', 'Bora', 'Grecale', 'Levante', 'Scirocco', 'Meltemi', 'Ostro', 'Garbino', 'Libeccio', 'Ponente', 'Zefiro', 'Maestrale'];
+  const typeOf = (w) => Object.keys(TYPES).find((t) => TYPES[t].winds.includes(w));
+  const svg = document.querySelector('[data-petals]');
+  const fig = svg.parentElement;
+  const NS = 'http://www.w3.org/2000/svg';
+  const ring = document.createElementNS(NS, 'circle'); ring.setAttribute('r', '92'); ring.setAttribute('fill', 'none'); ring.setAttribute('stroke', 'currentColor'); ring.setAttribute('stroke-opacity', '0.35'); ring.setAttribute('stroke-width', '0.6');
+  svg.appendChild(ring);
+  const petals = WINDS.map((w, i) => {
+    const a = (i * 30 - 90) * Math.PI / 180, b = a - 0.17, c = a + 0.17;
+    const p = document.createElementNS(NS, 'path');
+    p.setAttribute('d', `M0 0 L${Math.cos(b) * 34} ${Math.sin(b) * 34} L${Math.cos(a) * 92} ${Math.sin(a) * 92} L${Math.cos(c) * 34} ${Math.sin(c) * 34} Z`);
+    p.setAttribute('class', 'petal'); p.dataset.wind = w;
+    svg.appendChild(p);
+    return p;
+  });
+  const buttons = WINDS.map((w, i) => {
+    const a = (i * 30 - 90) * Math.PI / 180;
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'wind'; b.textContent = w; b.dataset.wind = w;
+    b.style.setProperty('--cx', Math.cos(a).toFixed(4)); b.style.setProperty('--cy', Math.sin(a).toFixed(4));
+    b.setAttribute('aria-label', `${w}: ${TYPES[typeOf(w)].name}`);
+    b.addEventListener('click', () => choose(typeOf(w), w));
+    fig.appendChild(b);
+    return b;
+  });
+  const answer = document.querySelector('[data-answer]');
+  const list = (a) => a.length === 2 ? `${a[0]} and ${a[1]}` : `${a.slice(0, -1).join(', ')} and ${a.at(-1)}`;
+  function choose(type, wind) {
+    const t = TYPES[type];
+    document.querySelector(`input[name=light][value=${type}]`).checked = true;
+    petals.forEach((p) => p.classList.toggle('is-on', t.winds.includes(p.dataset.wind)));
+    buttons.forEach((b) => { const on = t.winds.includes(b.dataset.wind); b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', String(on)); });
+    answer.innerHTML = `<b>${list(t.winds)}</b> face ${t.facing}: ${t.name}, from €${t.rate} a night. <a class="link" href="#room-${type}">See them</a>`;
+    if (wind) answer.querySelector('b').textContent = `${wind}, with ${list(t.winds.filter((x) => x !== wind))},`;
+  }
+  document.querySelectorAll('input[name=light]').forEach((r) => r.addEventListener('change', () => choose(r.value)));
+  choose('sunrise');
+
+  // The rooms: one sticky stage; each room's photograph pushes in and crossfades to the next.
+  const rooms = document.querySelector('[data-rooms]');
+  const items = [...rooms.querySelectorAll('.room')];
+  rooms.style.setProperty('--rooms', items.length);
+  const marks = document.createElement('div'); marks.className = 'rooms__marks'; marks.setAttribute('aria-hidden', 'true');
+  marks.innerHTML = items.map(() => '<span></span>').join('');
+  rooms.appendChild(marks);
+  let wanted = 0, shown = 0, raf = 0;
+  const place = () => {
+    raf = 0;
+    if (!root.classList.contains('motion-ok')) { items.forEach((it) => { it.style.opacity = ''; it.querySelector('.room__bg').style.transform = ''; const c = it.querySelector('.room__card'); c.style.opacity = ''; c.style.translate = ''; }); return; }
+    const r = rooms.getBoundingClientRect();
+    wanted = Math.min(items.length - 1, Math.max(0, -r.top / innerHeight));
+    shown += (wanted - shown) * 0.12;
+    if (Math.abs(wanted - shown) < 0.001) shown = wanted;
+    items.forEach((it, i) => {
+      const d = shown - i;                       // 0 when this room is centred
+      const o = d < -1 ? 0 : d < -0.35 ? (d + 1) / 0.65 : d <= 0.35 ? 1 : d < 1 ? 1 - (d - 0.35) / 0.65 : 0;
+      it.style.opacity = o.toFixed(3);
+      it.style.visibility = o < 0.01 ? 'hidden' : 'visible';
+      it.querySelector('.room__bg').style.transform = `scale(${(1.12 - Math.min(1, Math.max(0, d + 0.5)) * 0.08).toFixed(4)})`;
+      // Cards never overlap: the outgoing one is gone before the incoming one appears.
+      const card = it.querySelector('.room__card');
+      const co = Math.max(0, Math.min(1, (o - 0.6) / 0.4));
+      card.style.opacity = co.toFixed(3);
+      card.style.translate = `0 ${(Math.max(-1, Math.min(1, d)) * -48).toFixed(1)}px`;
+    });
+    if (shown !== wanted) raf = requestAnimationFrame(place);
+  };
+  const kick = () => { if (!raf) raf = requestAnimationFrame(place); };
+  addEventListener('scroll', kick, { passive: true });
+  addEventListener('resize', kick);
+  motion.addEventListener('change', kick);
+  root.classList.add('rooms-snap');
+  kick();
+  // "See them" links and room cards land on the right room inside the sticky stage.
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#room-"]');
+    if (!a || !root.classList.contains('motion-ok')) return;
+    const i = items.findIndex((it) => '#' + it.id === a.getAttribute('href'));
+    if (i < 0) return;
+    e.preventDefault();
+    scrollTo({ top: rooms.offsetTop + i * innerHeight, behavior: 'smooth' });
+  });
+
+  // Booking: a room card pre-selects its room; the quote updates as the visitor chooses.
+  const form = document.querySelector('[data-book]');
+  const quote = document.querySelector('[data-quote]');
+  const label = { sunrise: 'a sunrise room', sunset: 'a sunset room', lemon: 'a lemon room', tower: 'a tower suite', rock: 'a rock suite' };
+  const date = form.elements.arrive;
+  const today = new Date(); date.min = today.toISOString().slice(0, 10);
+  const update = () => {
+    const opt = form.elements.room.selectedOptions[0];
+    const n = Number(form.elements.nights.value), g = Number(form.elements.guests.value), max = Number(opt.dataset.max);
+    const total = (Number(opt.dataset.rate) * n).toLocaleString('en-GB');
+    quote.textContent = g > max
+      ? `${label[opt.value][0].toUpperCase() + label[opt.value].slice(1)} sleeps ${max}. For ${g} guests, choose a lemon room.`
+      : `${n} nights in ${label[opt.value]}: from €${total}, breakfast and the boat included.`;
+  };
+  form.addEventListener('change', update);
+  document.querySelectorAll('[data-pick]').forEach((a) => a.addEventListener('click', () => { form.elements.room.value = a.dataset.pick; update(); }));
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    form.querySelector('.btn').textContent = 'Request sent';
+    quote.textContent = 'Thank you. We reply within the hour with the rooms free on those dates.';
+  });
+  update();
+})();
+</script>
+</body>
+</html>

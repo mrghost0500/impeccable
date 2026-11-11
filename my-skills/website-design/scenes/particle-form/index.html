@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sable · Forecasts you can see</title>
 <meta name="description" content="Scene template: a particle form. Tens of thousands of points hold a shape, scatter along the pointer's path and drift back, then morph into the next form as the visitor scrolls.">
+<!-- Share previews and search. At launch, replace example.com with the real address and
+     share.jpg with a 1200x630 picture of the page; check-page --launch fails until you do. -->
+<link rel="canonical" href="https://example.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sable · Forecasts you can see">
+<meta property="og:description" content="Scene template: a particle form. Tens of thousands of points hold a shape, scatter along the pointer's path and drift back, then morph into the next form as the visitor scrolls.">
+<meta property="og:image" content="https://example.com/share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#04060f">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Sable", "applicationCategory": "BusinessApplication", "description": "Retail forecasting from sales, stock and weather data.", "url": "https://example.com/"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -53,7 +63,7 @@
 
 <header class="bar">
   <a class="bar__mark" href="#top">Sable</a>
-  <ul class="bar__links"><li><a href="#how">How it works</a></li><li><a href="#trust">Trust</a></li><li><a href="#access">Access</a></li></ul>
+  <nav aria-label="Main"><ul class="bar__links"><li><a href="#how">How it works</a></li><li><a href="#trust">Trust</a></li><li><a href="#access">Access</a></li></ul></nav>
   <a class="btn btn--ghost" href="#access">Sign in</a>
 </header>
 

@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Northlight · See every turbine, live</title>
 <meta name="description" content="Scene template: a world dashboard. A working product dashboard rises out of a live aurora sky and is cut off at the fold, so the page invites the next scroll.">
+<!-- Share previews and search. At launch, replace example.com with the real address and
+     share.jpg with a 1200x630 picture of the page; check-page --launch fails until you do. -->
+<link rel="canonical" href="https://example.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Northlight · See every turbine, live">
+<meta property="og:description" content="Scene template: a world dashboard. A working product dashboard rises out of a live aurora sky and is cut off at the fold, so the page invites the next scroll.">
+<meta property="og:image" content="https://example.com/share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#03070b">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Northlight", "applicationCategory": "BusinessApplication", "description": "Live output, faults and prices for wind and solar sites.", "url": "https://example.com/"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -61,7 +71,7 @@
 <a class="skip-link" href="#features">Skip to features</a>
 <header class="bar">
   <a class="bar__mark" href="#top">Northlight</a>
-  <ul class="bar__links"><li><a href="#features">Product</a></li><li><a href="#features">Customers</a></li><li><a href="#features">Pricing</a></li></ul>
+  <nav aria-label="Main"><ul class="bar__links"><li><a href="#features">Product</a></li><li><a href="#features">Customers</a></li><li><a href="#features">Pricing</a></li></ul></nav>
   <a class="btn" href="#features">Book a demo</a>
 </header>
 

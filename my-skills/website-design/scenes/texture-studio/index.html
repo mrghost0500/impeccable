@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Texture Studio</title>
 <meta name="description" content="Scene tool: a texture studio. Load a photo, pick a look (characters, dither, halftone, two-ink print, dot grid), tune it, compare with the original and export a PNG.">
+<!-- Share previews and search. At launch, replace example.com with the real address and
+     share.jpg with a 1200x630 picture of the page; check-page --launch fails until you do. -->
+<link rel="canonical" href="https://example.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Texture Studio">
+<meta property="og:description" content="Scene tool: a texture studio. Load a photo, pick a look (characters, dither, halftone, two-ink print, dot grid), tune it, compare with the original and export a PNG.">
+<meta property="og:image" content="https://example.com/share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#111113">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Texture Studio", "applicationCategory": "DesignApplication", "description": "Turn a photo into characters, dither, halftone, a two-ink print or a dot grid.", "url": "https://example.com/"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap">
@@ -120,6 +130,7 @@
   src.width = MAXW; src.height = 800;
   ridges(src.getContext('2d'), src.width, src.height, 0.35);
 
+  const rgbOf = (h) => { const n = parseInt(h.slice(1), 16); return [n >> 16, (n >> 8) & 255, n & 255]; };
   const LOOK_NAMES = { ascii: 'Characters', dither: 'Dither', halftone: 'Halftone', riso: 'Two-ink print', dots: 'Dot grid' };
   const BAYER = [0, 32, 8, 40, 2, 34, 10, 42, 48, 16, 56, 24, 50, 18, 58, 26, 12, 44, 4, 36, 14, 46, 6, 38, 60, 28, 52, 20, 62, 30, 54, 22, 3, 35, 11, 43, 1, 33, 9, 41, 51, 19, 59, 27, 49, 17, 57, 25, 15, 47, 7, 39, 13, 45, 5, 37, 63, 31, 55, 23, 61, 29, 53, 21];
   const RAMP = ' .:-=+*#%@';
@@ -148,19 +159,26 @@
     octx.fillStyle = f.paper; octx.fillRect(0, 0, W, H);
     octx.fillStyle = f.ink;
     if (f.look === 'ascii') {
+      // Monospace advance is 0.6 em, so a font of cell / 0.6 puts one character in each cell and a whole
+      // row can be drawn with a single fillText.
       const ch = cell * 1.7, cols = Math.floor(W / cell), rows = Math.floor(H / ch);
       const L = sample(cols, rows, contrast, bright);
-      octx.font = `700 ${ch}px "JetBrains Mono", "DejaVu Sans Mono", monospace`;
+      octx.font = `700 ${(cell / 0.6).toFixed(2)}px "JetBrains Mono", "DejaVu Sans Mono", monospace`;
       octx.textBaseline = 'top';
-      for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
-        const c = RAMP[Math.min(RAMP.length - 1, Math.floor(L[y * cols + x] * RAMP.length))];
-        if (c !== ' ') octx.fillText(c, x * cell, y * ch);
+      for (let y = 0; y < rows; y++) {
+        let line = '';
+        for (let x = 0; x < cols; x++) line += RAMP[Math.min(RAMP.length - 1, Math.floor(L[y * cols + x] * RAMP.length))];
+        octx.fillText(line, 0, y * ch);
       }
     } else if (f.look === 'dither') {
       const px = Math.max(1, Math.round(cell / 3)), cols = Math.floor(W / px), rows = Math.floor(H / px);
       const L = sample(cols, rows, contrast, bright);
-      for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++)
-        if (L[y * cols + x] > (BAYER[(y % 8) * 8 + (x % 8)] + 0.5) / 64) octx.fillRect(x * px, y * px, px, px);
+      const img = octx.getImageData(0, 0, W, H), d = img.data, ink = rgbOf(f.ink);
+      for (let y = 0; y < rows * px; y++) for (let x = 0; x < cols * px; x++) {
+        const cx = (x / px) | 0, cy = (y / px) | 0;
+        if (L[cy * cols + cx] > (BAYER[(cy % 8) * 8 + (cx % 8)] + 0.5) / 64) { const o = (y * W + x) * 4; d[o] = ink[0]; d[o + 1] = ink[1]; d[o + 2] = ink[2]; }
+      }
+      octx.putImageData(img, 0, 0);
     } else if (f.look === 'halftone') {
       // Dots on a 45° screen; dark areas get big dots of ink on paper.
       const s = cell, cols = Math.ceil(W / s) + 2, rows = Math.ceil(H / s) + 2;
@@ -182,15 +200,21 @@
       // Two inks printed separately and slightly out of register, with paper grain.
       const px = Math.max(1, Math.round(cell / 4)), cols = Math.floor(W / px), rows = Math.floor(H / px);
       const L = sample(cols, rows, contrast, bright);
-      octx.globalCompositeOperation = 'source-over';
-      octx.globalAlpha = 0.9;
-      octx.fillStyle = f.ink2;
-      for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) { const l = L[y * cols + x]; if (l < 0.75 && l > (BAYER[(y % 8) * 8 + (x % 8)] / 64) * 0.75) octx.fillRect(x * px + off, y * px, px, px); }
-      octx.fillStyle = f.ink;
-      for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) { const l = L[y * cols + x]; if (l < (BAYER[((y + 3) % 8) * 8 + ((x + 5) % 8)] / 64) * 0.55) octx.fillRect(x * px, y * px + off, px, px); }
-      octx.globalAlpha = 1;
-      const g = octx.getImageData(0, 0, W, H);
-      for (let i = 0; i < g.data.length; i += 4) { const n = (Math.random() - 0.5) * 22; g.data[i] += n; g.data[i + 1] += n; g.data[i + 2] += n; }
+      // Two inks printed separately and slightly out of register, mixed at 90%, then paper grain.
+      const g = octx.getImageData(0, 0, W, H), d = g.data, i1 = rgbOf(f.ink2), i2 = rgbOf(f.ink);
+      const lay = (ink, test, dx, dy) => {
+        for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
+          if (!test(L[y * cols + x], x, y)) continue;
+          for (let yy = 0; yy < px; yy++) for (let xx = 0; xx < px; xx++) {
+            const X = x * px + xx + dx, Y = y * px + yy + dy;
+            if (X < 0 || Y < 0 || X >= W || Y >= H) continue;
+            const o = (Y * W + X) * 4; d[o] += (ink[0] - d[o]) * 0.9; d[o + 1] += (ink[1] - d[o + 1]) * 0.9; d[o + 2] += (ink[2] - d[o + 2]) * 0.9;
+          }
+        }
+      };
+      lay(i1, (l, x, y) => l < 0.75 && l > (BAYER[(y % 8) * 8 + (x % 8)] / 64) * 0.75, off, 0);
+      lay(i2, (l, x, y) => l < (BAYER[((y + 3) % 8) * 8 + ((x + 5) % 8)] / 64) * 0.55, 0, off);
+      for (let i = 0; i < d.length; i += 4) { const n = (Math.random() - 0.5) * 22; d[i] += n; d[i + 1] += n; d[i + 2] += n; }
       octx.putImageData(g, 0, 0);
     } else if (f.look === 'dots') {
       // A lattice of round lamps whose size and brightness follow the picture.

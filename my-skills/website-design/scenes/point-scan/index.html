@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ferro &amp; Lind · Architecture</title>
 <meta name="description" content="Scene template: a point scan. A city block drawn as lines and points, a ruler preloader that folds into the mark, a scrambled headline, and a camera dive that dissolves the city into points.">
+<!-- Share previews and search. At launch, replace example.com with the real address and
+     share.jpg with a 1200x630 picture of the page; check-page --launch fails until you do. -->
+<link rel="canonical" href="https://example.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ferro &amp; Lind · Architecture">
+<meta property="og:description" content="Scene template: a point scan. A city block drawn as lines and points, a ruler preloader that folds into the mark, a scrambled headline, and a camera dive that dissolves the city into points.">
+<meta property="og:image" content="https://example.com/share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#eceef0">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfessionalService", "name": "Ferro & Lind Architects", "description": "Architecture and interiors studio in Rotterdam.", "url": "https://example.com/"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -21,8 +31,8 @@
 
   .hero-copy { position: absolute; left: var(--gutter); top: 92px; z-index: 2; }
   .hero-copy h1 { margin: 0; font-weight: 500; font-size: clamp(46px, 7vw, 118px); line-height: 0.92; letter-spacing: -0.045em; }
-  .hero-copy h1 span { display: block; }
-  .glyph { font-family: var(--font-mono); font-weight: 400; color: var(--accent); }
+  .hero-copy h1 > span { display: block; white-space: nowrap; }
+  .glyph { color: var(--accent); }
   .hero-foot { position: absolute; left: var(--gutter); right: var(--gutter); bottom: 28px; z-index: 2; display: flex; justify-content: space-between; align-items: end; gap: 18px; flex-wrap: wrap; }
   .hero-foot p { margin: 0; max-width: 34ch; font-size: 15px; color: var(--ink-soft); }
   .glass-light { background: rgba(255, 255, 255, 0.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, 0.7); border-radius: 14px; color: #16181b; }
@@ -58,7 +68,7 @@
 
 <header class="bar">
   <a class="bar__mark" href="#top">Ferro &amp; Lind</a>
-  <ul class="bar__links"><li><a href="#services">Services</a></li><li><a href="#services">Projects</a></li><li><a href="#contact">Studio</a></li></ul>
+  <nav aria-label="Main"><ul class="bar__links"><li><a href="#services">Services</a></li><li><a href="#services">Projects</a></li><li><a href="#contact">Studio</a></li></ul></nav>
   <a class="btn" href="#contact">Start a project</a>
 </header>
 

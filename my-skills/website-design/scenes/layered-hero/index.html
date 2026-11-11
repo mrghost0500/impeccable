@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Halden · Lakeside sauna</title>
 <meta name="description" content="Scene template: a layered hero. The wordmark sits inside the picture, between the sky and the trees, and the layers move apart with the pointer and the scroll.">
+<!-- Share previews and search. At launch, replace example.com with the real address and
+     share.jpg with a 1200x630 picture of the page; check-page --launch fails until you do. -->
+<link rel="canonical" href="https://example.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Halden · Lakeside sauna">
+<meta property="og:description" content="Scene template: a layered hero. The wordmark sits inside the picture, between the sky and the trees, and the layers move apart with the pointer and the scroll.">
+<meta property="og:image" content="https://example.com/share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#14100f">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "DaySpa", "name": "Halden Sauna", "description": "A wood-fired sauna on the lake with a cold plunge from the jetty.", "priceRange": "€24", "url": "https://example.com/"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=family=JetBrains+Mono:wght@500&display=swap">
@@ -48,11 +58,11 @@
 <a class="skip-link" href="#sessions">Skip to session times</a>
 <header class="bar">
   <a class="bar__mark" href="#top" aria-label="Halden, home">Halden</a>
-  <ul class="bar__links">
+  <nav aria-label="Main"><ul class="bar__links">
     <li><a href="#sessions">Sessions</a></li>
     <li><a href="#sessions">Private hire</a></li>
     <li><a href="#visit">Visit</a></li>
-  </ul>
+  </ul></nav>
   <a class="btn" href="#sessions">Book a bench</a>
 </header>
 

@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 // check-page: look at a page the way visitors will meet it, and report what is wrong.
 //
-//   node check-page.mjs <url | folder> [out-dir] [--query "?fog=false"] [--libs <node_modules>]
+//   node check-page.mjs <url | folder> [out-dir] [--query "?fog=false"] [--libs <node_modules>] [--launch]
 //
 // A folder is served on a local port (its index.html, or <folder>/<sub>/ for a sub page).
 // Captures, at 1x: desktop top, desktop at 40% and 75% scroll, phone, reduced motion, JavaScript off
 // (full page). Reports console and page errors, failed requests, sideways overflow on phones, page
 // length in screens, words readable without JavaScript, headings hidden without JavaScript, and the
-// weight of what loaded. Exit code 1 when something must be fixed.
+// weight of what loaded, layout shift and main-thread blocking (Google's limits: 0.1 and 200 ms),
+// sideways scroll at 320 px, the nav landmark, and share tags. --launch also fails on share tags that
+// are missing or still point at example.com. Exit code 1 when something must be fixed.
 //
 // Needs Playwright: npm i -D playwright && npx playwright install chromium
 import http from 'node:http';
@@ -29,6 +31,7 @@ const args = process.argv.slice(2);
 const flag = (n) => { const i = args.indexOf(n); if (i < 0) return null; const v = args[i + 1]; args.splice(i, 2); return v; };
 const query = flag('--query') || '';
 const libs = flag('--libs');
+const launch = args.includes('--launch'); if (launch) args.splice(args.indexOf('--launch'), 1);
 const [target, outDir = 'page-check'] = args;
 if (!target) { console.error('Usage: node check-page.mjs <url | folder> [out-dir] [--query "?x=1"] [--libs <node_modules>]'); process.exit(2); }
 fs.mkdirSync(outDir, { recursive: true });
@@ -68,6 +71,13 @@ async function open(opts = {}) {
     });
   }
   const page = await ctx.newPage();
+  await page.addInitScript(() => {
+    window.__vitals = { cls: 0, tbt: 0 };
+    try {
+      new PerformanceObserver((l) => { for (const e of l.getEntries()) if (!e.hadRecentInput) window.__vitals.cls += e.value; }).observe({ type: 'layout-shift', buffered: true });
+      new PerformanceObserver((l) => { for (const e of l.getEntries()) window.__vitals.tbt += Math.max(0, e.duration - 50); }).observe({ type: 'longtask', buffered: true });
+    } catch {}
+  });
   const log = { errors: [], failed: [], bytes: 0, requests: 0 };
   page.on('pageerror', (e) => log.errors.push(`page error: ${e.message}`));
   page.on('console', (m) => { if (m.type() === 'error') log.errors.push(`console: ${m.text()}`); });
@@ -87,6 +97,12 @@ const shot = async (page, name, full = false) => { const f = path.join(outDir, `
   for (const f of [0.4, 0.75]) if (span > 50) { await page.evaluate((y) => scrollTo(0, y), Math.round(span * f)); await page.waitForTimeout(1300); await shot(page, `desktop-${f * 100}`); }
   report.errors.push(...log.errors); report.failedRequests.push(...log.failed);
   report.requests = log.requests; report.kilobytes = Math.round(log.bytes / 1024);
+  Object.assign(report, await page.evaluate(() => ({ layoutShift: +window.__vitals.cls.toFixed(3), blockingMs: Math.round(window.__vitals.tbt) })));
+  Object.assign(report, await page.evaluate(() => {
+    const m = (sel, attr = 'content') => document.querySelector(sel)?.getAttribute(attr) || '';
+    return { nav: !!document.querySelector('nav, [role=navigation]'), shareImage: m('meta[property="og:image"]'), canonical: m('link[rel=canonical]', 'href'),
+      structuredData: !!document.querySelector('script[type="application/ld+json"]'), lang: !!document.documentElement.lang };
+  }));
   await ctx.close();
 }
 { // Phone
@@ -97,6 +113,11 @@ const shot = async (page, name, full = false) => { const f = path.join(outDir, `
     const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && (r.height < 32 || r.width < 32) && getComputedStyle(e).visibility !== 'hidden';
   }).length);
   report.errors.push(...log.errors.map((e) => `phone ${e}`));
+  await ctx.close();
+}
+{ // The smallest phones still in use
+  const { ctx, page } = await open({ viewport: { width: 320, height: 640 }, mobile: true, wait: 1200 });
+  report.overflowAt320 = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1);
   await ctx.close();
 }
 { // Reduced motion
@@ -127,7 +148,18 @@ if (report.phoneOverflow) must.push('the page scrolls sideways on a phone');
 if (report.hiddenWithoutJs.length) must.push(`${report.hiddenWithoutJs.length} headings or paragraphs are invisible without JavaScript`);
 if (report.h1 !== 1) must.push(`${report.h1} h1 headings (want exactly 1)`);
 if (!report.metaDescription) must.push('no meta description');
+if (report.overflowAt320) must.push('the page scrolls sideways on a 320 px phone');
+if (report.layoutShift > 0.1) must.push(`layout shift ${report.layoutShift} (Google's limit is 0.1)`);
+if (report.blockingMs > 200) must.push(`main thread blocked ${report.blockingMs} ms at start (aim under 200)`);
+if (!report.lang) must.push('no lang attribute on <html>');
+const hasMenu = await Promise.resolve(report.nav);
+if (!hasMenu) report.warnings = [...(report.warnings || []), 'no <nav> landmark (fine for a one-screen tool, not for a site)'];
+if (launch) {
+  if (!report.shareImage || /example\.com/.test(report.shareImage)) must.push('share image (og:image) missing or still example.com');
+  if (!report.canonical || /example\.com/.test(report.canonical)) must.push('canonical address missing or still example.com');
+  if (!report.structuredData) must.push('no structured data (JSON-LD)');
+}
 report.mustFix = must;
 fs.writeFileSync(path.join(outDir, 'report.json'), JSON.stringify(report, null, 2));
-console.log(JSON.stringify({ url: report.url, mustFix: must, screens: report.screens, requests: report.requests, kilobytes: report.kilobytes, smallTapTargets: report.smallTapTargets, wordsWithoutJs: report.wordsWithoutJs, out: outDir }, null, 2));
+console.log(JSON.stringify({ url: report.url, mustFix: must, warnings: report.warnings || [], layoutShift: report.layoutShift, blockingMs: report.blockingMs, screens: report.screens, requests: report.requests, kilobytes: report.kilobytes, smallTapTargets: report.smallTapTargets, wordsWithoutJs: report.wordsWithoutJs, out: outDir }, null, 2));
 process.exit(must.length ? 1 : 0);

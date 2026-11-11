@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>House No. 7 · Brightwater Estates</title>
 <meta name="description" content="Scene template: an estate walkthrough. One wheel turn, swipe or arrow key glides one room, with a caption per room and a listing card, ending at a viewing request.">
+<!-- Share previews and search. At launch, replace example.com with the real address and
+     share.jpg with a 1200x630 picture of the page; check-page --launch fails until you do. -->
+<link rel="canonical" href="https://example.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="House No. 7 · Brightwater Estates">
+<meta property="og:description" content="Scene template: an estate walkthrough. One wheel turn, swipe or arrow key glides one room, with a caption per room and a listing card, ending at a viewing request.">
+<meta property="og:image" content="https://example.com/share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0f0e0d">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "RealEstateListing", "name": "House No. 7, Halcyon Point", "description": "Four-bedroom house on the west shore, 310 m².", "offers": {"@type": "Offer", "price": "2450000", "priceCurrency": "EUR"}, "url": "https://example.com/"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@200;300;400;500;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -69,11 +79,11 @@
 <a class="skip-link" href="#viewing">Skip to booking a viewing</a>
 <header class="bar">
   <a class="bar__mark" href="#top">Brightwater</a>
-  <ul class="count-pills" aria-label="Collection">
+  <nav aria-label="Collection"><ul class="count-pills">
     <li><a href="#viewing">Houses <b>12</b></a></li>
     <li><a href="#viewing">Apartments <b>5</b></a></li>
     <li><a href="#viewing">Land <b>3</b></a></li>
-  </ul>
+  </ul></nav>
   <a class="btn" href="#viewing">Book a viewing</a>
 </header>
 
