@@ -176,7 +176,8 @@
     const THREE = await import('three');
     const canvas = document.querySelector('.sky');
     const tier = qualityTier();
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: false });
+    // The aurora is atmosphere, not content: ask for a low-power context and give up (to the poster) on devices that would draw it in software.
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'low-power', failIfMajorPerformanceCaveat: true });
     renderer.setPixelRatio(pixelRatio(1.25) * ({ low: 0.5, mid: 0.7, high: 1 }[tier]));
     const scene = new THREE.Scene();
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);

@@ -1,0 +1,190 @@
+{
+  "about": "Scene templates for the website-design skill. Each entry says what the scene is, which businesses and motion plans it suits, its dials (settings that can also be set from the address bar, e.g. index.html?palette=moss&spin=0.3), what to replace for a client, and how it behaves without JavaScript, without WebGL and with reduced motion. All demo names, copy and pictures are invented stand-ins.",
+  "libraries": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js",
+    "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.15.0/index.js",
+    "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.mjs"
+  },
+  "scenes": [
+    {
+      "id": "scroll-film",
+      "name": "Scroll film",
+      "technique": "A journey drawn frame by frame as the visitor scrolls, told in chapters with a chapter list, ending at the booking.",
+      "demo": "Kestrel Ridge, guided dawn treks",
+      "bestFor": ["tours and travel", "outdoor brands", "hotels", "product launches with a film", "vehicles"],
+      "mode": "Persuade", "motion": "Cinematic", "engine": "Canvas 2D, no libraries",
+      "dials": [],
+      "swap": ["Frames: a filmed or rendered journey exported as numbered WebP frames, landscape and portrait sets (tools/frames.sh); pass frameCount, src and portraitSrc to SequencePlayer", "Chapter text and the departures cards", "Poster SVG for the no-script view"],
+      "fallbacks": { "noJs": "Poster picture and every chapter as plain text", "noWebgl": "Not needed", "reducedMotion": "No scrubbing: each chapter shows its own finished frame" },
+      "preview": "scroll-film/preview.jpg"
+    },
+    {
+      "id": "layered-hero",
+      "name": "Layered hero",
+      "technique": "The wordmark sits inside the picture, between the background plate and a foreground cut-out; layers part with the pointer and the scroll.",
+      "demo": "Halden, lakeside sauna",
+      "bestFor": ["hospitality", "places and venues", "fashion", "any brand with one strong photograph"],
+      "mode": "Persuade", "motion": "Lively", "engine": "SVG and CSS, no libraries",
+      "dials": [],
+      "swap": ["Layer 1: the photo's background plate", "Layer 3: a transparent cut-out of the foreground (subject, trees, building)", "The wordmark text", "The next-session card"],
+      "fallbacks": { "noJs": "Complete, layers static", "noWebgl": "Not needed", "reducedMotion": "Layers static" },
+      "preview": "layered-hero/preview.jpg"
+    },
+    {
+      "id": "estate-walkthrough",
+      "name": "Estate walkthrough",
+      "technique": "Room by room: one wheel turn, swipe or arrow key glides one room, with a big caption per room in a changing corner, a listing card and room counter.",
+      "demo": "House No. 7, Brightwater Estates",
+      "bestFor": ["real estate", "hotels and rentals", "venues", "showrooms", "architecture"],
+      "mode": "Persuade", "motion": "Cinematic", "engine": "Canvas 2D, CSS scroll snap",
+      "dials": [{ "name": "glide", "default": 0.09, "range": "0.05 slow to 0.3 quick", "means": "How quickly the picture catches up with the room" }, { "name": "fade", "default": 0.55, "range": "0.3 to 0.9", "means": "Where the crossfade to the next room starts" }],
+      "swap": ["Frames of one continuous walkthrough (landscape and portrait), or one still per room", "Room captions and facts", "Listing card and the viewing form"],
+      "fallbacks": { "noJs": "Warm poster and every room caption as text", "noWebgl": "Not needed", "reducedMotion": "Each room is a still, no dolly or crossfade" },
+      "preview": "estate-walkthrough/preview.jpg"
+    },
+    {
+      "id": "world-configurator",
+      "name": "World configurator",
+      "technique": "A 3D product you can turn; choosing a finish recolours the product and the whole world around it; size, quantity, price and add to bag. Opens with a fogged pane the visitor wipes clear.",
+      "demo": "Tidewell Flask",
+      "bestFor": ["single-product shops", "drinkware, audio, furniture, cosmetics", "launches with colourways"],
+      "mode": "Persuade", "motion": "Lively", "engine": "three.js",
+      "dials": [{ "name": "spin", "default": 0.18, "range": "0 to 0.6", "means": "Idle turntable speed" }, { "name": "fog", "default": true, "range": "true or false", "means": "Wipe-the-glass intro" }, { "name": "palette", "default": "ember", "range": "ember, moss, tide", "means": "Starting finish" }],
+      "swap": ["The lathe profile, or a glTF model of the real product", "Finishes: one CSS block per finish sets sky, ground, body and accent colours", "Prices and sizes in the form"],
+      "fallbacks": { "noJs": "An SVG of the product that still recolours with the finish (CSS :has)", "noWebgl": "Same SVG", "reducedMotion": "No fog intro, no idle spin or bob, colours switch instantly" },
+      "preview": "world-configurator/preview.jpg"
+    },
+    {
+      "id": "horizon-sea",
+      "name": "Horizon sea",
+      "technique": "A live sea and sky drawn by one shader, with sun glitter, a wake that follows the pointer and clicks, and dusk that turns to night with stars as the visitor scrolls. Headline split to opposite edges.",
+      "demo": "Isola Nove, island hotel",
+      "bestFor": ["coastal hotels", "boats and ferries", "wellness", "fintech or luxury heroes that want calm"],
+      "mode": "Persuade", "motion": "Cinematic", "engine": "three.js (one fragment shader)",
+      "dials": [{ "name": "waves", "default": 0.8, "range": "0.3 calm to 1.6 rough", "means": "Swell height" }, { "name": "wake", "default": 1, "range": "0 off to 1.5", "means": "Pointer ripples" }, { "name": "sun", "default": 0.04, "range": "-0.05 to 0.2", "means": "Sun height at the top of the page" }, { "name": "night", "default": 1, "range": "0 to 1", "means": "How dark the page gets at the bottom" }],
+      "swap": ["Sky and water colours in the shader", "Booking widget fields", "Room cards"],
+      "fallbacks": { "noJs": "Painted dusk gradient, all text", "noWebgl": "Same gradient", "reducedMotion": "Pause motion button available; scroll still changes the time of day" },
+      "preview": "horizon-sea/preview.jpg"
+    },
+    {
+      "id": "particle-form",
+      "name": "Particle form",
+      "technique": "Tens of thousands of points hold a shape, scatter along the pointer's path and drift back, then morph into the wordmark and a data wave as the visitor scrolls. Measurement grid, counting figures, a statement that changes letter by letter.",
+      "demo": "Sable, retail forecasting",
+      "bestFor": ["AI and data products", "research labs", "launches", "tech brands"],
+      "mode": "Persuade", "motion": "Cinematic", "engine": "three.js points with a custom shader",
+      "dials": [{ "name": "word", "default": "SABLE", "range": "up to 8 letters", "means": "The wordmark the particles spell" }, { "name": "scatter", "default": 1, "range": "0 to 2", "means": "Pointer strength" }, { "name": "drift", "default": 1.6, "range": "0.5 to 4", "means": "How fast points return" }, { "name": "hue", "default": 0, "range": "0 blue, 1 violet, 2 gold", "means": "Point colour" }],
+      "swap": ["Form A or C: sample points from a 3D model (positions of a glTF mesh) instead of the sphere or wave", "Figures and statements", "Point colour"],
+      "fallbacks": { "noJs": "Glow poster and all copy", "noWebgl": "Same", "reducedMotion": "No scatter, no rotation; figures show final values; statement does not rotate" },
+      "preview": "particle-form/preview.jpg"
+    },
+    {
+      "id": "point-scan",
+      "name": "Point scan",
+      "technique": "A city block drawn as lines and points on a light ground; a ruler preloader folds into the mark; the headline unscrambles; scrolling dives into the street while the city dissolves into points and a statement appears.",
+      "demo": "Ferro & Lind, architects",
+      "bestFor": ["architecture and interiors", "engineering", "surveying and mapping", "property developers"],
+      "mode": "Persuade", "motion": "Cinematic", "engine": "three.js lines and points",
+      "dials": [{ "name": "blocks", "default": 7, "range": "4 to 10", "means": "City size per side" }, { "name": "height", "default": 5, "range": "2 to 8", "means": "Tallest tower" }, { "name": "dissolve", "default": 1.6, "range": "0 to 3", "means": "How far points fly" }, { "name": "loader", "default": true, "range": "true or false", "means": "Ruler preloader" }],
+      "swap": ["Buildings: positions and heights of the client's real site, or points sampled from a scan", "Statement and services lists", "Latest project card"],
+      "fallbacks": { "noJs": "Line-drawing poster, all text", "noWebgl": "Same", "reducedMotion": "No preloader, no scramble, camera follows scroll without easing" },
+      "preview": "point-scan/preview.jpg"
+    },
+    {
+      "id": "material-orb",
+      "name": "Material orb",
+      "technique": "A rendered orb that shows an assistant's state (ready, listening, thinking, answering), driven by a working prompt composer with suggestions and Ctrl+Enter.",
+      "demo": "Wren, personal assistant",
+      "bestFor": ["AI assistants", "voice products", "wellness apps", "any product with a 'presence'"],
+      "mode": "Operate", "motion": "Lively", "engine": "three.js with a custom shader",
+      "dials": [{ "name": "palette", "default": "violet", "range": "violet, ember, sea", "means": "Core, body and rim colours" }, { "name": "detail", "default": 1.6, "range": "1 smooth to 3 busy", "means": "Surface detail" }, { "name": "glow", "default": 1, "range": "0.5 to 2", "means": "Rim light" }],
+      "swap": ["The demo answer: stream the real model's reply into the reply line and keep the state on 'speaking' while tokens arrive", "Suggestions", "Greeting"],
+      "fallbacks": { "noJs": "CSS orb, composer visible", "noWebgl": "CSS orb that breathes", "reducedMotion": "Orb nearly still; answers appear at once" },
+      "preview": "material-orb/preview.jpg"
+    },
+    {
+      "id": "world-dashboard",
+      "name": "World dashboard",
+      "technique": "A working product dashboard rises out of a live aurora sky and is cut off at the fold so the page invites the next scroll; the chart switches metric and range; the aurora leans with the pointer.",
+      "demo": "Northlight, energy software",
+      "bestFor": ["SaaS", "analytics", "fintech", "operations software"],
+      "mode": "Persuade", "motion": "Lively", "engine": "three.js (one fragment shader), SVG chart",
+      "dials": [{ "name": "hue", "default": 0, "range": "0 green, 0.5 teal, 1 violet", "means": "Aurora colour" }, { "name": "speed", "default": 1, "range": "0 to 2", "means": "Curtain drift" }, { "name": "tilt", "default": 12, "range": "0 to 20", "means": "Starting tilt of the dashboard in degrees" }],
+      "swap": ["The dashboard: the client's real screen rebuilt in HTML (better than a screenshot: sharp, translatable, searchable)", "DATA object for the chart", "Feature lines"],
+      "fallbacks": { "noJs": "Aurora gradient poster; dashboard flat and complete", "noWebgl": "Same", "reducedMotion": "No rise or tilt, aurora still" },
+      "preview": "world-dashboard/preview.jpg"
+    },
+    {
+      "id": "picture-tunnel",
+      "name": "Picture tunnel",
+      "technique": "A one-screen hero: pictures travel toward the viewer along both walls of a corridor out of a pale haze; drag, sideways scroll or arrow keys steer; pictures fold and split colour at speed; pause button.",
+      "demo": "Halvard Studio, photographs",
+      "bestFor": ["photographers", "studios and agencies", "galleries", "fashion lookbooks"],
+      "mode": "Experience", "motion": "Lively", "engine": "three.js planes with a bending shader",
+      "dials": [{ "name": "count", "default": 24, "range": "8 to 40", "means": "Pictures on the track" }, { "name": "cruise", "default": 0.35, "range": "0 to 1.5", "means": "Idle speed" }, { "name": "gap", "default": 1.25, "range": "0.8 to 2", "means": "Spacing" }, { "name": "fold", "default": 0.9, "range": "0 to 1.5", "means": "Bend at speed" }, { "name": "fringe", "default": 0.6, "range": "0 to 1", "means": "Colour split at speed" }],
+      "swap": ["WORKS: { src, title, year } for the real pictures, loaded as textures", "Headline and calls to action"],
+      "fallbacks": { "noJs": "A still picture and the full list of work", "noWebgl": "Same", "reducedMotion": "Starts paused; buttons and keys step one picture" },
+      "preview": "picture-tunnel/preview.jpg"
+    },
+    {
+      "id": "zoom-constellation",
+      "name": "Zoom constellation",
+      "technique": "Rounded picture tiles float around one centred phrase; scrolling flies through them to the next phrase. Pure CSS 3D.",
+      "demo": "Osteria Fumo, wood-fired restaurant",
+      "bestFor": ["restaurants", "residencies and retreats", "wineries", "studios with many photos"],
+      "mode": "Persuade", "motion": "Lively", "engine": "CSS 3D transforms, no libraries",
+      "dials": [{ "name": "tiles", "default": 26, "range": "12 to 40", "means": "Number of pictures" }, { "name": "depth", "default": 3600, "range": "2000 to 6000", "means": "Length of the flight in px" }, { "name": "spread", "default": 1, "range": "0.6 to 1.2", "means": "How wide tiles scatter" }],
+      "swap": ["Tiles: real photos as img with width, height and lazy loading", "The three phrases", "Booking form"],
+      "fallbacks": { "noJs": "A calm grid of tiles with the phrases as headings", "noWebgl": "Not needed", "reducedMotion": "The same calm grid" },
+      "preview": "zoom-constellation/preview.jpg"
+    },
+    {
+      "id": "card-fan",
+      "name": "Card fan",
+      "technique": "GSAP choreography with Lenis on the GSAP ticker: floating cards in the hero, a pinned section where cards rise, stack and fan out, a giant marquee that moves with the scroll, and a section whose curved top edge flattens as it arrives.",
+      "demo": "Lowland Roasters, coffee",
+      "bestFor": ["food and drink", "shops with a small range", "studios", "subscriptions"],
+      "mode": "Persuade", "motion": "Lively", "engine": "GSAP 3.15 + ScrollTrigger + Lenis",
+      "dials": [{ "name": "spread", "default": 11, "range": "4 to 20", "means": "Fan angle per card in degrees" }, { "name": "pin", "default": 2.5, "range": "1.5 to 4", "means": "Pinned length in screens" }, { "name": "smooth", "default": 0.1, "range": "0.05 to 0.15", "means": "Lenis smoothing" }],
+      "swap": ["Cards: product name, origin, notes, price and colour", "Marquee lines", "Subscription offer"],
+      "fallbacks": { "noJs": "Cards in a row, static marquee", "noWebgl": "Not needed", "reducedMotion": "No Lenis, no pin, cards in a row" },
+      "preview": "card-fan/preview.jpg"
+    },
+    {
+      "id": "texture-studio",
+      "name": "Texture studio",
+      "technique": "A tool: load a photo, choose characters, dither, halftone, two-ink print or dot grid, tune it, drag to compare with the original, export a PNG.",
+      "demo": "Tool page",
+      "bestFor": ["making on-brand textured imagery for any client", "posters, social images, section backgrounds"],
+      "mode": "Operate", "motion": "Calm", "engine": "Canvas 2D, no libraries",
+      "dials": [{ "name": "look", "default": "ascii", "range": "ascii, dither, halftone, riso, dots", "means": "Treatment" }, { "name": "cell", "default": 8, "range": "3 to 24", "means": "Cell size" }, { "name": "contrast", "default": 1.2, "range": "0.5 to 2.5", "means": "Contrast" }, { "name": "bright", "default": 0, "range": "-0.4 to 0.4", "means": "Brightness" }, { "name": "offset", "default": 3, "range": "0 to 12", "means": "Two-ink misregistration" }, { "name": "paper / ink / ink2", "default": "#0d0d0f / #f2efe6 / #ff6b3d", "range": "any colour", "means": "Colours" }],
+      "swap": ["Nothing: use it as is to make images, or lift a treatment into a page as a canvas background"],
+      "fallbacks": { "noJs": "Explains that it needs JavaScript", "noWebgl": "Not needed", "reducedMotion": "Nothing moves" },
+      "preview": "texture-studio/preview.jpg"
+    },
+    {
+      "id": "ascii-ambient-app",
+      "name": "ASCII ambient app",
+      "technique": "A kelp forest drawn live in characters behind an app home screen: fish dart from the pointer, kelp leans while the visitor types, a headline rotates word by word and holds while writing; remembered pause button; Ctrl+K palette with focus kept inside.",
+      "demo": "Tidepool, notes",
+      "bestFor": ["calm apps (notes, journaling, meditation)", "AI tools that want warmth", "developer tools"],
+      "mode": "Operate", "motion": "Lively", "engine": "Canvas 2D text, no libraries",
+      "dials": [{ "name": "stalks", "default": 22, "range": "6 to 30", "means": "Kelp count" }, { "name": "fish", "default": 7, "range": "0 to 16", "means": "Fish count" }, { "name": "cell", "default": 12, "range": "8 to 18", "means": "Character size" }, { "name": "hue", "default": 0, "range": "0 sea green, 1 deep blue", "means": "Palette" }],
+      "swap": ["The creature: anything drawable from characters (birds, rain, stars, a city)", "Headline lines", "Saved notes"],
+      "fallbacks": { "noJs": "App screen without the sea", "noWebgl": "Not needed", "reducedMotion": "Starts paused (remembered per visitor)" },
+      "preview": "ascii-ambient-app/preview.jpg"
+    },
+    {
+      "id": "world-story",
+      "name": "World story",
+      "technique": "One live 3D world and a camera that travels through four stations; the page settles on the nearest station when scrolling stops; stations change through an ordered-dither pixel dissolve; pills in the header jump between stations; a small readout of station, time and altitude.",
+      "demo": "High Mesa Observatory",
+      "bestFor": ["tours and experiences", "places (wineries, observatories, parks)", "studios with a signature world", "storytelling launches"],
+      "mode": "Experience", "motion": "Cinematic", "engine": "three.js + Lenis, custom post pass",
+      "dials": [{ "name": "settle", "default": true, "range": "true or false", "means": "Snap to the nearest station" }, { "name": "dissolve", "default": 0.8, "range": "0 to 1", "means": "Pixel dissolve strength" }, { "name": "smooth", "default": 0.09, "range": "0.05 to 0.15", "means": "Lenis smoothing" }],
+      "swap": ["CAM: camera position and target for each station", "SKY colours per station", "The world: terrain function and the landmark (replace with a glTF model)", "Station text and booking form"],
+      "fallbacks": { "noJs": "Dusk gradient poster, all stations as text", "noWebgl": "Same", "reducedMotion": "No smooth scroll or settle, camera jumps to each station, no dissolve" },
+      "preview": "world-story/preview.jpg"
+    }
+  ]
+}
