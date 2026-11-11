@@ -282,4 +282,21 @@ fs.writeFileSync(file, JSON.stringify(s, null, 2) + '\n');
 JS
 fi
 
+# 13. Research tools for studying sites the user admires (website-design, scene-craft.md section 5).
+#     Off by default: each changes your agent setup and asks you to approve its own changes.
+#     REA=1          REA, the reverse-engineering MCP (browser observation of a page). Needs Node 22.19+.
+#     AGENT_REACH=1  Agent Reach (reads YouTube subtitles, GitHub, Reddit, X; some need a login). Needs uv.
+if [ "${REA:-0}" = "1" ]; then
+  echo "Setting up REA: review the changes it proposes, then restart Claude Code."
+  npx -y rea-agents@latest setup || echo "REA setup did not finish; run: npx rea-agents@latest setup" >&2
+fi
+if [ "${AGENT_REACH:-0}" = "1" ]; then
+  if command -v uv >/dev/null; then
+    uv tool install https://github.com/Panniantong/Agent-Reach/releases/latest/download/agent-reach.zip && agent-reach setup \
+      || echo "Agent Reach setup did not finish; see https://github.com/Panniantong/Agent-Reach" >&2
+  else
+    echo "Agent Reach needs uv (https://docs.astral.sh/uv/). Install uv, then run this again with AGENT_REACH=1." >&2
+  fi
+fi
+
 echo "Installed $(ls "$SKILLS" | wc -l) skills into $SKILLS and $(ls "$AGENTS" | wc -l) agents into $AGENTS"

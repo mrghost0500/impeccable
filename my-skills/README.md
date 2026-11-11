@@ -12,7 +12,12 @@ impeccable build.
   Apple") from a library of 84 write-ups that the setup script downloads into
   `website-design/reference-sites/` from VoltAgent/awesome-design-md. `website-design/award-patterns.md`
   records what the top award-winning GSAP sites do and where they lose points, which shapes the
-  motion question, the build and the review.
+  motion question, the build and the review. For lively and cinematic pages it offers scenes from
+  `website-design/scenes/`: 15 finished starting points (3D worlds, scroll films, a product
+  configurator, shader seas and skies, particle heroes, galleries, GSAP choreography) with previews,
+  settings you can try live, and fallbacks for every visitor. `website-design/scene-craft.md` holds
+  the rules behind them, and `website-design/tools/` checks pages in four states, makes scroll
+  previews for clients, studies sites you admire and turns films into frame sequences.
 - `setup-skills.sh` installs the master skill and everything it calls into `~/.claude/skills`:
   impeccable, design-taste-frontend, ui-ux-pro-max, web-design-guidelines, webapp-testing,
   fixing-metadata, Claude SEO (26 skills and 19 helper agents), HyperFrames (4 core skills, for
@@ -20,7 +25,9 @@ impeccable build.
   machine-written sound out of the site's words), Emil
   Kowalski's 15 skills and 25 of Matt Pocock's. It sets impeccable, design-taste-frontend, ui-ux-pro-max and web-design-guidelines to
   start only by name or through `website-design`; run it with `ONLY_VIA_MASTER=0` to keep them
-  starting on their own too.
+  starting on their own too. Add `REA=1` or `AGENT_REACH=1` to also set up REA (reverse
+  engineering of web pages) or Agent Reach (YouTube, GitHub, Reddit and X reading); both are off by
+  default and ask you to approve their own changes.
 - `REVIEW.md` is the review of the whole set that shaped the master skill: overlaps, clashes and
   gaps.
 - `optional-packs/` holds the question that starts every new session (and every `/clear`):

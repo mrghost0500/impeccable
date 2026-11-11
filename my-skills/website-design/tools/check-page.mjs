@@ -15,13 +15,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 
-const require = createRequire(import.meta.url);
+// Playwright from the project being checked first, then from next to this tool.
 let chromium;
-try { ({ chromium } = require('playwright')); } catch {
-  try { ({ chromium } = await import('playwright')); } catch {
-    console.error('Playwright is not installed here. Run: npm i -D playwright && npx playwright install chromium');
-    process.exit(2);
-  }
+for (const from of [path.join(process.cwd(), 'x.js'), import.meta.url]) {
+  try { ({ chromium } = createRequire(from)('playwright')); break; } catch {}
+}
+if (!chromium) {
+  console.error('Playwright is not installed. In the project: npm i -D playwright && npx playwright install chromium');
+  process.exit(2);
 }
 
 const args = process.argv.slice(2);

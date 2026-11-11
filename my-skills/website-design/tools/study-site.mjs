@@ -11,8 +11,15 @@
 import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import path from 'node:path';
-const require = createRequire(import.meta.url);
-const { chromium } = require('playwright');
+// Playwright from the project being checked first, then from next to this tool.
+let chromium;
+for (const from of [path.join(process.cwd(), 'x.js'), import.meta.url]) {
+  try { ({ chromium } = createRequire(from)('playwright')); break; } catch {}
+}
+if (!chromium) {
+  console.error('Playwright is not installed. In the project: npm i -D playwright && npx playwright install chromium');
+  process.exit(2);
+}
 const [url, outDir = 'site-study'] = process.argv.slice(2);
 if (!url) { console.error('Usage: node study-site.mjs <url> [out-dir]'); process.exit(2); }
 fs.mkdirSync(outDir, { recursive: true });

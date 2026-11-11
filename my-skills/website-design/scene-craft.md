@@ -68,7 +68,27 @@ out, is what lifts the result. That is what `scenes/` is for.
 - **Ship notes for the next person**: what to replace, where the dials are, how it degrades. HorizonX
   ships an AGENTS.md with every template; ours is `scenes/catalog.json` plus this file.
 
-## 3. Using the scene library
+## 3. Getting the pictures
+
+The templates bring the motion, the layout and the fallbacks. What made the studied pages look
+expensive was the picture inside them, so settle where it comes from at kickoff (Ask), in this order:
+
+1. **The client's own material.** A drone or phone film walked slowly through the place becomes a scroll
+   film or a walkthrough with `tools/frames.sh`; one strong photograph becomes a layered hero (a
+   background plate plus a cut-out of the foreground; cut-outs from an image tool or a photo editor).
+2. **Made in code.** Sea, sky, aurora, fire, particles, point clouds, terrain and simple products are
+   procedural in these scenes and cost nothing to load. Prefer this whenever the subject allows.
+3. **Generated (costs credits, ask first).** A still in the chosen look from an image tool, then a short
+   camera move from a video tool (Higgsfield when connected), then `tools/frames.sh`. Keep one camera
+   move per chapter, slow and level, 4 to 8 seconds; generate the portrait version separately rather
+   than cropping when the subject is wide. Check every frame for warped hands, text and logos.
+4. **3D models.** A glTF of the product from the client's maker, or `img2threejs` for a simple object
+   from a photo. Compress with Draco or Meshopt; keep the hero model under 2 MB.
+
+Never ship the painted stand-ins from `_shared/painters.js`, and never use pictures from the reference
+sites or paid libraries that were studied.
+
+## 4. Using the scene library
 
 `scenes/catalog.json` lists 15 scenes with what each suits, its dials, what to replace for a client and
 how it degrades. `scenes/README.md` is the same list for people, with previews.
@@ -87,7 +107,7 @@ how it degrades. `scenes/README.md` is the same list for people, with previews.
    description. 0 must-fix items before the user sees it. Then `tools/scroll-preview.mjs` for the image
    you send them.
 
-## 4. Studying a site the user loves
+## 5. Studying a site the user loves
 
 When the user points at a site and says "like this":
 

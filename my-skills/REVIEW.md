@@ -140,6 +140,33 @@ it.
     and languages at launch; an optional awards submission at hand-over. Where the winners cut corners,
     the house version wins.
 
+20. **HorizonX templates (studied 2026-11-10).** HorizonX sells cinematic web templates; its own
+    docs name the reason they beat a model working from nothing: a finished starting point with the
+    motion, depth and atmosphere worked out. Evidence gathered with Playwright and Firecrawl from the
+    public pages only (the working code is behind a paid licence and was not touched): 19 preview films
+    measured (16 are one continuous take with no cuts) and studied as contact sheets, 20 template
+    write-ups, the docs and MCP pages, and a scan of the home page (GSAP 3.14 with ScrollTrigger, WebGL2,
+    decorative effects created with `failIfMajorPerformanceCaveat`, reduced-motion rules present).
+    Findings and the rules drawn from them are in `website-design/scene-craft.md`. What was built:
+    - `website-design/scenes/`: 15 original scene templates (scroll film, layered hero, estate
+      walkthrough, world configurator, horizon sea, particle form, point scan, material orb, world
+      dashboard, picture tunnel, zoom constellation, card fan, texture studio, ASCII ambient app, world
+      story), with invented brands and procedural stand-in pictures, dials readable from the address
+      bar, and a still, a poster and full text for reduced motion, no WebGL and no JavaScript. All 15
+      checked in Chromium on a computer and a phone, with reduced motion and with JavaScript off: no
+      errors, no sideways scroll, all text present.
+    - `scenes/catalog.json`, so the skill shortlists scenes by business, mode and motion plan and shows
+      previews at the look stage.
+    - `website-design/tools/`: `check-page` (the four-state check with a must-fix list),
+      `scroll-preview` (one image of a whole scroll for the client), `study-site` (evidence from a site
+      the user admires) and `frames.sh` (film to frame sequences).
+    - REA (`morluto/rea`) and Agent Reach (`Panniantong/Agent-Reach`) were the tools asked for. Both
+      install outside code at run time, which this cloud session's safety check blocks, so the same
+      evidence was collected with the tools already here. The setup script now installs them on your
+      own machine when asked: `REA=1` and `AGENT_REACH=1`. REA adds deeper browser observation (script
+      modules, network timeline, scenario screenshots); Agent Reach adds YouTube subtitles and X and
+      Reddit threads, useful for designers' own breakdowns of how they built a site.
+
 ## Connected tools (checked 2026-11-04)
 
 | Tool | Helpful? | How the master skill uses it |
@@ -156,6 +183,18 @@ it.
 | Apollo, Adspirer, Supermetrics | No | Sales and marketing tools; no part in designing a site. |
 
 ## Gaps that remain
+
+Toward the top tier, in order of value:
+
+- **Prove the picture pipeline on a real job.** `scene-craft.md` section 3 sets it out (client film or
+  photo, procedural, generated with Higgsfield, 3D models); it has not yet been run end to end.
+- **Measure the lift.** Run the same five briefs with and without the scene library and rate the
+  screenshots blind, the way the impeccable evals do, so the library is kept for what it measurably
+  adds.
+- **Framework versions of the scenes.** HorizonX exports HTML, Svelte and React from one source; ours
+  are HTML. React and Svelte ports of the five most used scenes would remove a porting step.
+- **More scene families:** a product exploded view, a map-led story, a before-and-after slider, 3D type,
+  a video hero with masked type.
 
 - Putting the site online. `wizard` walks the user through steps only they can do; there is no
   deploy skill. Vercel's `deploy-to-vercel` (in `vercel-labs/agent-skills`) would fill it.
