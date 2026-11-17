@@ -2,7 +2,7 @@
 
 > Research memo, not investment advice. Figures are from secondary aggregators and company releases found by web search in Nov 2026; anything marked *unverified* has not been checked against filings.
 
-**Composite score 7.18/10** (rank 14 of the finalists) · market cap Rs 1,134 Cr · Electrical Equipment & Parts
+**Composite score 7.19/10** (rank 14 of the finalists) · market cap Rs 1,134 Cr · Electrical Equipment & Parts
 
 ## 1. Two-minute drill
 
@@ -74,6 +74,24 @@ Working-capital heavy because it holds silver inventory. Headroom comes from pow
 ## 8. Who has caught on
 
 Institutional (FII+DII) holding is 0.9%; promoter 52.2%. Shareholder-count trend and 1-year price trend were **not retrieved**: the 1Y-return supplement was not fetched because the data-connector credits ran out. Check the latest shareholding pattern (number of shareholders) on BSE/NSE.
+
+## 9. Comparables and valuation gap
+
+| Company | Role | Mcap (Rs Cr) | P/E | ROCE % | OPM % | Sales CAGR 3Y % | Profit CAGR 3Y % | Source |
+|---|---|---|---|---|---|---|---|---|
+| Modison | FINALIST | 1,134 | 15.6 | 49.4 | 16.6 | 41.2 | n/a | [screener + Stage 3/4 overrides](https://stockanalysis.com/quote/nse/MODISONLTD/) |
+| Salzer Electronics | peer | 952 | 21.1 | 16.6 | 5.8 | 20.9 | 4.4 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/SALZERELEC/) |
+| HPL Electric & Power | peer | 1,635 | 17.7 | 18.3 | 10.2 | 16.6 | 37.5 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/HPL/) |
+| Shilchar Technologies | peer | 3,896 | 31.3 | 27.3 | 22.5 | 24.3 | 21.8 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/SHILCTECH/) |
+| Indo Tech Transformers | peer | 2,700 | 26.8 | 30.2 | 14.1 | 29.5 | 43.9 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/INDOTECH/) |
+
+**How the competitors are doing.** Electrical-equipment small caps (Salzer, HPL, Shilchar, Indo Tech) are growing 17-30% on the transmission and distribution capex cycle and trade at 18-31x.
+
+**Why this company is positioned differently.** Modison is a specialist in silver-based electrical contacts that sit inside every switchgear breaker. OEM qualification makes it sticky, and it rides the same T&D cycle.
+
+**Valuation versus peers.** P/E as scored 15.6x (on FY26 profit 15.6x). Peer median P/E: 24.0x across 4 peers, so it trades at a 35% discount. Fundamentals-implied P/E (screen-wide model, R² 0.17): 18.4x, so it trades at a 15% discount to what its ROCE, growth, size, leverage and sector would predict. ROCE 49.4% vs peer median 22.8%; 3Y sales CAGR 41.2% vs 22.6%.
+
+**Why the valuation doesn't match.** It trades at ~10x TTM and ~16x normalised FY26 profit against a peer median near 24x. The market refuses to capitalise silver-price gains: much of FY26 and Q1 FY27 profit came from inventory and hedge gains that reverse if silver falls. On ex-silver earnings (not disclosed) the true multiple is higher, so most of the apparent discount is an earnings-quality adjustment the market is already making.
 
 ## Council verdict (Stage 5)
 

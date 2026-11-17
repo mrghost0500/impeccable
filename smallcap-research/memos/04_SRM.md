@@ -2,7 +2,7 @@
 
 > Research memo, not investment advice. Figures are from secondary aggregators and company releases found by web search in Nov 2026; anything marked *unverified* has not been checked against filings.
 
-**Composite score 7.95/10** (rank 3 of the finalists) · market cap Rs 988 Cr · Engineering & Construction
+**Composite score 7.86/10** (rank 4 of the finalists) · market cap Rs 988 Cr · Engineering & Construction
 
 ## 1. Two-minute drill
 
@@ -74,6 +74,26 @@ Asset-light but working-capital heavy, with a 32% ROCE. Headroom is large given 
 ## 8. Who has caught on
 
 Institutional (FII+DII) holding is 0.3%; promoter 72.6%. Shareholder-count trend and 1-year price trend were **not retrieved**: the 1Y-return supplement was not fetched because the data-connector credits ran out. Check the latest shareholding pattern (number of shareholders) on BSE/NSE.
+
+## 9. Comparables and valuation gap
+
+| Company | Role | Mcap (Rs Cr) | P/E | ROCE % | OPM % | Sales CAGR 3Y % | Profit CAGR 3Y % | Source |
+|---|---|---|---|---|---|---|---|---|
+| SRM Contractors | FINALIST | 988 | 7.7 | 32.0 | 15.3 | 64.8 | 93.8 | [screener + Stage 3/4 overrides](https://stockanalysis.com/quote/nse/SRM/) |
+| PNC Infratech | peer | 3,309 | 5.2 | 9.2 | 20.1 | -10.4 | 0.9 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/PNCINFRA/) |
+| KNR Constructions | peer | 3,006 | 7.7 | 8.4 | 20.1 | -14.0 | -10.0 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/KNRCON/) |
+| H.G. Infra Engineering | peer | 2,650 | 12.2 | 14.1 | 18.6 | -0.7 | -27.0 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/HGINFRA/) |
+| J. Kumar Infraprojects | peer | 3,380 | 8.4 | 15.7 | 11.0 | 10.3 | 11.5 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/JKIL/) |
+| GPT Infraprojects | peer | 1,497 | 15.8 | 18.3 | 11.9 | 11.3 | 28.5 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/GPTINFRA/) |
+| PSP Projects | peer | 3,080 | 35.3 | 10.4 | 3.6 | 18.1 | -17.8 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/PSPPROJECT/) |
+
+**How the competitors are doing.** The listed road-EPC incumbents are shrinking: 3Y sales CAGR is -10% at PNC Infratech, -14% at KNR and about flat at H.G. Infra, as NHAI awarding slowed and HAM receivables tied up capital. Their profits are flat to falling, and they trade at 5-12x earnings.
+
+**Why this company is positioned differently.** SRM is growing 94% while its peers shrink because it works in a less crowded niche: hill roads, tunnels and slope stabilisation for NHIDCL, BRO and state agencies, where fewer bidders qualify. It is now taking that execution record into national packages (Nashik Ring Road).
+
+**Valuation versus peers.** P/E as scored 7.7x (on FY26 profit 8.9x). Peer median P/E: 10.3x across 6 peers, so it trades at a 25% discount. Fundamentals-implied P/E (screen-wide model, R² 0.17): 18.5x, so it trades at a 58% discount to what its ROCE, growth, size, leverage and sector would predict. ROCE 32.0% vs peer median 12.2%; 3Y sales CAGR 64.8% vs 4.8%.
+
+**Why the valuation doesn't match.** SRM trades at 7.7x TTM profit against a peer median near 10x, despite far faster growth and a higher ROCE (32% vs 8-18%). The market applies the road-EPC sector discount to it, and adds a further discount for small size, a 2024 listing with a thin float (72.6% promoter), a negative FY25 CFO and lumpy, order-driven revenue. The gap closes only if it converts profit to cash at scale.
 
 ## Council verdict (Stage 5)
 

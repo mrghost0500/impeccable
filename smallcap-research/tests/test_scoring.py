@@ -225,3 +225,24 @@ def test_pledge_deduction_scales_with_size():
     small = dict(scoring.red_flags(base_row(pledge_pct=2), CFG))
     large = dict(scoring.red_flags(base_row(pledge_pct=77), CFG))
     assert list(small.values())[0] < list(large.values())[0] == 1.0
+
+
+def test_peer_pe_overrides_industry_median():
+    # same company, cheap vs its curated peers but expensive vs the broad industry median
+    vs_peers, d1 = scoring.lynch_score(base_row(pe=20, peer_pe=40), CFG, CTX)
+    vs_industry, d2 = scoring.lynch_score(base_row(pe=20), CFG, CTX)   # CTX Auto Parts median = 25
+    assert d1["industry_pe"] == 40 and d2["industry_pe"] == 25
+    assert vs_peers > vs_industry
+
+
+def test_model_pe_and_peer_median():
+    from smallcap import comparables
+    df = pd.DataFrame([dict(pe=10 + i, roce=10 + i, sales_g3y=5 + i, pat_g3y=5 + i, de=0.2,
+                            mcap_cr=1000 + 50 * i, sector="Industrials" if i % 2 else "Materials")
+                       for i in range(30)])
+    m = comparables.fit_pe_model(df)
+    assert m["n"] == 30 and 0 <= m["r2"] <= 1
+    p = comparables.model_pe(m, dict(roce=20, sales_g3y=15, pat_g3y=15, de=0.2, mcap_cr=1500, sector="Materials"))
+    assert 5 < p < 60
+    assert comparables._median([10, None, 30, float("nan")]) == 20
+    assert not comparables._valid_pe(150) and comparables._valid_pe(12)

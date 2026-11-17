@@ -2,7 +2,7 @@
 
 > Research memo, not investment advice. Figures are from secondary aggregators and company releases found by web search in Nov 2026; anything marked *unverified* has not been checked against filings.
 
-**Composite score 7.51/10** (rank 13 of the finalists) · market cap Rs 2,509 Cr · Specialty Chemicals
+**Composite score 7.31/10** (rank 12 of the finalists) · market cap Rs 2,509 Cr · Specialty Chemicals
 
 ## 1. Two-minute drill
 
@@ -74,6 +74,25 @@ Capex-heavy with a 28% ROCE. Headroom is moderate and the business is cyclical.
 ## 8. Who has caught on
 
 Institutional (FII+DII) holding is 2.5%; promoter 58.2%. Shareholder-count trend and 1-year price trend were **not retrieved**: the 1Y-return supplement was not fetched because the data-connector credits ran out. Check the latest shareholding pattern (number of shareholders) on BSE/NSE.
+
+## 9. Comparables and valuation gap
+
+| Company | Role | Mcap (Rs Cr) | P/E | ROCE % | OPM % | Sales CAGR 3Y % | Profit CAGR 3Y % | Source |
+|---|---|---|---|---|---|---|---|---|
+| Apcotex Industries | FINALIST | 2,509 | 14.7 | 28.2 | 12.8 | 18.7 | 34.0 | [screener + Stage 3/4 overrides](https://stockanalysis.com/quote/nse/APCOTEXIND/) |
+| NOCIL | peer | 2,285 | 29.4 | 3.8 | 5.0 | 0.2 | -10.4 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/NOCIL/) |
+| Styrenix Performance Materials | peer | 3,301 | 13.3 | 16.7 | 9.0 | 17.0 | 15.3 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/STYRENIX/) |
+| Bhansali Engineering Polymers | peer | 2,766 | 12.5 | 22.7 | 17.7 | 6.0 | 14.8 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/BEPL/) |
+| Rossari Biotech | peer | 2,398 | 15.7 | 12.7 | 7.4 | 16.3 | 9.3 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/ROSSARI/) |
+| Tamilnadu Petroproducts | peer | 996 | 5.8 | 16.6 | 10.1 | 6.5 | 34.8 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/TNPETRO/) |
+
+**How the competitors are doing.** Polymer and rubber-chemical peers are mixed. NOCIL has flat sales and falling profit (3.8% ROCE), Styrenix and Bhansali grow 6-17% at 17-23% ROCE, and the group trades at 6-29x.
+
+**Why this company is positioned differently.** Apcotex is one of India's few synthetic-latex and NBR producers, protected by anti-dumping duties on NBR. Profit nearly doubled in FY26 on flat revenue as margins recovered, and it is adding Rs 210 Cr of capacity.
+
+**Valuation versus peers.** P/E as scored 14.7x (on FY26 profit 24.7x). Peer median P/E: 13.3x across 5 peers, so it trades at a 11% premium. Fundamentals-implied P/E (screen-wide model, R² 0.17): 17.1x, so it trades at a 14% discount to what its ROCE, growth, size, leverage and sector would predict. ROCE 28.2% vs peer median 16.6%; 3Y sales CAGR 18.7% vs 6.5%.
+
+**Why the valuation doesn't match.** On TTM profit (which includes a very strong Q1 FY27) it trades at ~15x, close to the peer median; on audited FY26 profit it is ~25x, a premium. There is no large mismatch. The market prices it as a mid-cycle specialty-chemical name whose margin recovery depends on Chinese import pricing and duty protection.
 
 ## Council verdict (Stage 5)
 

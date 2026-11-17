@@ -1,0 +1,43 @@
+{
+ "r2": 0.1663005770885554,
+ "n": 581,
+ "names": [
+  "const",
+  "roce",
+  "sales_g3y",
+  "pat_g3y",
+  "log_mcap",
+  "de",
+  "sector:Consumer Discretionary",
+  "sector:Consumer Staples",
+  "sector:Energy",
+  "sector:Financials",
+  "sector:Healthcare",
+  "sector:Industrials",
+  "sector:Materials",
+  "sector:Real Estate",
+  "sector:Technology",
+  "sector:Unclassified",
+  "sector:Utilities"
+ ],
+ "coef": [
+  1.2211686430450852,
+  -0.010954975300110003,
+  0.006638428548008519,
+  -0.0033446258782814,
+  0.1978990998066448,
+  0.10507696110611298,
+  0.521037499168931,
+  0.4010416157159885,
+  -0.1442298688231308,
+  0.2901453646306819,
+  0.7676020921738749,
+  0.5346975654692528,
+  0.3463132922401032,
+  0.2153253882627542,
+  0.5089666443963564,
+  0.8066196341593717,
+  -0.30072411103436736
+ ],
+ "note": "log(P/E) ~ ROCE + 3Y sales CAGR + 3Y profit CAGR + log(mcap) + D/E + sector dummies, fitted on scored universe names with 3 < P/E < 100. Low R^2: use as a weak cross-check."
+}

@@ -2,7 +2,7 @@
 
 > Research memo, not investment advice. Figures are from secondary aggregators and company releases found by web search in Nov 2026; anything marked *unverified* has not been checked against filings.
 
-**Composite score 7.86/10** (rank 7 of the finalists) · market cap Rs 1,932 Cr · Specialty Industrial Machinery
+**Composite score 7.84/10** (rank 6 of the finalists) · market cap Rs 1,932 Cr · Specialty Industrial Machinery
 
 ## 1. Two-minute drill
 
@@ -74,6 +74,28 @@ Low-capex fabrication with a 26% ROCE. At a P/E of 35.6 the growth is already pr
 ## 8. Who has caught on
 
 Institutional (FII+DII) holding is 2.7%; promoter 59.9%. Shareholder-count trend and 1-year price trend were **not retrieved**: the 1Y-return supplement was not fetched because the data-connector credits ran out. Check the latest shareholding pattern (number of shareholders) on BSE/NSE.
+
+## 9. Comparables and valuation gap
+
+| Company | Role | Mcap (Rs Cr) | P/E | ROCE % | OPM % | Sales CAGR 3Y % | Profit CAGR 3Y % | Source |
+|---|---|---|---|---|---|---|---|---|
+| Krishna Defence and Allied Industries | FINALIST | 1,932 | 35.6 | 26.3 | 22.2 | 48.8 | 99.2 | [screener + Stage 3/4 overrides](https://stockanalysis.com/quote/nse/KRISHNADEF/) |
+| Taneja Aerospace and Aviation | peer | 755 | 34.2 | 13.3 | 55.4 | 8.7 | 22.6 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/TANAA/) |
+| Avantel | peer | 4,272 | 225.3 | 9.9 | 14.4 | 6.7 | -21.3 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/AVANTEL/) |
+| Premier Explosives | peer | 3,006 | 108.6 | 1.6 | 1.4 | 19.6 | 6.5 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/PREMEXPLN/) |
+| ideaForge Technology | peer | 3,429 | 103.7 | 0.2 | 0.8 | 25.7 | 66.3 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/IDEAFORGE/) |
+| Garden Reach Shipbuilders | peer | 25,266 | 31.6 | 43.7 | n/a | n/a | n/a | [web search snapshot (29-Sep-2026)](https://www.valueresearchonline.com/stocks/238018/garden-reach-shipbuilders-engineers-ltd/) |
+| Mishra Dhatu Nigam | peer | 7,436 | 55.8 | n/a | n/a | n/a | n/a | [web search snapshot (Jul-2026)](https://www.stockezee.com/compare/grse-vs-midhani) |
+
+*Sector leaders:* Garden Reach Shipbuilders: Warship builder; industry P/E ~32. Mishra Dhatu Nigam: Defence special alloys; one analyst flags 50%+ overvaluation.
+
+**How the competitors are doing.** Defence names trade on a sector premium: GRSE ~32x with a 44% ROCE, MIDHANI ~56-74x, and small-cap defence names in the universe at 34x to over 100x, often on thin earnings.
+
+**Why this company is positioned differently.** Krishna supplies DMR-grade special steel and fabricated items to naval shipyards. It has qualified-vendor status, a 21% EBITDA margin and 30% growth, but a Rs 103 Cr order book (0.4x revenue).
+
+**Valuation versus peers.** P/E as scored 35.6x (on FY26 profit 46.8x). Peer median P/E: 34.2x across 3 peers, so it trades at a 4% premium. Fundamentals-implied P/E (screen-wide model, R² 0.17): 19.3x, so it trades at a 84% premium to what its ROCE, growth, size, leverage and sector would predict. ROCE 26.3% vs peer median 5.8%; 3Y sales CAGR 48.8% vs 14.2%.
+
+**Why the valuation doesn't match.** At ~36x TTM (47x FY26) it sits close to GRSE and below MIDHANI, so it is priced fully in line with the defence theme. There is no undervaluation versus peers. The risk is the reverse: it carries the sector premium while its order book is thinner than a shipbuilder's, so a theme de-rating would hit it harder.
 
 ## Council verdict (Stage 5)
 

@@ -2,7 +2,7 @@
 
 > Research memo, not investment advice. Figures are from secondary aggregators and company releases found by web search in Nov 2026; anything marked *unverified* has not been checked against filings.
 
-**Composite score 7.74/10** (rank 9 of the finalists) · market cap Rs 751 Cr · Software - Application
+**Composite score 7.59/10** (rank 11 of the finalists) · market cap Rs 751 Cr · Software - Application
 
 ## 1. Two-minute drill
 
@@ -74,6 +74,29 @@ Asset-light, high-margin and with large headroom. The exit path is SME-to-main-b
 ## 8. Who has caught on
 
 Institutional (FII+DII) holding is 0.0%; promoter 56.7%. Shareholder-count trend and 1-year price trend were **not retrieved**: the 1Y-return supplement was not fetched because the data-connector credits ran out. Check the latest shareholding pattern (number of shareholders) on BSE/NSE.
+
+## 9. Comparables and valuation gap
+
+| Company | Role | Mcap (Rs Cr) | P/E | ROCE % | OPM % | Sales CAGR 3Y % | Profit CAGR 3Y % | Source |
+|---|---|---|---|---|---|---|---|---|
+| TAC Infosec | FINALIST | 751 | 33.6 | 29.7 | 47.9 | 133.3 | 274.1 | [screener + Stage 3/4 overrides](https://stockanalysis.com/quote/nse/TAC/) |
+| Network People Services Technologies | peer | 3,591 | 73.3 | 9.2 | 18.0 | 41.7 | 44.9 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/NPST/) |
+| Capillary Technologies India | peer | 4,001 | 62.7 | 6.2 | 7.5 | 73.4 | n/a | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/CAPILLARY/) |
+| Subex | peer | 879 | 21.3 | 7.9 | 12.2 | 5.2 | n/a | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/SUBEXLTD/) |
+| Nucleus Software Exports | peer | 1,660 | 16.3 | 7.3 | 8.2 | 3.9 | -21.1 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/NUCLEUS/) |
+| Quick Heal Technologies | peer | 780 | n/a | -11.9 | -24.4 | -2.2 | n/a | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/QUICKHEAL/) |
+| Tenable (US) | peer | n/a | n/a | n/a | n/a | n/a | n/a | [web search snapshot (Aug-2026)](https://stockanalysis.com/stocks/TENB/statistics/) |
+| Qualys (US) | peer | n/a | 17.5 | n/a | n/a | n/a | n/a | [web search snapshot (Aug-2026)](https://brimindinvest.com/compare/tenb-vs-qlys) |
+
+*Sector leaders:* Tenable (US): Revenue ~+10%; forward EV/sales ~3.9x; forward P/E ~11-16x. Qualys (US): Revenue ~+10%; P/S ~8x; EV/EBITDA ~13.5x.
+
+**How the competitors are doing.** The global vulnerability-management leaders are growing ~10% a year and trade at 4-8x sales and ~11-19x forward earnings. Indian listed software peers range from loss-making (Quick Heal) to high-growth fintech/SaaS at 60-73x (NPST, Capillary).
+
+**Why this company is positioned differently.** TAC sells risk-quantification and vulnerability-management software (ESOF) through partners. FY26 revenue grew 88% and EBITDA margin was 54%, from a very small base (Rs 57 Cr).
+
+**Valuation versus peers.** P/E as scored 33.6x (on FY26 profit 28.4x). Peer median P/E: 21.3x across 5 peers, so it trades at a 58% premium. Fundamentals-implied P/E (screen-wide model, R² 0.17): 15.6x, so it trades at a 116% premium to what its ROCE, growth, size, leverage and sector would predict. ROCE 29.7% vs peer median 7.3%; 3Y sales CAGR 133.3% vs 5.2%.
+
+**Why the valuation doesn't match.** At ~34x earnings and ~13x sales it trades well above the global leaders but below Indian high-growth SaaS. The premium over Tenable and Qualys is for growth, but that growth is lumpy and partner-driven (H2 profit fell 31%), and there is no disclosed ARR or retention. The market prices it like Indian SaaS while its revenue quality looks like project sales. The premium is the risk, not the opportunity.
 
 ## Council verdict (Stage 5)
 

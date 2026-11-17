@@ -88,9 +88,12 @@ def run(top_n: int = 60, n_final: int = 15) -> dict:
             with open(s4_path) as fh:
                 s4 = json.load(fh)
             from .memo_content import MEMOS
+            from .comparables import peer_pe_map
             for sym, memo in MEMOS.items():
                 s4.setdefault(sym, {}).update(
                     product_score=memo["product_score"], headroom=memo["headroom"])
+            for sym, ppe in peer_pe_map(uni).items():
+                s4.setdefault(sym, {})["peer_pe"] = ppe
             score_outputs = {"base_score", "red_flag_deduction", "red_flags", "n_red_flags", "score",
                              "peg", "industry_pe", "cfo_to_pat", "boring", "rank"}
             keep = [c for c in finalists.columns if not c.startswith("s_") and c not in score_outputs]

@@ -75,6 +75,32 @@ Capex-heavy commodity spread with a 28% ROCE at the top of the cycle. Headroom i
 
 Institutional (FII+DII) holding is 0.3%; promoter 66.8%. Shareholder-count trend and 1-year price trend were **not retrieved**: the 1Y-return supplement was not fetched because the data-connector credits ran out. Check the latest shareholding pattern (number of shareholders) on BSE/NSE.
 
+## 9. Comparables and valuation gap
+
+| Company | Role | Mcap (Rs Cr) | P/E | ROCE % | OPM % | Sales CAGR 3Y % | Profit CAGR 3Y % | Source |
+|---|---|---|---|---|---|---|---|---|
+| Gulshan Polyols | FINALIST | 1,022 | 6.0 | 28.1 | 10.9 | 25.5 | 73.9 | [screener + Stage 3/4 overrides](https://stockanalysis.com/quote/nse/GULPOLY/) |
+| TruAlt Bioenergy | peer | 2,895 | 13.7 | 14.2 | 14.3 | n/a | n/a | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/TRUALT/) |
+| Godavari Biorefineries | peer | 1,039 | 39.1 | 8.0 | 4.2 | 7.8 | 11.6 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/GODAVARIB/) |
+| Dhampur Sugar Mills | peer | 1,072 | 11.9 | 10.8 | 7.8 | -6.7 | -16.8 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/DHAMPURSUG/) |
+| Uttam Sugar Mills | peer | 1,388 | 15.4 | 14.7 | 7.4 | 0.5 | -14.1 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/UTTAMSUGAR/) |
+| Avadh Sugar & Energy | peer | 1,689 | 20.5 | 12.8 | 7.0 | -3.0 | -17.6 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/AVADHSUGAR/) |
+| Dalmia Bharat Sugar and Industries | peer | 3,913 | 15.8 | 8.0 | 9.0 | 2.8 | -6.3 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/DALMIASUG/) |
+| Magadh Sugar & Energy | peer | 771 | 12.4 | 10.5 | 9.5 | 2.6 | -10.8 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/MAGADSUGAR/) |
+| Dwarikesh Sugar Industries | peer | 817 | 24.1 | 6.1 | 4.0 | -10.9 | -32.0 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/DWARKESH/) |
+| Balrampur Chini Mills | peer | 13,418 | 35.5 | 13.9 | n/a | n/a | n/a | [web search snapshot (6-Aug-2026)](https://www.motilaloswal.com/share-market/peer-comparison/balrampur-chini-mills-ltd) |
+| Triveni Engineering | peer | 5,162 | 18.4 | 12.0 | n/a | n/a | n/a | [web search snapshot (6-Aug-2026)](https://www.motilaloswal.com/share-market/peer-comparison/triveni-engineering-and-industries-ltd) |
+
+*Sector leaders:* Balrampur Chini Mills: Integrated sugar + largest UP distillery. Triveni Engineering: Sugar, multi-feed distillery (#2 ethanol supplier), engineering.
+
+**How the competitors are doing.** Sugar-ethanol peers have flat to falling 3Y sales and profit (Dhampur, Dwarikesh, Avadh, Magadh all show negative profit CAGRs) at 6-15% ROCE, yet trade at 12-24x. The large integrated players trade higher: Balrampur ~35x, Triveni ~18x.
+
+**Why this company is positioned differently.** Gulshan is one of the few grain-based ethanol pure plays with 810 KLPD now at full utilisation, so it is growing (+33% revenue, +332% FY26 profit) while cane-based peers are stuck. Grain distilleries can run all year, unlike seasonal cane molasses.
+
+**Valuation versus peers.** P/E as scored 6.0x (on FY26 profit 9.5x). Peer median P/E: 17.1x across 10 peers, so it trades at a 65% discount. Fundamentals-implied P/E (screen-wide model, R² 0.17): 13.2x, so it trades at a 55% discount to what its ROCE, growth, size, leverage and sector would predict. ROCE 28.1% vs peer median 10.7%; 3Y sales CAGR 25.5% vs 0.5%.
+
+**Why the valuation doesn't match.** Gulshan trades at ~6x TTM (9.5x FY26) against a peer median of ~17x, with double the ROCE. The market reads its earnings as a policy-set peak spread: ethanol prices are administered, grain feedstock (FCI rice, maize) is volatile, and once E20 is met allocations may be cut. Cane peers carry sugar, power and land assets that give them steadier earnings and a higher multiple. Near-zero institutional ownership (0.3%) and the recency of the earnings jump add to the discount.
+
 ## Council verdict (Stage 5)
 
 **Chairman score 5.46/10.** Best cash evidence in the set (FY26 CFO ~1.9x same-period PAT), but earnings are a policy-set ethanol spread near a cyclical high. Low P/E reflects that. Research focus: OMC allocation outlook post-E20.

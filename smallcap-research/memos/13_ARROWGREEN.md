@@ -2,7 +2,7 @@
 
 > Research memo, not investment advice. Figures are from secondary aggregators and company releases found by web search in Nov 2026; anything marked *unverified* has not been checked against filings.
 
-**Composite score 7.63/10** (rank 12 of the finalists) · market cap Rs 1,038 Cr · Packaging & Containers
+**Composite score 7.26/10** (rank 13 of the finalists) · market cap Rs 1,038 Cr · Packaging & Containers
 
 ## 1. Two-minute drill
 
@@ -74,6 +74,26 @@ Asset-light and cash-rich with moderate headroom. Specialty-film majors (Kuraray
 ## 8. Who has caught on
 
 Institutional (FII+DII) holding is 0.9%; promoter 64.8%. Shareholder-count trend and 1-year price trend were **not retrieved**: the 1Y-return supplement was not fetched because the data-connector credits ran out. Check the latest shareholding pattern (number of shareholders) on BSE/NSE.
+
+## 9. Comparables and valuation gap
+
+| Company | Role | Mcap (Rs Cr) | P/E | ROCE % | OPM % | Sales CAGR 3Y % | Profit CAGR 3Y % | Source |
+|---|---|---|---|---|---|---|---|---|
+| Arrow Greentech | FINALIST | 1,038 | 14.2 | 32.5 | 34.0 | 21.2 | 33.3 | [screener + Stage 3/4 overrides](https://stockanalysis.com/quote/nse/ARROWGREEN/) |
+| Polyplex Corporation | peer | 3,124 | 13.6 | 7.9 | 7.8 | 6.9 | 48.1 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/POLYPLEX/) |
+| Cosmo First | peer | 2,220 | 10.1 | 9.8 | 7.1 | 17.4 | 24.7 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/COSMOFIRST/) |
+| Nahar Poly Films | peer | 584 | 6.9 | 7.2 | 9.8 | 7.8 | 76.3 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/NAHARPOLY/) |
+| Uflex | peer | 4,716 | 6.9 | 7.2 | n/a | n/a | n/a | [web search snapshot (11-Sep-2026)](https://www.valueresearchonline.com/stocks/44961/uflex-ltd/) |
+
+*Sector leaders:* Uflex: Flexible packaging & films; sector median P/E ~19.5.
+
+**How the competitors are doing.** Commodity film makers (Polyplex, Cosmo First, Uflex) trade at 7-14x on 7-10% ROCE after a long BOPET/BOPP down-cycle.
+
+**Why this company is positioned differently.** Arrow is not a commodity film maker. It sells patented water-soluble and biodegradable films (Green, +52% in FY26) and security and anti-counterfeiting products (High-tech), with a 32% ROCE and no debt.
+
+**Valuation versus peers.** P/E as scored 14.2x (on FY26 profit 21.9x). Peer median P/E: 8.5x across 4 peers, so it trades at a 67% premium. Fundamentals-implied P/E (screen-wide model, R² 0.17): 16.3x, so it trades at a 13% discount to what its ROCE, growth, size, leverage and sector would predict. ROCE 32.5% vs peer median 7.9%; 3Y sales CAGR 21.2% vs 7.8%.
+
+**Why the valuation doesn't match.** It trades at ~14x TTM (~22x on audited FY26), a premium to film makers that its returns and patents justify. It is not priced as a specialty-materials compounder because FY26 revenue fell 18%, the security business is lumpy and government-dependent, and the Q1 FY27 rebound is unverified. The market is waiting for proof that Green can carry the company.
 
 ## Council verdict (Stage 5)
 

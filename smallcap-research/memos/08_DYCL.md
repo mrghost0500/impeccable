@@ -2,7 +2,7 @@
 
 > Research memo, not investment advice. Figures are from secondary aggregators and company releases found by web search in Nov 2026; anything marked *unverified* has not been checked against filings.
 
-**Composite score 7.72/10** (rank 10 of the finalists) · market cap Rs 1,751 Cr · Electrical Equipment & Parts
+**Composite score 7.78/10** (rank 8 of the finalists) · market cap Rs 1,751 Cr · Electrical Equipment & Parts
 
 ## 1. Two-minute drill
 
@@ -74,6 +74,31 @@ Moderate capex, a 26% ROCE and moderate headroom. The exit path is index inclusi
 ## 8. Who has caught on
 
 Institutional (FII+DII) holding is 1.9%; promoter 68.2%. Shareholder-count trend and 1-year price trend were **not retrieved**: the 1Y-return supplement was not fetched because the data-connector credits ran out. Check the latest shareholding pattern (number of shareholders) on BSE/NSE.
+
+## 9. Comparables and valuation gap
+
+| Company | Role | Mcap (Rs Cr) | P/E | ROCE % | OPM % | Sales CAGR 3Y % | Profit CAGR 3Y % | Source |
+|---|---|---|---|---|---|---|---|---|
+| Dynamic Cables | FINALIST | 1,751 | 18.7 | 26.1 | 9.8 | 26.7 | 41.5 | [screener + Stage 3/4 overrides](https://stockanalysis.com/quote/nse/DYCL/) |
+| Universal Cables | peer | 3,879 | 18.0 | 8.4 | 7.3 | 18.5 | 28.6 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/UNIVCABLES/) |
+| Paramount Communications | peer | 2,135 | 28.3 | 10.9 | 4.9 | 34.0 | 5.0 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/PARACABLES/) |
+| Vidya Wires | peer | 1,640 | 27.5 | 16.9 | 4.1 | n/a | n/a | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/VIDYAWIRES/) |
+| Birla Cable | peer | 883 | 10.6 | 26.9 | 11.6 | 9.4 | 30.3 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/BIRLACABLE/) |
+| Delton Cables | peer | 583 | 23.4 | 18.9 | 6.4 | 58.8 | 139.5 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/bom/504240/) |
+| HPL Electric & Power | peer | 1,635 | 17.7 | 18.3 | 10.2 | 16.6 | 37.5 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/HPL/) |
+| KEI Industries | peer | 36,787 | 43.9 | 20.2 | n/a | n/a | n/a | [web search snapshot (9-Oct-2026)](https://www.valueresearchonline.com/stocks/42919/kei-industries-ltd/peer-comparison/) |
+| Polycab India | peer | n/a | 43.4 | 34.9 | n/a | n/a | n/a | [web search snapshot (9-Oct-2026)](https://www.valueresearchonline.com/stocks/249951/polycab-india-ltd/peer-comparison/) |
+| RR Kabel | peer | n/a | 50.0 | 28.4 | n/a | n/a | n/a | [web search snapshot (9-Oct-2026)](https://www.motilaloswal.com/share-market/peer-comparison/r-r-kabel-ltd) |
+
+*Sector leaders:* KEI Industries: Revenue growth ~15-20%. Polycab India: Revenue growth ~22-32%. RR Kabel: Revenue growth ~20-38%.
+
+**How the competitors are doing.** The large cable makers (Polycab, KEI, RR Kabel) are growing 15-35% a year at 20-35% ROCE and trade at 43-50x, helped by branded retail wires and exports. Small B2B cable peers (Universal, Paramount, Delton, Birla Cable) trade at 11-28x.
+
+**Why this company is positioned differently.** Dynamic is a B2B power-cable and conductor maker for discoms, EPC contractors and railways, riding the RDSS distribution-upgrade programme. Its order book is ~Rs 829 Cr (about 8 months of revenue) and it posted 17% revenue and 30% profit growth in FY26.
+
+**Valuation versus peers.** P/E as scored 18.7x (on FY26 profit 20.7x). Peer median P/E: 27.5x across 9 peers, so it trades at a 32% discount. Fundamentals-implied P/E (screen-wide model, R² 0.17): 20.0x, so it trades at a 6% discount to what its ROCE, growth, size, leverage and sector would predict. ROCE 26.1% vs peer median 17.6%; 3Y sales CAGR 26.7% vs 18.5%.
+
+**Why the valuation doesn't match.** At ~19x it trades at a ~32% discount to the combined peer median (~27.5x) and at less than half the large-cap cable multiple, while sitting near the small B2B peers. The large players earn their premium with brands, retail distribution (B2C wires), export mix and pricing power; Dynamic sells through L1 tenders at ~10% margins and is exposed to the RDSS scheme's end date. Q4 margin pressure and withdrawn bank ratings (needs confirmation that debt was repaid) keep it at a discount. The gap is mostly justified by business mix, not mispricing.
 
 ## Council verdict (Stage 5)
 

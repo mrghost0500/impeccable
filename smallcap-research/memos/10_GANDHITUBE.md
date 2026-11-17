@@ -2,7 +2,7 @@
 
 > Research memo, not investment advice. Figures are from secondary aggregators and company releases found by web search in Nov 2026; anything marked *unverified* has not been checked against filings.
 
-**Composite score 7.71/10** (rank 11 of the finalists) · market cap Rs 1,087 Cr · Metal Fabrication
+**Composite score 7.72/10** (rank 10 of the finalists) · market cap Rs 1,087 Cr · Metal Fabrication
 
 ## 1. Two-minute drill
 
@@ -74,6 +74,28 @@ Low capex but also low headroom. The value here comes from capital return, not f
 ## 8. Who has caught on
 
 Institutional (FII+DII) holding is 1.3%; promoter 73.5%. Shareholder-count trend and 1-year price trend were **not retrieved**: the 1Y-return supplement was not fetched because the data-connector credits ran out. Check the latest shareholding pattern (number of shareholders) on BSE/NSE.
+
+## 9. Comparables and valuation gap
+
+| Company | Role | Mcap (Rs Cr) | P/E | ROCE % | OPM % | Sales CAGR 3Y % | Profit CAGR 3Y % | Source |
+|---|---|---|---|---|---|---|---|---|
+| Gandhi Special Tubes | FINALIST | 1,087 | 14.1 | 33.3 | 43.6 | 9.3 | 16.2 | [screener + Stage 3/4 overrides](https://stockanalysis.com/quote/nse/GANDHITUBE/) |
+| Venus Pipes and Tubes | peer | 4,119 | 35.9 | 19.8 | 13.8 | 23.4 | 18.4 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/VENUSPIPES/) |
+| Hi-Tech Pipes | peer | 1,556 | 19.0 | 10.0 | 3.0 | 26.9 | 20.2 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/HITECH/) |
+| Ratnaveer Precision Engineering | peer | 2,566 | 32.9 | 8.3 | 8.1 | 33.1 | 38.4 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/RATNAVEER/) |
+| JTL Industries | peer | 2,943 | 24.5 | 10.5 | 7.0 | 11.1 | 3.2 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/JTLIND/) |
+| Hariom Pipe Industries | peer | 1,108 | 13.4 | 17.2 | 9.1 | 26.5 | 13.2 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/HARIOMPIPE/) |
+| Ratnamani Metals & Tubes | peer | 16,322 | 37.7 | 20.0 | n/a | n/a | n/a | [web search snapshot (30-Oct-2026)](https://www.valueresearchonline.com/stocks/44017/ratnamani-metals-tubes-ltd/) |
+
+*Sector leaders:* Ratnamani Metals & Tubes: FY26 revenue ~Rs 4,616 Cr; EBITDA margin ~15-20%.
+
+**How the competitors are doing.** Pipe and tube peers are growing faster (Venus 23%, Hi-Tech 27%, Ratnaveer 33% 3Y sales CAGR) on water, oil and gas, and infrastructure demand, but at 3-14% operating margins. Ratnamani, the stainless and specialty-tube leader, earns ~15-20% EBITDA and trades near 38x.
+
+**Why this company is positioned differently.** Gandhi earns a ~41% operating margin (ex other income) in a small precision niche: seamless and welded tubes for fuel-injection and hydraulic lines, plus nuts. Large mills ignore this niche and customers rarely switch qualified suppliers. It returns cash through dividends and a ~Rs 78 Cr buyback rather than chasing volume.
+
+**Valuation versus peers.** P/E as scored 14.1x (on FY26 profit 15.9x). Peer median P/E: 28.7x across 6 peers, so it trades at a 51% discount. Fundamentals-implied P/E (screen-wide model, R² 0.17): 16.2x, so it trades at a 13% discount to what its ROCE, growth, size, leverage and sector would predict. ROCE 33.3% vs peer median 10.5%; 3Y sales CAGR 9.3% vs 26.5%.
+
+**Why the valuation doesn't match.** It trades at ~14x against a peer median of ~29x and Ratnamani's ~38x, despite the best margins and ROCE in the group. Three reasons: growth is ~9-11% a year while peers grow 20-30%, and this pipe cycle rewards growth; the niche has no visible reinvestment runway; and part of PAT is treasury income, so the operating P/E is higher than the headline. It is priced as a cash-returning bond-like stock, not a compounder.
 
 ## Council verdict (Stage 5)
 

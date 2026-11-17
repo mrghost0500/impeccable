@@ -2,7 +2,7 @@
 
 > Research memo, not investment advice. Figures are from secondary aggregators and company releases found by web search in Nov 2026; anything marked *unverified* has not been checked against filings.
 
-**Composite score 6.60/10** (rank 15 of the finalists) · market cap Rs 4,461 Cr · Specialty Chemicals
+**Composite score 6.42/10** (rank 15 of the finalists) · market cap Rs 4,461 Cr · Specialty Chemicals
 
 ## 1. Two-minute drill
 
@@ -74,6 +74,27 @@ A mature business with low-to-moderate headroom, already 14% institutionally own
 ## 8. Who has caught on
 
 Institutional (FII+DII) holding is 14.1%; promoter 68.9%. Shareholder-count trend and 1-year price trend were **not retrieved**: the 1Y-return supplement was not fetched because the data-connector credits ran out. Check the latest shareholding pattern (number of shareholders) on BSE/NSE.
+
+## 9. Comparables and valuation gap
+
+| Company | Role | Mcap (Rs Cr) | P/E | ROCE % | OPM % | Sales CAGR 3Y % | Profit CAGR 3Y % | Source |
+|---|---|---|---|---|---|---|---|---|
+| Savita Oil Technologies | FINALIST | 4,461 | 24.5 | 33.9 | 14.3 | 14.3 | n/a | [screener + Stage 3/4 overrides](https://stockanalysis.com/quote/nse/SOTL/) |
+| Panama Petrochem | peer | 2,607 | 3.9 | 40.3 | 16.5 | 32.2 | 51.2 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/PANAMAPET/) |
+| Gandhar Oil Refinery (India) | peer | 2,594 | 5.9 | 33.4 | 11.2 | 11.1 | 35.5 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/GANDHAR/) |
+| Veedol Corporation | peer | 2,310 | 10.1 | 20.3 | 9.9 | 7.9 | 21.6 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/VEEDOL/) |
+| Castrol India | peer | 19,441 | 19.2 | 60.3 | n/a | n/a | n/a | [web search snapshot (3-Nov-2026)](https://www.valueresearchonline.com/stocks/41510/castrol-india-ltd/peer-comparison/) |
+| Gulf Oil Lubricants | peer | 5,259 | 12.2 | n/a | n/a | n/a | n/a | [web search snapshot (3-Nov-2026)](https://www.valueresearchonline.com/stocks/41510/castrol-india-ltd/peer-comparison/) |
+
+*Sector leaders:* Castrol India: Lubricant brand leader; dividend yield ~4.5%. Gulf Oil Lubricants: Lubricant brand; dividend yield ~4.8%.
+
+**How the competitors are doing.** Specialty-oil peers Panama Petrochem and Gandhar also show inflated TTM profits (P/E 4-6x), so the base-oil windfall is industry-wide. Branded lubricant leaders trade at 12-19x with 4-5% dividend yields.
+
+**Why this company is positioned differently.** Savita is India's leading transformer-oil supplier, which ties it to the grid and transformer build-out, and it has a smaller Savsol lubricant brand.
+
+**Valuation versus peers.** P/E as scored 24.5x (on FY26 profit 24.5x). Peer median P/E: 10.1x across 5 peers, so it trades at a 143% premium. Fundamentals-implied P/E (screen-wide model, R² 0.17): 18.4x, so it trades at a 33% premium to what its ROCE, growth, size, leverage and sector would predict. ROCE 33.9% vs peer median 33.4%; 3Y sales CAGR 14.3% vs 11.1%.
+
+**Why the valuation doesn't match.** On TTM profit it looks as cheap as its specialty-oil peers (~8x), but that is the same windfall. On normalised FY26 profit it is ~24.5x, above Gulf Oil and around Castrol, which earn far higher ROCE with stronger brands. The market prices the whole group off the windfall and also discounts the pending merger with a promoter entity. On a normalised basis, Savita is not cheap relative to peers.
 
 ## Council verdict (Stage 5)
 

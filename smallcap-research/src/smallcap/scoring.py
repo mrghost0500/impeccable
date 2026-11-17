@@ -97,7 +97,8 @@ def lynch_score(r: dict, cfg: dict, ctx: Context) -> tuple[float, dict]:
     else:
         s_peg = lin(p, c["peg_worst"], c["peg_best"])
 
-    ind_pe = ctx.pe_for(r.get("industry"), r.get("sector"))
+    # comparables criterion: a curated peer median beats the broad industry median when we have one
+    ind_pe = r.get("peer_pe") if isnum(r.get("peer_pe")) and r.get("peer_pe") > 0 else ctx.pe_for(r.get("industry"), r.get("sector"))
     detail["industry_pe"] = ind_pe
     if isnum(r.get("pe")) and r["pe"] > 0:
         s_pe_ind = lin(r["pe"] / ind_pe, 1.5, 0.5)

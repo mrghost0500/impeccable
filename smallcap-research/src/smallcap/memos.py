@@ -91,6 +91,7 @@ def render(row: pd.Series, s3: dict, s4: dict, memo: dict) -> str:
     L.append("\n## 8. Who has caught on\n")
     L.append(f"Institutional (FII+DII) holding is {_num(row['inst_pct'])}%; promoter {_num(row['promoter_pct'])}%. "
              "Shareholder-count trend and 1-year price trend were **not retrieved**: the 1Y-return supplement was not fetched because the data-connector credits ran out. Check the latest shareholding pattern (number of shareholders) on BSE/NSE.\n")
+    L.extend(comparables_section(row))
     council = COUNCIL.get(row["ticker"])
     if council:
         L.append("## Council verdict (Stage 5)\n")
@@ -103,6 +104,42 @@ def render(row: pd.Series, s3: dict, s4: dict, memo: dict) -> str:
     for u in srcs:
         L.append(f"- <{u}>")
     return "\n".join(L) + "\n"
+
+
+def comparables_section(row) -> list[str]:
+    from .comparables_content import COMPS
+    t = str(row["ticker"])
+    spec = COMPS.get(t)
+    peers_p = os.path.join(ROOT, "outputs", "comparables_peers.csv")
+    gap_p = os.path.join(ROOT, "outputs", "valuation_gap.csv")
+    if spec is None or not os.path.exists(peers_p):
+        return []
+    peers = pd.read_csv(peers_p, dtype={"finalist_ticker": str, "ticker": str})
+    peers = peers[peers["finalist_ticker"] == t]
+    gap = pd.read_csv(gap_p, dtype={"ticker": str})
+    g = gap[gap["ticker"] == t].iloc[0]
+    model = json.load(open(os.path.join(ROOT, "outputs", "pe_model.json")))
+    L = ["## 9. Comparables and valuation gap\n"]
+    L.append("| Company | Role | Mcap (Rs Cr) | P/E | ROCE % | OPM % | Sales CAGR 3Y % | Profit CAGR 3Y % | Source |\n|---|---|---|---|---|---|---|---|---|")
+    for _, p in peers.iterrows():
+        src = p["source"] if not isinstance(p.get("url"), str) else f"[{p['source']}]({p['url']})"
+        L.append(f"| {p['peer']} | {p['role']} | {_num(p['mcap_cr'], '{:,.0f}')} | {_num(p['pe'])} | {_num(p['roce'])} | "
+                 f"{_num(p['opm'])} | {_num(p['sales_g3y'])} | {_num(p['pat_g3y'])} | {src} |")
+    notes = [f"{p['peer']}: {p['note']}" for _, p in peers.iterrows() if isinstance(p.get("note"), str)]
+    if notes:
+        L.append("\n*Sector leaders:* " + " ".join(n.rstrip(".") + "." for n in notes))
+    L.append("\n**How the competitors are doing.** " + spec["competitors"] + "\n")
+    L.append("**Why this company is positioned differently.** " + spec["positioning"] + "\n")
+    pd_peer = "n/a (no listed peer with a meaningful P/E)" if pd.isna(g["peer_median_pe"]) else (
+        f"{g['peer_median_pe']:.1f}x across {int(g['n_peers_pe'])} peers, so it trades at a "
+        f"{abs(g['prem_disc_vs_peers_pct']):.0f}% {'premium' if g['prem_disc_vs_peers_pct'] > 0 else 'discount'}")
+    L.append(f"**Valuation versus peers.** P/E as scored {_num(g['pe_used'])}x (on FY26 profit {_num(g['pe_fy26'])}x). "
+             f"Peer median P/E: {pd_peer}. Fundamentals-implied P/E (screen-wide model, R\u00b2 {model['r2']:.2f}): "
+             f"{_num(g['model_pe'])}x, so it trades at a {abs(g['prem_disc_vs_model_pct']):.0f}% "
+             f"{'premium' if g['prem_disc_vs_model_pct'] > 0 else 'discount'} to what its ROCE, growth, size, leverage and sector would predict. "
+             f"ROCE {_num(g['roce'])}% vs peer median {_num(g['peer_median_roce'])}%; 3Y sales CAGR {_num(g['sales_g3y'])}% vs {_num(g['peer_median_sales_g3y'])}%.\n")
+    L.append("**Why the valuation doesn't match.** " + spec["gap"] + "\n")
+    return L
 
 
 def write_all() -> list[str]:

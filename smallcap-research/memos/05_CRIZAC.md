@@ -2,7 +2,7 @@
 
 > Research memo, not investment advice. Figures are from secondary aggregators and company releases found by web search in Nov 2026; anything marked *unverified* has not been checked against filings.
 
-**Composite score 7.86/10** (rank 6 of the finalists) · market cap Rs 2,653 Cr · Education & Training Services
+**Composite score 7.86/10** (rank 5 of the finalists) · market cap Rs 2,653 Cr · Education & Training Services
 
 ## 1. Two-minute drill
 
@@ -74,6 +74,23 @@ Asset-light and cash-generative (FCF about Rs 127 Cr). Headroom is limited by de
 ## 8. Who has caught on
 
 Institutional (FII+DII) holding is 5.8%; promoter 79.9%. Shareholder-count trend and 1-year price trend were **not retrieved**: the 1Y-return supplement was not fetched because the data-connector credits ran out. Check the latest shareholding pattern (number of shareholders) on BSE/NSE.
+
+## 9. Comparables and valuation gap
+
+| Company | Role | Mcap (Rs Cr) | P/E | ROCE % | OPM % | Sales CAGR 3Y % | Profit CAGR 3Y % | Source |
+|---|---|---|---|---|---|---|---|---|
+| Crizac | FINALIST | 2,653 | 12.7 | 33.7 | 23.7 | 100.9 | 46.7 | [screener + Stage 3/4 overrides](https://stockanalysis.com/quote/nse/CRIZAC/) |
+| IDP Education (ASX: IEL) | peer | n/a | n/a | n/a | n/a | n/a | n/a | [web search snapshot (Jul-2026)](https://www.investsmart.com.au/security/asx/iel/idp-education-limited/financials) |
+
+*Sector leaders:* IDP Education (ASX: IEL): Share price ~A$2.1-2.3 vs 52-week high A$6.74; softer student volumes; trailing P/E unstable (14-90x+ on depressed earnings).
+
+**How the competitors are doing.** The global listed comparable, IDP Education, has lost roughly two-thirds of its value as the UK, Canada and Australia tightened student visas, and its earnings have collapsed. There is no Indian listed peer; the rest of the industry (ApplyBoard, Adventus, many agent networks) is private.
+
+**Why this company is positioned differently.** Crizac is a B2B aggregator. Thousands of sub-agents route applications through its platform to UK universities, and it earns commission per enrolment. FY26 revenue grew 23% and profit 41%, so it has been taking share even as volumes softened, because universities are consolidating onto fewer, compliant aggregators.
+
+**Valuation versus peers.** P/E as scored 12.7x (on FY26 profit 12.1x). Peer median P/E: n/a (no listed peer with a meaningful P/E). Fundamentals-implied P/E (screen-wide model, R² 0.17): 24.2x, so it trades at a 48% discount to what its ROCE, growth, size, leverage and sector would predict. ROCE 33.7% vs peer median n/a%; 3Y sales CAGR 100.9% vs n/a%.
+
+**Why the valuation doesn't match.** At ~12-13x earnings with ~60% FCF conversion it looks cheap for an asset-light platform. The market is pricing in an IDP-style policy shock: 97% of revenue is UK, Q1 FY27 revenue fell 4%, and promoters sold 20% in an all-OFS IPO. The discount is a rational policy-risk discount. It narrows only if destination diversification shows up in the numbers.
 
 ## Council verdict (Stage 5)
 

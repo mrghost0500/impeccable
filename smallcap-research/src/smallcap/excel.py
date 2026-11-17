@@ -129,12 +129,25 @@ def build() -> str:
     for sym, f in s4.items():
         for u in f.get("s4_sources", []):
             src.append({"symbol": sym, "name": names.get(sym, ""), "stage": "Stage 4", "url": u, "note": ""})
-    _sheet(wb, "Sources", pd.DataFrame(src), {"name": 32, "url": 90, "note": 60}, link_cols=("url",))
+
+    cp = os.path.join(OUT, "comparables_peers.csv")
+    if os.path.exists(cp):
+        peers = pd.read_csv(cp, dtype={"finalist_ticker": str, "ticker": str})
+        cols = ["finalist", "role", "peer", "ticker", "mcap_cr", "pe", "roce", "opm", "sales_g3y", "pat_g3y", "de", "note", "source", "url"]
+        _sheet(wb, "Comparables", peers[[c for c in cols if c in peers.columns]],
+               {"finalist": 30, "peer": 32, "note": 50, "source": 30, "url": 55}, link_cols=("url",))
+        gap = pd.read_csv(os.path.join(OUT, "valuation_gap.csv"), dtype={"ticker": str})
+        _sheet(wb, "ValuationGap", gap, {"finalist": 30, "competitors": 70, "positioning": 70, "valuation_gap": 90})
+        for u, n in peers[["url", "peer"]].dropna().drop_duplicates("url").itertuples(index=False):
+            if "stockanalysis.com/quote" not in u:
+                src.append({"symbol": "", "name": n, "stage": "Comparables", "url": u, "note": "peer valuation snapshot"})
 
     sp = os.path.join(OUT, "spotcheck.csv")
     if os.path.exists(sp):
         _sheet(wb, "SpotCheck", pd.read_csv(sp), {"name": 26, "our_value (Rs Cr / %)": 50, "source_value": 60,
                                                  "result": 50, "source_url": 60}, link_cols=("source_url",))
+
+    _sheet(wb, "Sources", pd.DataFrame(src), {"name": 32, "url": 90, "note": 60}, link_cols=("url",))
 
     notes = pd.read_csv(os.path.join(OUT, "field_map.csv"))
     ws = _sheet(wb, "Notes", notes, {"expected": 32, "mapped_to": 45})
@@ -145,6 +158,7 @@ def build() -> str:
         "Feed 'insider %' is used as the promoter-holding proxy and 'institutions %' as FII+DII; Stage 3 found both often wrong and replaced them for the top 60.",
         "Supplementary fields (CFO, PBT, capex, 1Y return) could not be fetched for the full universe after Firecrawl credits ran out; Stage 1 other-income check uses a net-profit > 1.3x operating-profit proxy.",
         "CFO/PAT often divides latest-FY CFO by TTM PAT, so it is indicative only.",
+        "Comparables: peer medians use P/E between 3x and 100x; larger peers are web-search snapshots (dated) and approximate. The fundamentals-implied P/E model explains ~17% of P/E variation (see outputs/pe_model.json): a weak cross-check.",
     ]
     for i, c in enumerate(caveats):
         ws.cell(len(notes) + 3 + i, 1, c)

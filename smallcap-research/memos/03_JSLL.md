@@ -2,7 +2,7 @@
 
 > Research memo, not investment advice. Figures are from secondary aggregators and company releases found by web search in Nov 2026; anything marked *unverified* has not been checked against filings.
 
-**Composite score 7.88/10** (rank 4 of the finalists) · market cap Rs 3,728 Cr · Medical Care Facilities
+**Composite score 7.89/10** (rank 3 of the finalists) · market cap Rs 3,728 Cr · Medical Care Facilities
 
 ## 1. Two-minute drill
 
@@ -74,6 +74,29 @@ Fairly asset-light with a 45% ROCE and a large wellness market. Healthcare is a 
 ## 8. Who has caught on
 
 Institutional (FII+DII) holding is 6.5%; promoter 63.6%. Shareholder-count trend and 1-year price trend were **not retrieved**: the 1Y-return supplement was not fetched because the data-connector credits ran out. Check the latest shareholding pattern (number of shareholders) on BSE/NSE.
+
+## 9. Comparables and valuation gap
+
+| Company | Role | Mcap (Rs Cr) | P/E | ROCE % | OPM % | Sales CAGR 3Y % | Profit CAGR 3Y % | Source |
+|---|---|---|---|---|---|---|---|---|
+| Jeena Sikho Lifecare | FINALIST | 3,728 | 17.4 | 44.8 | 32.4 | 48.8 | 57.8 | [screener + Stage 3/4 overrides](https://stockanalysis.com/quote/nse/JSLL/) |
+| Shalby | peer | 1,300 | 31.2 | 6.0 | 6.3 | 11.2 | -20.4 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/SHALBY/) |
+| Indraprastha Medical Corporation | peer | 3,237 | 16.8 | 26.1 | 15.0 | 9.8 | 22.7 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/INDRAMEDCO/) |
+| KMC Speciality Hospitals (India) | peer | 2,745 | 44.8 | 26.3 | 24.5 | 28.7 | 30.7 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/KMCSHIL/) |
+| Unihealth Hospitals | peer | 798 | 30.8 | 19.4 | 33.0 | 71.4 | 72.8 | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/UNIHEALTH/) |
+| Gujarat Kidney And Super Speciality | peer | 1,258 | 63.9 | 9.1 | 20.6 | n/a | n/a | [screener universe (17-Nov-2026)](https://stockanalysis.com/quote/nse/GKSL/) |
+| Narayana Hrudayalaya | peer | 38,080 | 44.3 | n/a | n/a | n/a | n/a | [web search snapshot (13-Nov-2026)](https://www.valueresearchonline.com/stocks/108795/narayana-hrudayalaya-ltd/key-ratios/) |
+| Kovai Medical Center | peer | 6,004 | 25.5 | n/a | n/a | n/a | n/a | [web search snapshot (older forum snapshot)](https://stockanalysis.com/quote/nse/KOVAI/financials/) |
+
+*Sector leaders:* Narayana Hrudayalaya: FY26 EBITDA margin 21.7% (India hospitals 25.1%). Kovai Medical Center: FY26 EBITDA margin ~27.6%.
+
+**How the competitors are doing.** Listed hospitals are growing 10-30% a year at 15-28% EBITDA margins and trade at 17-45x (Narayana ~44x; small hospital peers 17-64x). There is no sizeable listed Ayurveda hospital chain to compare against directly.
+
+**Why this company is positioned differently.** Jeena Sikho runs Ayurveda-and-Panchakarma hospitals (HiiMS) that need far less equipment capex per bed than allopathic hospitals, so it earns a 44% EBITDA margin and a 45% ROCE. It is the only scaled listed player in organised Ayurveda care.
+
+**Valuation versus peers.** P/E as scored 17.4x (on FY26 profit 16.8x). Peer median P/E: 31.2x across 7 peers, so it trades at a 44% discount. Fundamentals-implied P/E (screen-wide model, R² 0.17): 26.9x, so it trades at a 35% discount to what its ROCE, growth, size, leverage and sector would predict. ROCE 44.8% vs peer median 19.4%; 3Y sales CAGR 48.8% vs 19.9%.
+
+**Why the valuation doesn't match.** It trades at ~17x against hospital peers at ~31x (median) and Narayana at ~44x, despite twice their margin and much faster growth. The market discounts it because: the margin looks too good and part of revenue has been government-panel/scheme business; Ayurveda efficacy claims carry regulatory and reputational risk; FCF is ~23% of profit; and the profit jump (+178%) is very recent. The discount is mostly a credibility discount. Verifying revenue mix and cash conversion would show whether it is too large.
 
 ## Council verdict (Stage 5)
 
