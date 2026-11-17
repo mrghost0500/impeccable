@@ -1,0 +1,731 @@
+{
+ "N:ARROWGREEN": {
+  "promoter_pct": 64.81,
+  "promoter_chg_3y": -3.8,
+  "pledge_pct": 0,
+  "inst_pct": 0.93,
+  "notes": "Promoter 68.60% (Jun-24) -> 64.81% (Dec-25); FII 0.14% + DII 0.79%. 'Locked' 4.25% in Jun-24 filing is lock-in, not pledge. FY25 CFO and debtor days not found in search.",
+  "sources": [
+   "https://upstox.com/stocks/arrow-greentech-limited-shareholding/",
+   "https://trendlyne.com/equity/share-holding/1726/ARROWGREEN/30-06-2024/arrow-greentech-ltd"
+  ]
+ },
+ "N:ONEGLOBAL": {
+  "promoter_pct": 68.4,
+  "inst_pct": 5.45,
+  "stage3_exclude": true,
+  "notes": "EXCLUDED at Stage 3: promoter stake jumped 15.05% (Jun-25) -> 66.24% (Sep-25) -> 68.40% (Mar-26) with no explanation found (former Overseas Synthetics; looks like a change of control / reverse takeover). Revenue and profit figures conflict across sources (units/periods unclear); FY25 CFO given as +14.45 Cr by one source and -10.93 Cr by another. Not verifiable.",
+  "sources": [
+   "https://ticker.finology.in/company/SCRIP-114330",
+   "https://upstox.com/stocks/one-global-service-provider-li-shareholding/",
+   "https://www.cholasecurities.com/stock-market/one-global-service-provider-ltd/3447",
+   "https://www.stockscans.in/company/BSE:ONEGLOBAL"
+  ]
+ },
+ "N:FRONTSP": {
+  "promoter_pct": 51.76,
+  "pledge_pct": 0,
+  "inst_pct": 0.51,
+  "promoter_chg_3y": 0,
+  "notes": "Promoter 51.76% unchanged to Mar-26 (screener feed's 59.2% insider figure overstated it); FII ~0%, other DIIs 0.51% (up from 0.21%). No pledge. CFO/debtor days not found.",
+  "sources": [
+   "https://trendlyne.com/equity/share-holding/2889/FRONTSP/latest/frontier-springs-ltd",
+   "https://marketsmojo.motilaloswal.com//stocks-analysis/financial-shareholding/frontier-springs-914318-0"
+  ]
+ },
+ "N:GKENERGY": {
+  "promoter_pct": 79.2,
+  "pledge_pct": 0,
+  "inst_pct": 9.05,
+  "cfo_cr": -98.6,
+  "debtor_days": 120,
+  "notes": "Listed Sep-2025 (IPO Rs 464 Cr). FY25 consolidated CFO -98.6 Cr despite profit (working capital: receivables Rs 360.9 Cr, ~33% of revenue; one source cites a ~120-day receivable cycle). Business depends on PM-KUSUM government solar-pump orders. FII 1.02%, DII ~8%.",
+  "sources": [
+   "https://groww.in/ipo/gk-energy-ipo",
+   "https://wsnext.trendlyne.com/ipo/detail/1821/gk-energy-ltd/",
+   "https://jkbfsl.com/market/ipo/news_details/IPO_News/1639091",
+   "https://trendlyne.com/equity/share-holding/3262882/GKENERGY/latest/gk-energy-ltd/"
+  ]
+ },
+ "N:JSLL": {
+  "promoter_pct": 63.62,
+  "pledge_pct": 0,
+  "inst_pct": 6.52,
+  "notes": "Promoter 63.62% (Mar-26), no pledge; FII 6.17%, DII 0.35%. FY25 CFO ~Rs 85 Cr per a secondary summary of the investor deck (unverified); FY26 free cash flow reported ~Rs 51 Cr after expansion.",
+  "sources": [
+   "https://marketsmojo.motilaloswal.com//stocks-analysis/financial-shareholding/jeena-sikho-lifecare-1003636-0",
+   "https://upstox.com/stocks/jeena-sikho-lifecare-ltd-shareholding/",
+   "https://www.multibagg.ai/market-pulse/articles/jeena-sikho-fy26-free-cash-ppt-cmwi0d0rz00nk2rpbf3ympqom"
+  ]
+ },
+ "N:PANAMAPET": {
+  "promoter_pct": 63.16,
+  "pledge_pct": 0,
+  "inst_pct": 11.96,
+  "promoter_chg_3y": 1.2,
+  "cfo_cr": -69.4,
+  "debtor_days": 63,
+  "notes": "Promoter 61.94% (Mar-25) -> 63.16% (Mar-26), no pledge. FII 11.29% + DII 0.67% (screener feed showed 3.6%: understated). Cash from operations -69.4 Cr for FY26 per one source (quarterly CFO is volatile: +166, +31, +151, +144, -32 Cr). Consolidated debtor days ~63 (unconfirmed column alignment).",
+  "sources": [
+   "https://marketsmojo.motilaloswal.com//stocks-analysis/financial-shareholding/panama-petrochem-129657-0",
+   "https://trendlyne.com/equity/share-holding/997/PANAMAPET/30-06-2025/panama-petrochem-ltd",
+   "https://ticker.finology.in/Company/PANAMAPET",
+   "https://www.screener.in/company/PANAMAPET/consolidated"
+  ]
+ },
+ "N:SRM": {
+  "promoter_pct": 72.59,
+  "pledge_pct": 0,
+  "inst_pct": 0.31,
+  "cfo_cr": 92.3,
+  "notes": "Promoter 72.59%, no pledge (0% every quarter Jun-25 to Jun-26). FII 0.06%, DII falling 1.26% -> 0.25%. CFO FY25 negative (-46.7 Cr per Finology; MarketsMojo says +1 Cr) on a -116 Cr working-capital build; FY26 CFO +92.3 Cr (Finology). Order book ~Rs 1,424 Cr (Dec-25), roads/bridges ~66% (secondary source).",
+  "sources": [
+   "https://ticker.finology.in/company/SRM?mode=C",
+   "https://marketsmojo.motilaloswal.com//stocks-analysis/financial-shareholding/srm-contractors-10039213-0",
+   "https://upstox.com/stocks/srm-contractors-limited-shareholding/",
+   "https://www.stockscans.in/company/NSE:SRM"
+  ]
+ },
+ "B:544406": {
+  "promoter_pct": 60.39,
+  "inst_pct": 6.46,
+  "sme": true,
+  "notes": "BSE SME listing. Promoter 60.39%; FII 0.57%, DII 5.89%. CFO not found in search.",
+  "sources": [
+   "https://upstox.com/stocks/unified-data-tech-solutions-li-shareholding/",
+   "https://dhan.co/stocks/unified-data-tech-solutions-ltd-fundamental-analysis/"
+  ]
+ },
+ "N:APCOTEXIND": {
+  "promoter_pct": 58.23,
+  "pledge_pct": 0,
+  "inst_pct": 2.5,
+  "notes": "Promoter 58.23%, company filing states no pledge/encumbrance. FII ~0.6%, DII rising 1.00% -> 1.91% (Jun-25 to Jun-26). CFO/debtor days not found.",
+  "sources": [
+   "https://upstox.com/stocks/apcotex-industries-limite-shareholding/",
+   "https://dhan.co/stocks/apcotex-industries-ltd-fundamental-analysis/"
+  ]
+ },
+ "N:SAHANA": {
+  "promoter_pct": 57.31,
+  "promoter_chg_3y": -5.57,
+  "inst_pct": 1.29,
+  "cfo_cr": -18.7,
+  "debtor_days": 107,
+  "notes": "Promoter 57.31%, down 5.57pp over 3 years (Screener). FY25 CFO negative (-18.7 Cr Finology, ~-48 Cr Screener/Sharescart) after working-capital build; working-capital days 103 -> 149, debtor days 135 -> 107.",
+  "sources": [
+   "https://ticker.finology.in/company/SAHANA",
+   "https://www.screener.in/company/SAHANA/consolidated/",
+   "https://www.sharescart.com/company/sahana-system/",
+   "https://trendlyne.com/equity/share-holding/1482926/SAHANA/latest/sahana-system-ltd/"
+  ]
+ },
+ "N:SSEGL": {
+  "promoter_pct": 58.27,
+  "promoter_chg_3y": -4.4,
+  "inst_pct": 2.3,
+  "notes": "Promoter ~62.7% (Mar-25) -> 58.27% (Mar/Jun-26); institutions 1.93% -> 2.30%. CFO/receivables not found.",
+  "sources": [
+   "https://upstox.com/stocks/sathlokhar-syn-e-c-glob-l-shareholding/",
+   "https://www.pocketful.in/stocks/sathlokhar-synergys-ec-global-ltd/shareholding"
+  ]
+ },
+ "N:MODISONLTD": {
+  "promoter_pct": 52.2,
+  "pledge_pct": 0,
+  "inst_pct": 0.9,
+  "notes": "Promoter ~52.2%, no pledge. FII 0.5-1.3% (sources conflict), DII 0%. CFO not found. Business: silver-based electrical contacts, so earnings track silver prices.",
+  "sources": [
+   "https://upstox.com/stocks/modison-limited-shareholding/",
+   "https://marketsmojo.motilaloswal.com//stocks-analysis/financial-shareholding/modison-386664-0",
+   "https://dhan.co/stocks/modison-metals-ltd-fundamental-analysis/"
+  ]
+ },
+ "N:EFFWA": {
+  "promoter_pct": 73.03,
+  "inst_pct": 4.4,
+  "cfo_cr": -31.2,
+  "notes": "Promoter 73.03% steady; DII ~3.9-4.3%, FII ~0.2%. Latest operating cash flow -31.2 Cr (Finology); MoneyWorks4Me annual CFO series 14, 54, -31 Cr. Year labels unclear across sources.",
+  "sources": [
+   "https://ticker.finology.in/company/EFFWA",
+   "https://trendlyne.com/equity/share-holding/2401653/EFFWA/latest/effwa-infra-research-ltd",
+   "https://www.moneyworks4me.com/indianstocks/small-cap/construction-infrastructure/engineering-construction/effwa-infra-research/company-info"
+  ]
+ },
+ "N:CRIZAC": {
+  "promoter_pct": 79.94,
+  "promoter_chg_3y": 0,
+  "inst_pct": 5.77,
+  "notes": "Listed Jul-2025 (Rs 860 Cr IPO, offer for sale, 59.8x subscribed). Promoter 100% pre-IPO -> 79.94% flat since. FII 2.29%, DII 3.48% (Mar-26; sources differ). Business: B2B agent platform for international student recruitment (UK-heavy), so policy risk on student visas. FY26 CFO ~Rs 144 Cr (see Stage 4).",
+  "sources": [
+   "https://www.pocketful.in/stocks/crizac-ltd/shareholding",
+   "https://www.bajajfinserv.in/investments/crizac-limited-ipo",
+   "https://www.chittorgarh.com/ipo/crizac-ipo/2096/"
+  ]
+ },
+ "B:544150": {
+  "promoter_pct": 66.61,
+  "pledge_pct": 0,
+  "inst_pct": 0.44,
+  "sme": true,
+  "notes": "Promoter ~66.6%, no pledge (Mar-26). FII 0.34%, DII 0.10% (Sep-25). Part of KP Group (sister of KPI Green / KP Energy). Related-party exposure to group companies should be checked in the annual report. CFO not found.",
+  "sources": [
+   "https://dhan.co/stocks/kp-green-engineering-ltd-fundamental-analysis/",
+   "https://marketsmojo.motilaloswal.com//stocks-analysis/financial-shareholding/kp-green-engineering-10039206-0"
+  ]
+ },
+ "N:KHAZANCHI": {
+  "promoter_pct": 74.51,
+  "pledge_pct": 0,
+  "inst_pct": 1.75,
+  "notes": "Promoter 74.51%, no pledge; FII ~0%, DII ~1.7%. Inventory days 89 -> 53 (FY24 -> FY25, ValuePickr thread). Q3 FY25 operating cash generation only Rs 11 lakh; full-year CFO not found. Migrated from BSE SME.",
+  "sources": [
+   "https://www.pocketful.in/stocks/khazanchi-jewellers-ltd/shareholding",
+   "https://trendlyne.com/equity/share-holding/1563599/15070580/latest/khazanchi-jewellers-ltd",
+   "https://forum.valuepickr.com/t/khazanchi-jewellers-initiation-for-discussion/200772",
+   "https://quartr.com/events/khazanchi-jewellers-543953-q4-24-25_FOKh1dfW"
+  ]
+ },
+ "N:SOTL": {
+  "promoter_pct": 68.93,
+  "pledge_pct": 0,
+  "promoter_chg_3y": 0,
+  "inst_pct": 14.06,
+  "notes": "Promoter 68.9% flat, no pledge. FII 0.88% + DII 13.18% = 14.1% (already institutionally owned). FY25 CFO conflicting (Rs 61 Cr per stockanalysis vs Rs 761 Cr per Dhan: units differ). Base-oil/lubricant margins swing with crude.",
+  "sources": [
+   "https://ticker.finology.in/Company/SOTL",
+   "https://marketsmojo.motilaloswal.com//stocks-analysis/financial-shareholding/savita-oil-technologies-535893-0",
+   "https://stockanalysis.com/quote/nse/SOTL/financials/cash-flow-statement/"
+  ]
+ },
+ "N:KRISHNADEF": {
+  "promoter_pct": 59.9,
+  "promoter_chg_3y": -2.4,
+  "inst_pct": 2.68,
+  "notes": "Promoter 62.3% (Mar-25) -> 59.9% (Aug-26). FII 1.36%, DII 1.32%. FY25 standalone revenue Rs 194.9 Cr (+83%), EBITDA Rs 30.3 Cr (+96%); order book Rs 269 Cr at 31-Mar-25 (1.3x FY25 revenue). Naval/defence fabrication. CFO not found.",
+  "sources": [
+   "https://upstox.com/stocks/krishna-def-and-ald-ind-l-shareholding/",
+   "https://www.theweek.in/wire-updates/business/2025/05/21/dcm35-krishna-defence-and-allied-industries-limited.amp.html",
+   "https://dhan.co/stocks/krishna-defence-allied-industries-ltd-fundamental-analysis/"
+  ]
+ },
+ "N:GULPOLY": {
+  "promoter_pct": 66.8,
+  "pledge_pct": 0,
+  "promoter_chg_3y": 0.1,
+  "inst_pct": 0.31,
+  "cfo_cr": 207.5,
+  "notes": "Promoter 66.71% -> 66.80%, no pledge. FII ~0.3%, DII ~0%. CFO FY24 66.3 Cr, FY25 41.8 Cr, FY26 207.5 Cr (Finology); FY26 figure used against TTM profit. Grain-based ethanol (OMC allocations) plus polyols: policy-driven pricing.",
+  "sources": [
+   "https://ticker.finology.in/Company/GULPOLY",
+   "https://marketsmojo.motilaloswal.com/stocks-analysis/gulshan-polyols-598465-0",
+   "https://www.cholasecurities.com/corporateinfo-new/gulshan-polyols-ltd/532457"
+  ]
+ },
+ "N:DYCL": {
+  "promoter_pct": 68.18,
+  "pledge_pct": 0,
+  "promoter_chg_3y": 0,
+  "inst_pct": 1.94,
+  "cfo_cr": 56,
+  "notes": "Promoter 68.18% flat, no pledge; FII 0.67%, DII ~1.27%. FY25 revenue Rs 1,025 Cr (+33.5%), PAT Rs 64.8 Cr (+71.6%); management cited Rs 56 Cr cash from operations (period ambiguous).",
+  "sources": [
+   "https://www.business-standard.com/amp/markets/capital-market-news/dynamic-cables-rallies-as-q4-pat-jumps-71-yoy-to-rs-24-cr-125051300557_1.html",
+   "https://upstox.com/stocks/dynamic-cables-limited-shareholding/",
+   "https://nsearchives.nseindia.com/corporate/DYNAMICCABLES_17052025171609_TRANCRIPT13052025.pdf"
+  ]
+ },
+ "N:RMDRIP": {
+  "promoter_pct": 21.1,
+  "inst_pct": 4.3,
+  "cfo_cr": -27.4,
+  "notes": "Promoter only ~21.1% (screener feed showed 62.7%: badly wrong). FII 3.85-4.20%. CFO FY24 -13.7 Cr, FY25 -27.4 Cr; H1 FY27 +4.7 Cr. Trade receivables Rs 137 Cr, ~76% of current assets: heavy working capital, government-subsidy-linked micro-irrigation sales.",
+  "sources": [
+   "https://www.share.market/stocks/r-m-drip-and-sprinklers-systems-ltd-share",
+   "https://marketsmojo.motilaloswal.com//stocks-analysis/financial-cash-flow/r-m-drip-sprinklers-systems-1002831-0",
+   "https://www.multibagg.ai/market-pulse/articles/r-m-drip-receivables-h1-announcement-cmw929gco00642mphkvsqcsco",
+   "https://www.multibagg.ai/market-pulse/articles/r-m-drip-operating-cashflow-announcement-cmw929hcq00662mph9cnh8leg"
+  ]
+ },
+ "N:BONDADA": {
+  "promoter_pct": 61.52,
+  "pledge_pct": 0,
+  "promoter_chg_3y": -1.8,
+  "inst_pct": 0.65,
+  "notes": "Promoter 63.34% -> 61.52% (Jun-26), no pledge. FII 1.35% -> 0.53%, DII 0.12%. Telecom/solar EPC; CFO and receivables not found.",
+  "sources": [
+   "https://dhan.co/stocks/bondada-engineering-ltd-fundamental-analysis/",
+   "https://trendlyne.com/equity/share-holding/1615359/BONDADA/latest/bondada-engineering-ltd",
+   "https://marketsmojo.motilaloswal.com//stocks-analysis/financial-shareholding/bondada-engineering-10038984-0"
+  ]
+ },
+ "N:TINNARUBR": {
+  "promoter_pct": 67.58,
+  "pledge_pct": 0,
+  "inst_pct": 1.05,
+  "cfo_cr": 47.3,
+  "notes": "Promoter 67.58% (another source 72.60%), no pledge. FII ~0.4-0.6%, DII 0.5% (one source 5.76%). CFO FY24 58.8 Cr, FY25 32.4 Cr (Arihant); TTM CFO 47.3 Cr (Sharpely), used here. Crumb rubber / reclaimed rubber from end-of-life tyres.",
+  "sources": [
+   "https://www.arihantcapital.com/company-information/cash-flow/5039",
+   "https://sharpely.in/stocks/tinnarubr/statements",
+   "https://marketsmojo.motilaloswal.com//stocks-analysis/financial-shareholding/tinna-rubber-infrastructure-425431-0"
+  ]
+ },
+ "N:TAC": {
+  "promoter_pct": 56.66,
+  "inst_pct": 0.04,
+  "cfo_cr": 19.4,
+  "notes": "Promoter 56.66% (Mar-26; feed showed 71.5%). FII fell from 3.78% (Sep-24) to 0.04%. FY25 revenue Rs 30.5 Cr (audited, +160%); consolidated CFO Rs 19.4 Cr vs Rs -2.2 Cr in FY24. Revenue base is very small.",
+  "sources": [
+   "https://tacsecurity.com/wp-content/uploads/2025/06/Audited-Financial-Results_31.03.2025.pdf",
+   "https://www.sharescart.com/company/tac-infosec/",
+   "https://upstox.com/stocks/tac-infosec-limited-shareholding/"
+  ]
+ },
+ "N:UNIVASTU": {
+  "promoter_pct": 67.46,
+  "pledge_pct": 0,
+  "promoter_chg_3y": 0,
+  "inst_pct": 1.05,
+  "notes": "Promoter 67.46% (another source 64.24%), nil encumbrance reported under SAST for FY2025-26. FII ~0%, DII 0-1%. CFO/receivables not found; civil EPC contractor (Maharashtra) so working capital needs checking.",
+  "sources": [
+   "https://www.arthneeti.com/stocks/univastu-india-ltd/shareholding",
+   "https://scanx.trade/stock-market-news/companies/univastu-india-limited-reports-nil-promoter-share-encumbrance-for-fy-2025-26-under-sast-regulations/39538123"
+  ]
+ },
+ "N:PCCL": {
+  "promoter_pct": 73.21,
+  "promoter_chg_3y": 0,
+  "inst_pct": 1.0,
+  "cfo_cr": 12,
+  "sme": true,
+  "notes": "NSE SME. Promoter 73.21% flat. FII 4.76% (Jun-24) -> 0.75% (Sep-25): institutions exited. FY25 CFO Rs 12 Cr, investing -50 Cr, funded by +62 Cr financing (Sharescart, MarketsMojo). CFO is FY25 against TTM profit, so the ratio is understated, but cash generation is weak either way.",
+  "sources": [
+   "https://www.sharescart.com/company/petro-carbon-chem/",
+   "https://www.pocketful.in/stocks/petro-carbonchemicals-ltd/shareholding",
+   "https://archives.nseindia.com/annual_reports/SME_AR_27737_PCCL_2024_2025_A_4886476_26082025190007.pdf"
+  ]
+ },
+ "N:KARNIKA": {
+  "promoter_pct": 73.39,
+  "pledge_pct": 0,
+  "promoter_chg_3y": 0,
+  "inst_pct": 2.0,
+  "cfo_cr": 3.3,
+  "notes": "Promoter 73.39% flat, no pledge. FY25 CFO only Rs 3.3 Cr against Rs 24.2 Cr operating profit (working-capital drag -17.5 Cr). Receivables ~Rs 75-88 Cr (unconfirmed units). Kids-wear manufacturer.",
+  "sources": [
+   "https://ticker.finology.in/company/karnika",
+   "https://www.sharescart.com/company/karnika-industries/",
+   "https://www.moneyworks4me.com/indianstocks/small-cap/textiles-apparels/textile/karnika-industries/company-info"
+  ]
+ },
+ "N:KPL": {
+  "promoter_pct": 54.87,
+  "pledge_pct": 0,
+  "inst_pct": 3.12,
+  "cfo_cr": 52.7,
+  "notes": "Promoter 54.87% (feed showed 75.5%). FII 0.50% -> 2.79% in Mar-26 qtr (institutions starting to arrive), DII ~0.33%. FY25 CFO Rs 52.7 Cr vs Rs 43.0 Cr FY24 (Business Standard); FY25 FCF ~Rs 29 Cr.",
+  "sources": [
+   "https://www.business-standard.com/markets/capital-market-news/kwality-pharma-spurts-on-strong-q4-numbers-125052000916_1.html",
+   "https://stockanalysis.com/quote/nse/KPL/financials/cash-flow-statement/",
+   "https://marketsmojo.motilaloswal.com//stocks-analysis/financial-shareholding/kwality-pharmaceuticals-1002639-0"
+  ]
+ },
+ "N:GANDHAR": {
+  "promoter_pct": 66.65,
+  "pledge_pct": 0,
+  "promoter_chg_3y": 1.6,
+  "inst_pct": 2.0,
+  "cfo_cr": 127.8,
+  "notes": "Promoter 65.01% -> 66.65% (Sep-26), no pledge. DII 1.78%, FII ~0.2% (feed's 5.5% overstated). CFO FY24 -69 Cr, FY25 +14.7 Cr, FY26 +127.8 Cr; FY25 PAT fell ~50%. White-oil refiner: commodity spread business with heavy working capital.",
+  "sources": [
+   "https://www.multibagg.ai/market-pulse/articles/gandhar-oil-q4-fy26-results-cmrw8aqwp00060zpmt7yjkpma",
+   "https://www.tipranks.com/stocks/in:gandhar/financials/cash-flow",
+   "https://hdfcsky.com/news/gandhar-oil-fy25-profit-falls-nearly-50-percent",
+   "https://trendlyne.com/equity/share-holding/1785396/GANDHAR/latest/gandhar-oil-refinery-india-ltd"
+  ]
+ },
+ "B:515008": {
+  "promoter_pct": 60.18,
+  "pledge_pct": 0,
+  "promoter_chg_3y": 0,
+  "inst_pct": 1.6,
+  "notes": "Promoter 60.18% flat since Dec-24, no pledge; FII 0.02-0.33%, DII 0.4-1.3%. FY25 CFO Rs 39-46 Cr (MarketsMojo consolidated / ValuePickr) on a smaller FY25 profit base. Not used in the ratio because the profit periods don't match. Porcelain transmission insulators (grid capex cycle).",
+  "sources": [
+   "https://marketsmojo.motilaloswal.com//stocks-analysis/financial-cash-flow/modern-insulators-238496-0",
+   "https://forum.valuepickr.com/t/modern-insulators-ltd-a-porcelain-insulator-opportunity-insulating-the-power-cycle-while-riding-india-s-transmission-boom/220195",
+   "https://upstox.com/stocks/modern-insulators-ltd-shareholding/"
+  ]
+ },
+ "N:SUNLITE": {
+  "promoter_pct": 74.47,
+  "promoter_chg_3y": 0.9,
+  "inst_pct": 0.84,
+  "cfo_cr": 8.2,
+  "notes": "Promoter 73.53% -> 74.47% (Mar-26). FII 0.32% -> 0%, DII 1.31% -> 0.84%. CFO FY23 2, FY24 11, FY25 8.2 Cr against fast-rising profit (quarterly operating profit 7.6 -> 11.9 -> 19.2 Cr): cash conversion weak. Copper/aluminium recycling, wafer-thin OPM (~2%).",
+  "sources": [
+   "https://ticker.finology.in/company/SUNLITE",
+   "https://www.sharescart.com/company/sunlite-recycling/",
+   "https://trendlyne.com/equity/share-holding/2508425/SUNLITE/latest/sunlite-recycling-industries-ltd"
+  ]
+ },
+ "N:KPEL": {
+  "promoter_pct": 45.31,
+  "pledge_pct": 0,
+  "promoter_chg_3y": -0.6,
+  "inst_pct": 1.54,
+  "notes": "Promoter ~45.3% (feed 49.7%), no pledge. FII ~0.5%, DII ~1.05%. KP Group wind-EPC arm; related-party business with KPI Green/KP Group should be checked. CFO FY25 not found; receivables ~Rs 164-168 Cr (period unclear).",
+  "sources": [
+   "https://choiceindia.com/stocks/kp-energy-ltd-shareholding-pattern",
+   "https://upstox.com/stocks/k-p-energy-limited-shareholding/",
+   "https://marketsmojo.motilaloswal.com//stocks-analysis/financial-shareholding/kp-energy-1000355-0"
+  ]
+ },
+ "N:RADHIKAJWE": {
+  "promoter_pct": 57.68,
+  "promoter_chg_3y": -6.05,
+  "inst_pct": 0.04,
+  "cfo_cr": 16.6,
+  "notes": "Promoter 63.73% (Jun-25) -> 57.68% (Sep-25): a ~6pp promoter sale in one quarter. Institutions ~0%. FY25 standalone CFO ~Rs 16.6 Cr after a negative FY24 (MarketsMojo). Pledge data not found.",
+  "sources": [
+   "https://www.pocketful.in/stocks/radhika-jeweltech-ltd/shareholding",
+   "https://marketsmojo.motilaloswal.com//stocks-analysis/financial-cash-flow/radhika-jeweltech-1002667-0",
+   "https://www.research360.in/stocks/radhika-jeweltech-ltd/financials"
+  ]
+ },
+ "N:GANDHITUBE": {
+  "promoter_pct": 73.53,
+  "pledge_pct": 0,
+  "promoter_chg_3y": 0,
+  "inst_pct": 1.28,
+  "notes": "Promoter 73.53%, no pledge; Nov-2025 inter-se promoter agreement bars pledging without 75% promoter approval. FII 1.23%, DII 0.05%. CFO not found. Precision seamless tubes for auto/hydraulics.",
+  "sources": [
+   "https://trendlyne.com/equity/share-holding/437/GANDHITUBE/latest/gandhi-special-tubes-ltd",
+   "https://filingreader.com/news-wire/mumbai/2025-11-24/gandhi-special-tubes-promoters-formalize-stake-control-agreement",
+   "https://dhan.co/stocks/gandhi-special-tubes-ltd-fundamental-analysis/"
+  ]
+ },
+ "B:544529": {
+  "promoter_pct": 72.9,
+  "pledge_pct": 0,
+  "cfo_cr": -1.8,
+  "sme": true,
+  "notes": "BSE SME, listed Sep-2025. FY25 revenue Rs 24.6 Cr, PAT Rs 3.1 Cr, CFO -1.8 Cr, FCF -2.5 Cr. The 883% profit CAGR comes off a tiny base, so the PEG is not meaningful. Trading-heavy pharma at ~100x P/E.",
+  "sources": [
+   "https://wsnext.trendlyne.com/ipo/detail/2153/aptus-pharma-ltd/",
+   "https://www.moneyworks4me.com/indianstocks/small-cap/miscellaneous/trading/aptus-pharma/company-info",
+   "https://upstox.com/stocks/aptus-pharma-limited-shareholding/"
+  ]
+ },
+ "N:MANAKSTEEL": {
+  "notes": "Search did not return a clean total promoter %, pledge or CFO for Manaksia Steels (results were mixed with sister companies Manaksia Ltd / Manaksia Coated Metals). Promoter-group individuals include Chandrakala Agrawal 18.85% and S.K. Agrawal & Sons HUF 16.40% (Jun-25). Unverified.",
+  "sources": [
+   "https://trendlyne.com/equity/share-holding/1575/MANAKSTEEL/30-06-2025/manaksia-steels-ltd"
+  ]
+ },
+ "N:INDOTECH": {
+  "promoter_pct": 72.18,
+  "pledge_pct": 77.0,
+  "inst_pct": 1.1,
+  "cfo_cr": 55,
+  "notes": "RED FLAG: Trendlyne shows 77-80% of promoter holding pledged (Dec-25 qtr 77.24%; another snapshot 80.26%); promoter (Shirdi Sai Electricals group) 75.00% -> 72.18%. FY25 CFO ~Rs 55 Cr (MarketsMojo). Screener feed showed 0% insider holding: wrong.",
+  "sources": [
+   "https://trendlyne.com/equity/share-holding/617/INDOTECH/31-12-2022/indo-tech-transformers-ltd/",
+   "https://marketsmojo.motilaloswal.com//stocks-analysis/financial-cash-flow/indo-tech-transformers-506539-0",
+   "https://www.marketsmojo.com/news/result-analysis/indo-tech-transformers-q4-fy26-strong-revenue-growth-masks-margin-compression-concerns-4003018"
+  ]
+ },
+ "N:ADVAIT": {
+  "promoter_pct": 66.72,
+  "pledge_pct": 0,
+  "promoter_chg_3y": -0.1,
+  "inst_pct": 0.12,
+  "cfo_cr": 48,
+  "notes": "Promoter 66.7-66.8% (feed 72.2%), no pledge. FII 0.10%, DII 0.02% (Sep-26). FY25 CFO ~Rs 46-50 Cr (Finology/stockanalysis). Transmission-line equipment and green-hydrogen/BESS ambitions.",
+  "sources": [
+   "https://ticker.finology.in/company/ADVAIT",
+   "https://upstox.com/stocks/advait-enrgy-transition-l-shareholding/",
+   "https://stockanalysis.com/quote/bom/543230/financials/cash-flow-statement/"
+  ]
+ },
+ "N:INFOBEAN": {
+  "promoter_pct": 72.83,
+  "pledge_pct": 0,
+  "promoter_chg_3y": -1.6,
+  "inst_pct": 0.75,
+  "cfo_cr": 50,
+  "notes": "Promoter 74.40% -> 72.83% (Mar-26 qtr), no pledge. FII ~0.5%, DII 0.2-1.0%. FY25 CFO ~Rs 50 Cr, FCF ~Rs 48 Cr (stockanalysis). IT services with high client concentration (US).",
+  "sources": [
+   "https://trendlyne.com/equity/share-holding/87792/INFOBEAN/latest/infobeans-technologies-ltd/",
+   "https://stockanalysis.com/quote/nse/INFOBEAN/financials/cash-flow-statement/",
+   "https://dhan.co/stocks/infobeans-technologies-ltd-fundamental-analysis/"
+  ]
+ },
+ "B:511144": {
+  "promoter_pct": 85.64,
+  "regulatory_incident": true,
+  "stage3_exclude": true,
+  "notes": "EXCLUDED at Stage 3: promoter holding 85.64% is above the 75% minimum-public-shareholding ceiling; the stock was relisted on BSE only from 30-Jul-2025 (formerly Asya Infosoft), and one period shows 31.45% of promoter shares pledged. Revenue ~Rs 200-238 Cr, PAT ~Rs 29-35 Cr, sources differ. Governance and liquidity risk too high for this screen.",
+  "sources": [
+   "https://www.business-standard.com/company/asya-infosoft-13440.html",
+   "https://www.moneyworks4me.com/check-before-you-invest/AXISOL",
+   "https://www.bajajbroking.in/stock/axis-solutions-limited-share-price",
+   "https://www.tickertape.in/stocks/asya-infosoft-ASYA"
+  ]
+ },
+ "N:ACCENTMIC": {
+  "promoter_pct": 51.4,
+  "promoter_chg_3y": -3.7,
+  "inst_pct": 2.5,
+  "cfo_cr": 49.3,
+  "capex_cr": -36.8,
+  "sme": true,
+  "notes": "NSE SME. Promoter 55.1% (Mar-25) -> ~51.4% (Sep-26). DII 2.2-2.9%. FY25 CFO ~Rs 49 Cr with capex ~Rs 37 Cr (Stockopedia); stockanalysis/Simply Wall St report negative FY25 FCF (-Rs 12 Cr). Microcrystalline cellulose excipients.",
+  "sources": [
+   "https://trendlyne.com/equity/share-holding/1818674/ACCENTMIC/latest/accent-microcell-ltd",
+   "https://www.stockopedia.com/share-prices/accent-microcell-NSI:ACCENTMIC/cashflow",
+   "https://simplywall.st/stocks/in/pharmaceuticals-biotech/nse-accentmic/accent-microcell-shares/news/accent-microcells-nseaccentmic-solid-earnings-may-rest-on-we"
+  ]
+ },
+ "N:ZAGGLE": {
+  "promoter_pct": 44.15,
+  "inst_pct": 9.9,
+  "cfo_cr": 19.8,
+  "notes": "Promoter ~44.2%; small pledge increase noted (+0.19% of promoter shares). FII ~7.6%, DII ~2.3%. FY25 CFO only Rs 19.8 Cr (Quartr summary) vs FY25 PAT ~Rs 87 Cr; trade receivables Rs 215 Cr -> Rs 334 Cr (FY25 -> FY26, investor deck). Working capital is the issue.",
+  "sources": [
+   "https://quartr.com/events/zaggle-prepaid-ocean-services-limited-zaggle-q4-24-25_FLWn2Pvl",
+   "https://ir.zaggle.in/wp-content/uploads/2026/05/zaggle-investor-presentation-Q4FY26.pdf",
+   "https://marketsmojo.motilaloswal.com//stocks-analysis/financial-shareholding/zaggle-prepaid-ocean-services-10039006-0"
+  ]
+ },
+ "B:543619": {
+  "promoter_pct": 63.91,
+  "promoter_chg_3y": -3.15,
+  "inst_pct": 2.47,
+  "cfo_cr": -7.0,
+  "sme": false,
+  "notes": "Promoter 67.06% (Sep-25) -> 65.57% (Mar-26) -> 63.91% (Sep-26): steady selling. DII 0.23% -> 2.47%. FY25 CFO about -Rs 7 Cr (stockanalysis/Stockopedia/Alphaspread) vs +6.4 Cr (Finology); receivables and inventory rose sharply in FY26. Kavach (railway anti-collision) orders via associate Progota India: Rs 19.45 Cr, Rs 185.09 Cr, Rs 53.73 Cr, plus a reported Rs 279.9 Cr order.",
+  "sources": [
+   "https://stockanalysis.com/quote/bom/543619/financials/cash-flow-statement/",
+   "https://upstox.com/stocks/concord-control-systems-limite-shareholding/",
+   "https://themachinemaker.com/news/concord-control-systems-wins-%e2%82%b9185-crore-kavach-4-0-contract-from-indian-railways/",
+   "https://www.constructionworld.in/transport-infrastructure/metro-rail-and-railways-infrastructure/concord-secures-rs-2.8-billion-kavach-order/92557"
+  ]
+ },
+ "N:PIXTRANS": {
+  "promoter_pct": 62.06,
+  "pledge_pct": 0,
+  "promoter_chg_3y": 0.2,
+  "inst_pct": 3.1,
+  "cfo_cr": 108,
+  "notes": "Promoter 61.82% -> 62.06%, no pledge. FII 0.41-0.61%, DII ~2.5%. FY25 CFO Rs 108 Cr (lowest in three years but still above TTM profit of Rs 141 Cr x 0.77). Industrial belts: dull, export-heavy niche.",
+  "sources": [
+   "https://marketsmojo.motilaloswal.com/stocks-analysis/pix-transmission-794146-0",
+   "https://dhan.co/stocks/pix-transmissions-ltd-financial-results/",
+   "https://ticker.finology.in/company/PIXTRANS"
+  ]
+ },
+ "N:SYNCOMF": {
+  "promoter_pct": 50.57,
+  "pledge_pct": 0,
+  "promoter_chg_3y": 0,
+  "inst_pct": 0.35,
+  "cfo_cr": 23.3,
+  "notes": "Promoter 50.57% flat, no pledge; promoters confirmed no new pledges for FY26. FII 0.26-0.35%, DII 0%. FY25 CFO Rs 23.3 Cr (Finology/MarketsMojo/stockanalysis agree) against a TTM profit of Rs 95.6 Cr, which is well above FY25 profit, so the ratio is understated.",
+  "sources": [
+   "https://ticker.finology.in/company/SYNCOMF",
+   "https://marketsmojo.motilaloswal.com//stocks-analysis/financial-cash-flow/syncom-formulations-india-831770-0",
+   "https://www.whalesbook.com/corporate-news/English/other/Syncom-Formulations-Promoters-Reassure-Investors-with-FY26-Pledge-Confirmation/69d3a6a231d4f2ab480bc7db"
+  ]
+ },
+ "N:SAFEENTP": {
+  "promoter_pct": 70.07,
+  "pledge_pct": 0,
+  "inst_pct": 4.0,
+  "cfo_cr": 42.9,
+  "sme": true,
+  "notes": "NSE SME. Promoter 70.07%, no pledge. Institutional figures conflict (FII 0.8-3.4%, DII 0.16-12.5%). FY25 CFO Rs 11.5-31 Cr depending on source; H1 FY26 consolidated CFO Rs 42.9 Cr (vs 32.3 Cr in H1 FY25), used here as the most recent comparable.",
+  "sources": [
+   "https://enrichmoney.in/blog/safe-enterprises-fy26-results-growth",
+   "https://ticker.finology.in/company/SAFEENTP",
+   "https://www.pocketful.in/stocks/safe-enterprises-retail-fixtures-ltd/shareholding"
+  ]
+ },
+ "N:NINSYS": {
+  "promoter_pct": 47.62,
+  "pledge_pct": 0,
+  "inst_pct": 0.01,
+  "cfo_cr": 26.5,
+  "notes": "Promoter ~47.6%, no pledge; institutions ~0%. CFO FY25 Rs 23.7 Cr, FY26 Rs 26.5 Cr (consolidated) vs TTM profit Rs 36.3 Cr (0.73x).",
+  "sources": [
+   "https://www.tickertape.in/stocks/nintec-systems-NIN",
+   "https://stockanalysis.com/quote/nse/NINSYS/financials/cash-flow-statement/",
+   "https://www.arthneeti.com/stocks/nintec-systems/shareholding"
+  ]
+ },
+ "N:DPABHUSHAN": {
+  "promoter_pct": 74.89,
+  "pledge_pct": 0,
+  "inst_pct": 0.32,
+  "notes": "Promoter 74.89% (Sep-26), no pledge. FII 0.20% -> 0.32%, DII 0%. FY25 revenue +42%, PAT +82%. Inventory appears to have risen to ~Rs 722 Cr (latest column, unlabelled). Jewellery retail (MP/Rajasthan) with gold-price-driven inventory. CFO not found.",
+  "sources": [
+   "https://www.arthneeti.com/stocks/dp-abhushan/shareholding",
+   "https://filingreader.com/news-wire/mumbai/2025-12-02/dp-abhushan-reports-strong-fy25-growth-eyes-expansion-and-diamond-jewellery",
+   "https://www.indiainfoline.com/company/d-p-abhushan-ltd-balance-sheet/financials/71563"
+  ]
+ },
+ "N:PRASOLCHEM": {
+  "promoter_pct": 75.25,
+  "pledge_pct": 0,
+  "inst_pct": 6.87,
+  "cfo_cr": 49.5,
+  "notes": "Listed Sep-2026 (Rs 500 Cr IPO, Rs 420 Cr of it offer-for-sale) below issue price. Promoter 75.25%, no pledge; DII 6.69%. CFO FY24 115.6, FY25 22.3, FY26 49.5 Cr; H1 FY27 CFO -11.7 Cr. Receivables/inventory absorbing cash while reported profit (TTM Rs 141 Cr) soared: the 277% 3Y profit CAGR needs checking against the RHP.",
+  "sources": [
+   "https://www.multibagg.ai/market-pulse/articles/prasol-chemicals-ipo-equity-lift-announcement-cmw0h7tcu000k2ft8e4oo1r0z",
+   "https://ticker.finology.in/company/PRASOLCHEM",
+   "https://www.sharescart.com/company/prasol-chemicals/",
+   "https://hdfcsky.com/news/prasol-chemicals-files-drhp-for-rs-500-crore-ipo"
+  ]
+ },
+ "N:SUPREMEPWR": {
+  "promoter_pct": 57.16,
+  "pledge_pct": 0,
+  "inst_pct": 0.62,
+  "cfo_cr": 39.4,
+  "sme": true,
+  "notes": "NSE SME. Promoter 57.16%, no pledge. FII 0.58%, DII 0.04% (2026). Annual report: CFO FY23 5.3, FY24 -10.7, FY25 39.4 Cr. Transformers for discoms and renewables.",
+  "sources": [
+   "https://archives.nseindia.com/annual_reports/SME_AR_27756_SUPREMEPWR_2024_2025_A_3269029_26082025233020.pdf",
+   "https://choiceindia.com/stocks/supreme-power-equipment-ltd-shareholding-pattern",
+   "https://stockanalysis.com/quote/nse/SUPREMEPWR/financials/cash-flow-statement/"
+  ]
+ },
+ "N:UTSSAV": {
+  "promoter_pct": 69.57,
+  "promoter_chg_3y": -1.0,
+  "inst_pct": 0.64,
+  "cfo_cr": -60.7,
+  "notes": "Promoter 70.54% (Oct-25) -> 69.57% (Feb-26). FII 0.64%. Operating cash flow negative (-Rs 60.7 Cr TTM per stockanalysis; FY25 FCF -Rs 93.6 Cr). Gold-jewellery manufacturing: inventory build is eating cash.",
+  "sources": [
+   "https://stockanalysis.com/quote/nse/UTSSAV/financials/cash-flow-statement/",
+   "https://upstox.com/stocks/utssav-cz-gold-jewels-ltd-shareholding/",
+   "https://simplywall.st/stocks/in/consumer-durables/nse-utssav/utssav-cz-gold-jewels-shares/news/additional-considerations-required-while-assessing-utssav-cz"
+  ]
+ },
+ "N:SILVERTUC": {
+  "promoter_pct": 74.62,
+  "pledge_pct": 4.08,
+  "promoter_chg_3y": 0.1,
+  "inst_pct": 1.15,
+  "notes": "Promoter 74.62%; pledge rose from 2.92% to 4.08% of promoter holding (Sep-25). FII 0% -> 1.15% (Mar-26), DII 0%. CFO not found. Government e-governance IT projects.",
+  "sources": [
+   "https://trendlyne.com/equity/share-holding/87793/SILVERTUC/latest/silver-touch-technologies-ltd/",
+   "https://marketsmojo.motilaloswal.com//stocks-analysis/financial-shareholding/silver-touch-technologies-1002884-0",
+   "https://upstox.com/stocks/silver-touch-techno-ltd-shareholding/"
+  ]
+ },
+ "N:MONOLITH": {
+  "promoter_pct": 74.27,
+  "pledge_pct": 0,
+  "sales_g3y": 41.3,
+  "pat_g3y": 41.3,
+  "cfo_cr": 13.8,
+  "sme": true,
+  "notes": "NSE SME (IPO 2025). The feed's 2,361% sales and 4,256% profit 3Y growth are data errors (IPO-year base effects); replaced with FY24->FY25 revenue growth of 41.3% (Rs 68.9 -> 97.3 Cr) as a conservative proxy for both. FY25 PAT Rs 14.5 Cr, CFO Rs 4.0 Cr; FY26 CFO Rs 13.8 Cr vs TTM PAT Rs 35.5 Cr. Promoter 73.61% -> 74.27%, no pledge (feed's 9.6% insider figure was wrong).",
+  "sources": [
+   "https://next.trendlyne.com/ipo/detail/1987/monolithisch-india-ltd/",
+   "https://groww.in/ipo/monolithisch-india-ipo",
+   "https://stockanalysis.com/quote/nse/MONOLITH/financials/cash-flow-statement/",
+   "https://voguestock.in/fundamental/shareholding-pattern/monolithisch-india-ltd"
+  ]
+ },
+ "N:UNIHEALTH": {
+  "promoter_pct": 64.82,
+  "promoter_chg_3y": -4.1,
+  "inst_pct": 0.46,
+  "cfo_cr": 3.3,
+  "sme": true,
+  "notes": "Promoter 68.9% (Mar-25) -> 69.53% (Mar-26) -> 64.82% (Sep-26). FII ~0%, DII 0.45%. FY25 CFO ~Rs 3.3 Cr (stockanalysis) or -Rs 3 Cr (MarketsMojo); FY25 FCF -Rs 12.9 Cr (hospital capex). FY26 CFO Rs 5.7 Cr.",
+  "sources": [
+   "https://stockanalysis.com/quote/nse/UNIHEALTH/financials/cash-flow-statement/",
+   "https://www.marketsmojo.com/stocks-analysis/unihealth-hosp-10039004-1",
+   "https://upstox.com/stocks/unihealth-hospitals-ltd-shareholding/"
+  ]
+ },
+ "B:544310": {
+  "promoter_pct": 52.9,
+  "promoter_chg_3y": -5.0,
+  "pledge_pct": 0,
+  "inst_pct": 11.5,
+  "sme": true,
+  "notes": "BSE SME. Promoter 57.89% (Mar-25) -> ~52.9% (Aug-26, per a forum post citing an exchange filing; unconfirmed). DII ~10-13%, FII 0.05-1.2%: already institutionally owned. 5-yr average CFO/PAT ~0.77 (Finology). Transformer bushings; capacity being raised from 6k to 10-12k units/year.",
+  "sources": [
+   "https://forum.valuepickr.com/t/yash-high-voltage-ltd-transformer-guardians/213822?page=3",
+   "https://trendlyne.com/equity/share-holding/2845096/YASHHV/latest/yash-highvoltage-ltd",
+   "https://marketsmojo.motilaloswal.com//stocks-analysis/financial-shareholding/yash-highvoltage-10039483-0",
+   "https://smeresearch.github.io/SMEGems/Yashhighvoltage.html"
+  ]
+ },
+ "N:KROSS": {
+  "promoter_pct": 68.57,
+  "pledge_pct": 0,
+  "inst_pct": 9.4,
+  "cfo_cr": -32.1,
+  "notes": "Promoter ~68.2-68.6%, no pledge (the ~29% 'locked' in early 2025 was IPO lock-in). FII 2.5-3.4%, DII ~6%. FY25 CFO about -Rs 32 Cr (DSIJ, unverified) funded by +Rs 136 Cr financing (IPO proceeds). Trailer axles and suspension forgings for CVs.",
+  "sources": [
+   "https://insights.dsij.in/share-price/Kross-Ltd-256247",
+   "https://tickerdev.finology.in/company/KROSS",
+   "https://www.moneyworks4me.com/check-before-you-invest/KROSS",
+   "https://trendlyne.com/equity/share-holding/2613902/KROSS/latest/kross-ltd/"
+  ]
+ },
+ "N:MARSONS": {
+  "promoter_pct": 53.65,
+  "promoter_chg_3y": 0,
+  "pledge_pct": 1.6,
+  "inst_pct": 0.3,
+  "notes": "Promoter 53.65% flat. Pledge data conflicts: Trendlyne shows 1.62% of promoter holding pledged and a recent 7.58% unpledge (Yashoda Inn released encumbrance, Jul-25); MarketsMojo shows none. FII 0.1-1.1%, DII ~0.2%. CFO not found. Distribution transformers (Kolkata).",
+  "sources": [
+   "https://trendlyne.com/equity/share-holding/2773/MARSONS/latest/marsons-ltd",
+   "https://filingreader.com/news-wire/mumbai/2025-07-22/yashoda-inn-releases-encumbrance-on-marsons-shares",
+   "https://www.arthneeti.com/stocks/marsons-ltd/shareholding"
+  ]
+ },
+ "N:CEINSYS": {
+  "promoter_pct": 50.87,
+  "pledge_pct": 12.44,
+  "promoter_chg_3y": -1.0,
+  "inst_pct": 10.4,
+  "notes": "Promoter 51.86% -> 50.87% (Jun-26); 12.44% of promoter holding pledged (down from 14.65%). FII ~10%, DII ~1%. FY25 revenue Rs 418 Cr (+65%), FY26 Rs 661 Cr (company factsheets). CFO/receivables not found. Geospatial and engineering services.",
+  "sources": [
+   "https://trendlyne.com/equity/share-holding/4096/CEINSYS/latest/ceinsys-tech-ltd/",
+   "https://www.valoremadvisors.com/assets/admin/fact_file/1773988888_Factsheet_Ceinsys.pdf",
+   "https://valoremadvisors.com/assets/admin/fact_file/1787399216_Q1_FY27_Factsheet_Ceinsys.pdf"
+  ]
+ },
+ "N:EFCIL": {
+  "promoter_pct": 56.08,
+  "promoter_chg_3y": -4.4,
+  "pledge_pct": 0,
+  "inst_pct": 9.6,
+  "cfo_cr": 56,
+  "notes": "Promoter 60.44% -> 56.08% (Jun-26 qtr), no pledge. FII 1.3-2.2%, DII 7.5-8.9%. CFO FY24 11, FY25 134, FY26 56 Cr (Tapetide/Screener). Managed office space / fit-outs; D/E 1.24.",
+  "sources": [
+   "https://tapetide.com/stocks/EFCIL.md",
+   "https://marketsmojo.motilaloswal.com//stocks-analysis/financial-shareholding/efc-i-650728-0",
+   "https://trendlyne.com/equity/share-holding/2513/EFCIL/30-06-2025/efc-i-ltd/"
+  ]
+ },
+ "N:CELLECOR": {
+  "promoter_pct": 46.3,
+  "inst_pct": 8.8,
+  "cfo_cr": 1,
+  "sme": true,
+  "notes": "Promoter ~46.3%; FII ~8.7%, DII 0-13% (sources conflict). CFO FY25 -Rs 34 Cr, FY26 ~+Rs 1 Cr (Screener/Sharescart) against ~Rs 40 Cr profit. Consumer electronics brand (phones, TVs) with outsourced manufacturing: thin margins and heavy working capital.",
+  "sources": [
+   "https://www.sharescart.com/company/cellecor-gadgets/",
+   "https://screener.in/company/id/1284489",
+   "https://upstox.com/stocks/cellecor-gadgets-limited-shareholding/"
+  ]
+ }
+}

@@ -1,0 +1,119 @@
+# Indian small-cap screen: weights and thresholds.
+# Research tooling, not investment advice.
+
+universe:
+  min_mcap_cr: 500          # lower bound of the screened band (Rs crore)
+  max_mcap_cr: 5000         # upper bound (rows above this are kept but flagged "above band")
+
+filters:                    # Stage 1 noise filter
+  min_sales_cr: 50
+  min_price: 10
+  max_other_income_share_of_pbt: 0.30
+  one_off_profit_growth_pct: 300      # TTM/YoY profit growth above this ...
+  one_off_max_sales_growth_pct: 20    # ... with sales growth below this is treated as one-off
+  one_off_3y_cagr_pct: 100            # fallback when only 3Y CAGR is available
+  max_abs_opm_pct: 100                # |OPM| above this = data anomaly
+  # Lenders, brokers and holding companies: the lenses below (D/E, ROCE, CFO/PAT)
+  # are not meaningful for them, so they are excluded and logged.
+  financial_industry_patterns:
+    - "Banks"
+    - "Credit Services"
+    - "Mortgage Finance"
+    - "Insurance"
+    - "Asset Management"
+    - "Capital Markets"
+    - "Financial Conglomerates"
+    - "Shell Companies"
+    - "Investors, not elsewhere"
+    - "Management Investment Offices"
+    - "Unit Investment Trusts"
+    - "Security and Commodity Brokers"
+    - "Security Brokers"
+    - "Credit Institutions"
+    - "Investment Offices"
+  holding_name_patterns:
+    - "\\bholdings?\\b"
+    - "\\binvestments?\\b"
+    - "\\bfinvest\\b"
+    - "\\btrust\\b"
+    - "\\binvit\\b"
+
+weights:                    # Stage 2 lens weights (normalised to 1.0 at run time)
+  lynch: 0.30
+  mayer: 0.20
+  buffett_fisher: 0.15
+  kirby_mukherjea: 0.15
+  pe_vc: 0.10
+  lynch_product: 0.10
+
+lynch:
+  peg_best: 0.5
+  peg_worst: 1.5
+  max_institutional_pct: 10
+  max_de: 0.25
+  max_mcap_cr: 5000
+  boring_industry_patterns:
+    - "Packaging"
+    - "Paper"
+    - "Textile"
+    - "Building Products"
+    - "Building Materials"
+    - "Specialty Industrial Machinery"
+    - "Industrial - Machinery"
+    - "Tools"
+    - "Metal Fabrication"
+    - "Auto Parts"
+    - "Waste Management"
+    - "Pollution"
+    - "Chemicals"
+    - "Agricultural Inputs"
+    - "Packaged Foods"
+    - "Farm Products"
+    - "Business Equipment"
+    - "Electrical Equipment"
+    - "Glass"
+    - "Foundries"
+    - "Forgings"
+    - "Wire"
+    - "Pipes"
+    - "Bearings"
+  sub_weights:
+    peg: 0.30
+    pe_vs_industry: 0.15
+    institutional: 0.15
+    de: 0.10
+    mcap: 0.10
+    promoter_not_selling: 0.10
+    boring: 0.10
+
+mayer:
+  max_mcap_cr: 2000
+  min_roe: 20
+  min_sales_growth_3y: 20
+  min_promoter_pct: 50
+
+buffett_fisher:
+  roce_floor: 10
+  roce_target: 30
+
+kirby_mukherjea:
+  min_sales_growth: 10
+  min_roce: 15
+  min_cfo_to_pat: 0.8
+  max_debtor_days: 90
+
+pe_vc:
+  smallcap250_cutoff_cr: 5000   # approximate; check the latest index review before relying on it
+  capex_to_sales_light: 0.03
+  capex_to_sales_heavy: 0.15
+
+red_flags:                  # deductions from the 0-10 composite
+  pledge: 0.6
+  promoter_stake_down_5pp: 0.8
+  exceptional_writeoff: 0.4
+  cfo_to_pat_below_0_5: 0.6
+  debtor_days_above_150: 0.5
+  related_party_sales_above_10pct: 0.5
+  auditor_change: 1.0
+  regulatory_incident: 0.7
+  dilution_above_10pct: 0.3

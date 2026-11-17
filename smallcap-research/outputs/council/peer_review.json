@@ -1,0 +1,32 @@
+{
+ "rankings_by_reviewer_model": {
+  "opus": "CBDA",
+  "sonnet": "CBDA",
+  "default": "CBDA",
+  "haiku": "BCAD"
+ },
+ "label_map": {
+  "A": "plain",
+  "B": "contrarian",
+  "C": "rigorous",
+  "D": "pragmatist"
+ },
+ "aggregate": {
+  "plain": [
+   3.75,
+   4
+  ],
+  "contrarian": [
+   1.75,
+   4
+  ],
+  "rigorous": [
+   1.25,
+   4
+  ],
+  "pragmatist": [
+   3.25,
+   4
+  ]
+ }
+}

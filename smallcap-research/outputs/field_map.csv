@@ -1,0 +1,21 @@
+expected,mapped_to,status
+Name,name,ok
+NSE/BSE code,symbol,ok
+Market Cap,mcap_cr,ok
+P/E,pe,ok
+PEG,peg (computed: P/E / 3Y profit CAGR),ok
+ROCE,roce,ok
+ROE,roe,ok
+OPM,opm,ok
+Sales growth 3Y,sales_g3y,ok
+Profit growth 3Y,pat_g3y,ok
+Debt/Equity,de,ok
+Promoter holding,promoter_pct (insider holding proxy),ok
+Change in promoter holding 3Y,NOT AVAILABLE,missing
+Pledged %,NOT AVAILABLE,missing
+FII %,inst_pct (FII + DII combined only),ok
+DII %,inst_pct (FII + DII combined only),ok
+No. of shareholders,NOT AVAILABLE,missing
+CFO last year,cfo_cr (supplement),ok
+Net profit,pat_cr,ok
+1Y return,"ret_1y (supplement, often missing)",ok

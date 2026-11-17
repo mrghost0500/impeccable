@@ -1,0 +1,21 @@
+{
+  "lens": "plain",
+  "scores": {
+    "FRONTSP": {"score": 7.5, "reason": "Makes coil and air springs for railway coaches and wagons. Easy to explain, and the FY26 jump is believable. Risks: one customer, unverified cash flow, and conflicting promoter figures."},
+    "GULPOLY": {"score": 5.5, "reason": "Sells grain ethanol to oil companies under a government blending programme. The sentence is simple, but profit depends on allocations and prices set by policy. Cash flow is erratic."},
+    "SRM": {"score": 6.0, "reason": "Builds roads and tunnels for government agencies on large order volumes. Simple to explain, but contractor margins are thin and FY25 operating cash flow was negative."},
+    "JSLL": {"score": 5.0, "reason": "Runs Ayurveda hospitals for private patients. The model is easy to picture, but a 44% EBITDA margin for healthcare is hard to believe without a clear explanation of pricing and mix."},
+    "544406": {"score": 5.5, "reason": "Sets up and maintains IT infrastructure for banks and enterprises, a simple service model. Profit grew slower than revenue, and the planned move into safety equipment is unrelated to the core."},
+    "CRIZAC": {"score": 5.0, "reason": "Earns commissions for placing students at UK universities. Easy to explain, but about 97% of revenue depends on one country's student visa policy, and Q1 FY27 revenue fell."},
+    "KRISHNADEF": {"score": 5.0, "reason": "Supplies special steel and fabricated parts for naval ships. The business is clear, but the order book is thin, so growth depends on winning new tenders soon. P/E is high."},
+    "544150": {"score": 6.5, "reason": "Fabricates steel towers and solar mounting frames for power and renewable projects. Easy to explain, with an order book about 1.5 times revenue. Related-party dealings need checking."},
+    "TAC": {"score": 4.5, "reason": "Sells cybersecurity software through partners. The product is understandable, but revenue is only Rs 57 Cr, arrives in lumps from a few deals, and recurring sales are hard to picture."},
+    "DYCL": {"score": 6.5, "reason": "Makes power cables for state electricity distributors and railways. A simple demand story tied to grid spending, with an Rs 829 Cr order book. Q4 margins fell and a rating was withdrawn."},
+    "GANDHITUBE": {"score": 5.5, "reason": "Makes precision steel tubes for car and hydraulic makers, a plain industrial business. Growth has been slow for years, and a 41% operating margin for a niche tube maker needs explaining."},
+    "ARROWGREEN": {"score": 4.0, "reason": "Makes biodegradable films and anti-counterfeiting products, two unrelated lines. FY26 profit fell because security orders are lumpy, and the reported Q1 rebound is unverified."},
+    "APCOTEXIND": {"score": 4.5, "reason": "Makes synthetic latex and rubber, a commodity chemical. Revenue is flat, so profit depends on margins that Chinese imports could erode. Net cash and a Rs 210 Cr expansion are positives."},
+    "MODISONLTD": {"score": 3.5, "reason": "Makes silver-based electrical contacts. The sentence is simple, but much of the profit jump came from silver price gains, which may reverse. Hard to call that a repeatable business."},
+    "SOTL": {"score": 3.5, "reason": "Blends transformer oils and lubricants on very large revenue. The Q1 profit spike was a one-quarter windfall, and a pending merger with a promoter entity adds related-party questions."}
+  },
+  "overall": "The businesses that pass the one-sentence test best sell physical things to a clear buyer with visible demand: railway springs, transmission towers, power cables and road building. Those explanations hold up. Several others need a second sentence to explain why profit should last. Ethanol and solar-linked profits depend on government policy, Modison's and Savita's recent profit spikes depend on commodity prices, and Crizac depends on one country's visa rules. Hospital margins and the SME software name need more explaining before the numbers feel believable. This is one lens's prioritisation for further research, not a view on value."
+}

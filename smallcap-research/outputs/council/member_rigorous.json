@@ -1,0 +1,66 @@
+{
+ "lens": "rigorous",
+ "scores": {
+  "FRONTSP": {
+   "score": 5.5,
+   "reason": "Margin and growth are company-reported, but CFO is missing and net cash flow was negative. The ~Rs 370 Cr order book is below the Rs 500 Cr FY27 guidance the base case assumes. One government customer."
+  },
+  "GULPOLY": {
+   "score": 6.0,
+   "reason": "Best cash evidence here: FY26 CFO Rs 207.5 Cr against Rs 107 Cr same-period PAT (1.94x). The P/E of 6 rests on a Rs 170.7 Cr TTM PAT identical to Apcotex's; verify it. Profit is policy-set."
+  },
+  "SRM": {
+   "score": 6.0,
+   "reason": "Cheap on verified FY26 profit, but two-year cumulative CFO (about +Rs 45 Cr) covers only ~27% of cumulative PAT (~Rs 166 Cr). Sources disagree on FY25 CFO, the order book and guidance. Receivables need checking."
+  },
+  "JSLL": {
+   "score": 4.5,
+   "reason": "A 44% EBITDA margin and 28% net margin are unexplained, and lease accounting may flatter EBITDA. D/E of 0.33 contradicts 'debt-free'. FY26 FCF of ~Rs 51 Cr is ~23% of PAT. TTM PAT is already below FY26."
+  },
+  "544406": {
+   "score": 3.5,
+   "reason": "SME disclosure, no CFO, and FY26 revenue differs across sources (Rs 288 Cr vs Rs 302 Cr). Margins are compressing and the move into safety equipment points to weak reinvestment options in the core business."
+  },
+  "CRIZAC": {
+   "score": 5.0,
+   "reason": "IPO disclosure and verified CFO help, but CFO/PAT of 0.69 is weak for an asset-light platform. CFO fell 23%, the dividend absorbed FCF, TTM revenue is below FY26 and 97% is UK."
+  },
+  "KRISHNADEF": {
+   "score": 3.5,
+   "reason": "About 47x FY26 PAT with no CFO data. The order book fell from Rs 269 Cr to Rs 103 Cr (0.4x revenue), so the 25% base-case growth has no visible backing. The bear case still implies ~48x."
+  },
+  "544150": {
+   "score": 4.0,
+   "reason": "TTM PAT (Rs 112 Cr) is below FY26 (Rs 136 Cr), an unflagged slowdown. D/E is 1.35 with no CFO, which suggests debt-funded working capital. Group related-party revenue is unquantified."
+  },
+  "TAC": {
+   "score": 4.0,
+   "reason": "The CFO/PAT figure pairs FY25 CFO with TTM PAT. Only ~80% of FY26 invoicing was collected and TTM PAT has fallen below FY26. Revenue is Rs 57 Cr, lumpy and partner-driven, at ~13x sales. FIIs exited."
+  },
+  "DYCL": {
+   "score": 5.5,
+   "reason": "Quarterly data are consistent (H1 FY27 PAT Rs 47 Cr, order book of Rs 829 Cr), but the CFO period is ambiguous at ~0.6x PAT and the reason for the rating withdrawal is unconfirmed. Thin-margin pass-through."
+  },
+  "GANDHITUBE": {
+   "score": 6.0,
+   "reason": "Zero debt, a ~Rs 78 Cr buyback and a Rs 15 dividend are indirect evidence of real cash. But CFO is unverified, other income is material (net margin 36%) and growth is slow. A clean, modest thesis."
+  },
+  "ARROWGREEN": {
+   "score": 3.5,
+   "reason": "The 14.2 P/E used in scoring rests on an unverified Q1 FY27 rebound. Audited FY26 gives ~22x, with revenue down 18% and PAT down 25%. Promoters are selling and CFO is missing."
+  },
+  "APCOTEXIND": {
+   "score": 4.0,
+   "reason": "The scored P/E uses a TTM PAT of Rs 170.7 Cr, identical to Gulshan's and 68% above FY26, yet the FY28 base case is Rs 125 Cr. Likely a data error. FY26 basis: 24.7x for margin recovery alone."
+  },
+  "MODISONLTD": {
+   "score": 3.0,
+   "reason": "Normalising to FY26 PAT does not remove the windfall: FY26 PAT (+194%) was itself driven by silver. Hedge MTM is booked as an exceptional item, D/E is 0.69 with no CFO, and the 49% ROCE is inflated."
+  },
+  "SOTL": {
+   "score": 4.0,
+   "reason": "Normalised earnings are unknowable: Q1 FY27 PAT exceeded all of FY26 and CFO sources conflict tenfold. Promoter-merger swap terms are pending. About 24.5x for a ~4% net-margin base-oil processor."
+  }
+ },
+ "overall": "The composite scores (6.6 to 8.25) separate names too little given the gaps. No company has a verified 10-year history, and 10 of 15 lack CFO. Where CFO exists, the CFO/PAT figures mix periods (latest-year CFO over TTM PAT; TAC uses FY25 CFO). Several screens score off TTM figures that include unverified or windfall quarters (Arrow, Modison, Savita), and Apcotex and Gulshan share an identical Rs 170.7 Cr TTM PAT that needs checking. TTM PAT is below FY26 at KP Green, TAC and Jeena Sikho, and this is unflagged. Next steps: same-period CFO and receivables from annual reports, related-party schedules, and lease-adjusted margins. Gulshan, SRM and Gandhi have the strongest verifiable evidence."
+}
