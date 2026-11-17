@@ -117,3 +117,14 @@ red_flags:                  # deductions from the 0-10 composite
   auditor_change: 1.0
   regulatory_incident: 0.7
   dilution_above_10pct: 0.3
+
+projections:                # FY28 (FY+2) scenario probabilities and PE-style outcomes
+  prior: [0.25, 0.50, 0.25] # bear, base, bull before evidence
+  shift_per_flag: 0.05      # each flag moves this much probability between bear and bull
+  negative_flags: [cfo_gap, weak_cash, policy, concentration, governance, stalling]
+  positive_flags: [order_cover, cash_verified, momentum]
+  bear_range: [0.10, 0.55]
+  bull_range: [0.10, 0.45]
+  horizon_years: 1.5        # Nov-2026 to ~May-2028, when FY28 results are out
+  exit_pe_cap: 40
+  bear_derate: 0.8          # bear exit P/E = 0.8 x min(today's FY26 P/E, peer P/E)

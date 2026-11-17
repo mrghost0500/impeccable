@@ -8,7 +8,8 @@ A repeatable screen of about 1,100 NSE/BSE small caps. It scores each company on
 
 | Path | What it is |
 |---|---|
-| `outputs/research.xlsx` | Workbook: Universe, Excluded (with reasons), Scores, Top60, Finalists, Council, Comparables, ValuationGap, SpotCheck, Sources, Notes |
+| `FINAL_LIST.md` | **Final list of 25**: Lynch story, PE/VC case, FY28 bear/base/bull projections with probabilities, expected MOIC/IRR |
+| `outputs/research.xlsx` | Workbook: Universe, Excluded (with reasons), Scores, Top60, Finalists, Council, Final25, Comparables, ValuationGap, SpotCheck, Sources, Notes |
 | `memos/NN_TICKER.md` | One memo per finalist (9 sections, incl. comparables and valuation gap, plus the council verdict and sources) |
 | `outputs/valuation_gap.csv`, `outputs/comparables_peers.csv`, `outputs/pe_model.json` | Comparables: valuation gap per finalist, peer tables, P/E model |
 | `outputs/council.json` | Member scores, chairman score, verdict and main disagreement per finalist |
@@ -16,7 +17,7 @@ A repeatable screen of about 1,100 NSE/BSE small caps. It scores each company on
 | `outputs/*.csv` | Every stage's table as CSV |
 | `config.yaml` | Lens weights, filter thresholds and red-flag deductions |
 | `src/smallcap/` | `load` (cache to universe), `filters` (Stage 1), `scoring` (Stage 2), `pipeline` (Stages 1-4), `comparables`, `memos`, `excel` |
-| `tests/` | pytest suite for scoring, filters, loader and comparables (29 tests) |
+| `tests/` | pytest suite for scoring, filters, loader and comparables (31 tests) |
 | `cache/screener_pages/*.psv` | Raw screener pages, one file per 250-rank page |
 | `cache/stage3_overrides.json`, `cache/stage4_overrides.json` | Researched facts per company, each with source URLs |
 
@@ -25,10 +26,12 @@ A repeatable screen of about 1,100 NSE/BSE small caps. It scores each company on
 ```bash
 cd smallcap-research
 pip install pandas openpyxl pyyaml pytest
-python -m pytest -q tests                       # 29 tests
+python -m pytest -q tests                       # 31 tests
 PYTHONPATH=src python -m smallcap.pipeline      # Stages 1-4: universe, filter, score, top 60, finalists
 PYTHONPATH=src python -m smallcap.comparables   # peer tables, valuation gap, P/E model
 PYTHONPATH=src python -m smallcap.memos         # memos/ (reads outputs/council.json if present)
+PYTHONPATH=src python -m smallcap.projections   # final list: probabilities, expected PAT, MOIC/IRR
+PYTHONPATH=src python -m smallcap.final_report  # FINAL_LIST.md
 PYTHONPATH=src python -m smallcap.excel         # outputs/research.xlsx
 ```
 
@@ -75,6 +78,22 @@ There is no earlier run, so this is the baseline.
 | 15 | Modison | 3.49 | 7.19 | 15.6x (normalised) | 24.0x (-35%) | 18.4x (-15%) |
 
 The council scores sit well below the screen scores. The screen rewards recent acceleration, and the council penalised missing cash-flow data, windfall quarters and policy dependence. Read the two together. The council ran before the comparables were added, so its scores don't use them.
+
+## Final list of 25
+
+`FINAL_LIST.md` covers the 15 council-reviewed finalists (Tier A) plus the next 10 from Stage 3 (Tier B: web-researched with FY26 results, no memo or council review). Each company has:
+
+- its Lynch category and two-minute story;
+- the case a PE/VC firm would make (thesis, value levers, exit, must-do diligence);
+- FY28 bear/base/bull profit with probabilities;
+- the PE-style outcome: expected MOIC and IRR, P(loss) and P(MOIC >= 1.5x).
+
+**Probability rule:** start at 25/50/25. Each piece of evidence shifts 5 points between bear and bull:
+
+- Against: unverified cash flow, weak cash conversion, policy or commodity dependence, concentration, governance, stalling growth.
+- For: order book of 1.5x revenue or more, verified cash conversion, profit momentum.
+
+The settings are in the `projections` block of `config.yaml`, and the logic in `src/smallcap/projections.py`.
 
 ## Comparables and valuation gaps
 

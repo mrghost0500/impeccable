@@ -130,6 +130,11 @@ def build() -> str:
         for u in f.get("s4_sources", []):
             src.append({"symbol": sym, "name": names.get(sym, ""), "stage": "Stage 4", "url": u, "note": ""})
 
+    fl = os.path.join(OUT, "final_list.csv")
+    if os.path.exists(fl):
+        _sheet(wb, "Final25", pd.read_csv(fl, dtype={"ticker": str}),
+               {"name": 30, "industry": 26, "lynch": 24, "prob_drivers": 40, "story": 90, "pe_case": 90})
+
     cp = os.path.join(OUT, "comparables_peers.csv")
     if os.path.exists(cp):
         peers = pd.read_csv(cp, dtype={"finalist_ticker": str, "ticker": str})

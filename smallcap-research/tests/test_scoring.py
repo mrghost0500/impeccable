@@ -246,3 +246,24 @@ def test_model_pe_and_peer_median():
     assert 5 < p < 60
     assert comparables._median([10, None, 30, float("nan")]) == 20
     assert not comparables._valid_pe(150) and comparables._valid_pe(12)
+
+
+def test_scenario_probs_shift_and_sum():
+    from smallcap.projections import scenario_probs
+    pc = CFG["projections"]
+    p0, r0 = scenario_probs({}, pc)
+    assert p0 == (0.25, 0.5, 0.25) and r0 == []
+    p1, r1 = scenario_probs({"cfo_gap": True, "policy": True, "order_cover": True}, pc)
+    assert p1 == (0.30, 0.5, 0.20) and set(r1) == {"-cfo_gap", "-policy", "+order_cover"}
+    p2, _ = scenario_probs({f: True for f in pc["negative_flags"]}, pc)
+    assert p2[0] == pc["bear_range"][1] and abs(sum(p2) - 1) < 1e-9
+
+
+def test_outcomes_moic_and_expectation():
+    from smallcap.projections import outcomes
+    pc = CFG["projections"]
+    oc = outcomes(1000, 100, (80, 120, 150), (0.25, 0.5, 0.25), 10, pc)   # P/E 10 today, peers 10
+    base = oc["rows"][1]
+    assert abs(base["exit_pe"] - 10) < 1e-9 and abs(base["moic"] - 1.2) < 1e-9
+    assert abs(oc["e_pat"] - (0.25 * 80 + 0.5 * 120 + 0.25 * 150)) < 1e-9
+    assert oc["p_loss"] == 0.25          # bear: 80 x 8 = 640 < 1000
